@@ -58,7 +58,7 @@
                         <span><a class='forgetpw' href="/forgetpw">forget password?</a></span>
                     </div>
                     <div class="col-md-4">
-                        <span><a class='register' href="/signup">No Account? Register here!</a></span>
+                        <span><p class='register' onclick="registerButton()">No Account? Register here!</p></span>
                     </div>
                 </div>
 
@@ -108,9 +108,18 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    function registerButton(){
-
-    }
+function registerButton(){
+  api.openFrame({
+    name: "Register Page",
+    url: 'register.html',
+    bounces: true,
+    rect: {
+        marginTop: 71,
+        marginBottom: 71,
+        w: 'auto'
+          }
+            })
+}
      apiready = function() {
         // api.ajax({
         //     url: 'http://10.0.30.89:3000/loginAuth',
@@ -123,9 +132,7 @@
         //     }
         // });
 
-        function registerButton(){
 
-        }
         $("#loginForm").submit(function(event) {
           event.preventDefault();
           var $form = $(this),

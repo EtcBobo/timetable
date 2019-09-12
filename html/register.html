@@ -5,7 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-    <title>Home Page</title>
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <title>Register Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
         label {
@@ -30,19 +31,242 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-  <div class="container">
-    <header>APICloud</header>
-    <section class="flex-1">
-      <h2>welcome to the main page</h2>
-      <h2>welcome to the main page</h2>
+
+<div id="signup">Register Now!</div>
+ <div class="container">
+    <br><br>
 
 
 
-    </section>
+    <form method="post" id="registerForm" class="form-group col-lg-12" enctype="multipart/form-data">
+         <div class="form-group col-md-12" id="regbox">
+            <div class="row">
+            <div  class="col-md-8 col-md-offset-2" class="edit">
+                <div class="form-group col-md-12">
+                    <br>
+                    <br>
+                <img id="output" src="https://s3-ap-southeast-1.amazonaws.com/ehubsg/generic-profile-square-580x535.jpgw6hp22s8jjkriboo" class="img-responsive" width="200" height="200">
+                </div>
+                </div>
+                <br>
+                <br>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(event),validateFileType()">
+                </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                </div>
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Username:<br>
+                <input type="text" name="username" id="username" class="form-control">
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Password:<br>
+                    <input type="password" name="password" class="form-control" id="password" required>
+                    <!--
+                <input type="password" name="password" class="form-control" minlength=6>
+              -->
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Confirm Password:<br>
+                    <input type="password" name="confirm_password" class="form-control">
+                    <!--
+                <input type="password" name="confirm_password" class="form-control" minlength=6>
+                -->
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Email:<br>
+                <input type="email" name="email" id="email" class="form-control">
+                </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            School:<br>
+                            <select class="form-control" name="pref">
+                                    <option value="electronics">School 1</option>
+                                    <option value="games">School 2</option>
+                                    <option value="movies">School 3</option>
+                                    <option value="music">School 4</option>
+                                    <option value="books">School 5</option>
+                                  </select>
+                                  </div>
+                                  </div>
 
 
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="checkbox" name="terms" required>   I agree to the <a href="/rules">terms of services</a>
+                    </div>
+                </div>
+                <br>
+
+
+                    <div class="row">
+                    <div class='btn-toolbar' class="form-group col-md-12">
+                        <button type="submit" class="btn btn-primary btn-lg upload-group text-center" id="uploadButton">Register</button>
+                    </div>
+                    <br>
+                </div>
+                </div>
+
+               </form>
 
 </div>
+
+
+
+<script>
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+
+<script type="text/javascript">
+function validateFileType(){
+    var fileName = document.getElementById("image").value;
+    var idxDot = fileName.lastIndexOf(".") + 1;
+    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+        //TO DO
+    }else{
+        alert("Only jpg/jpeg and png files are allowed!");
+        document.getElementById("image").value = null;
+
+    }
+}
+
+
+apiready = function() {
+
+   $("#registerForm").submit(function(event) {
+     event.preventDefault();
+     var $form = $(this),
+     tusername = $form.find('input[name="username"]').val(),
+     temail = $form.find('input[name="email"]').val(),
+     tpassword = $form.find('input[name="password"]').val();
+
+       api.ajax({
+           url: 'http://10.0.30.89:3000/register',
+           method: 'post',
+           timeout:30,
+           data: {
+               values: {
+                   username: tusername,
+                   email: temail,
+                   password: tpassword,
+                   phoneNo: 123456
+               },
+           },
+         },
+          function(ret, err){
+             api.alert({ msg: "post is working" });
+             console.log(ret)
+             if(ret.registerStatus=="true"){
+               api.openFrame({
+                 name: "Login Page",
+                 url: 'login.html',
+                 bounces: true,
+                 rect: {
+                     marginTop: 71,
+                     marginBottom: 71,
+                     w: 'auto'
+                       }
+                         })
+                       }
+                             })
+
+
+})
+
+}
+
+
+
+
+
+</script>
+
+
+<style>
+
+
+      #file{
+  margin-left:250px;
+
+}
+
+
+
+
+    #uploadButton{
+        background-color: #007bff;
+    border: 0;
+    color: #fff!important;
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+        height: 42px;
+        margin-left:30px;
+    }
+
+
+    #email {
+        font-size:12px;
+        font-weight: bold;
+        color: black;
+
+    }
+
+
+#signup{
+    display: block;
+    font-size: 150%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    text-align:center;
+}
+
+
+
+#output{
+    margin-left:200px;
+}
+
+ #regbox{
+    width:70%;
+    margin-left:150px;
+ }
+@media(max-width: 900px){
+    #regbox{
+    width:100%;
+    margin-left:0px;
+}
+#output{
+    margin-left:0px;
+}
+}
+
+
+
+
+</style>
+
+
+
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
