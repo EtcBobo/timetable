@@ -42,7 +42,7 @@
                     <br>
                     <div class="form-group col-md-12">
                         Username:<br>
-                        <input name="username" class="form-control" id="username">
+                        <input name="username" class="form-control" id="username" required>
                         <span><a class='forgetus' href="/forgetus">forget username?</a></span>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         Password:<br>
-                        <input type="password" name="password" class="form-control" id="password">
+                        <input type="password" name="password" class="form-control" id="password" required>
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +65,7 @@
                 <div class="form-row">
 
                     <div class="form-group col-md-12">
-                        <button id="loginbtn" class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign In</button>
+                        <button id="loginbtn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
                     </div>
                 </div>
             </div>
@@ -108,51 +108,61 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-    //
-     apiready = function() {
-    //     api.ajax({
-    //         url: 'http://10.0.30.70:3000/loginAuth',
-    //         method: 'get'
-    //     }, function(ret, err) {
-    //         if (ret) {
-    //             console.log((ret))
-    //         } else {
-    //             api.alert({ msg: "login auth not working" });
-    //         }
-    //     });
+    function registerButton(){
 
+    }
+     apiready = function() {
+        // api.ajax({
+        //     url: 'http://10.0.30.89:3000/loginAuth',
+        //     method: 'get'
+        // }, function(ret, err) {
+        //     if (ret) {
+        //         console.log((ret))
+        //     } else {
+        //         api.alert({ msg: "login auth not working" });
+        //     }
+        // });
+
+        function registerButton(){
+
+        }
         $("#loginForm").submit(function(event) {
+          event.preventDefault();
           var $form = $(this),
           tusername = $form.find('input[name="username"]').val(),
           tpassword = $form.find('input[name="password"]').val();
-          console.log(tpassword,"the username and pw")
+
             api.ajax({
-                url: 'http://10.0.30.70:3000/loginAuth',
+                url: 'http://10.0.30.89:3000/loginAuth',
                 method: 'post',
+                timeout:30,
                 data: {
                     values: {
                         username: tusername,
                         email: 'andy.com',
                         password: tpassword,
                         phoneNo: 999666
-                    }
+                    },
                 },
               },
-               function(ret,err){
+               function(ret, err){
                   api.alert({ msg: "post is working" });
-                  console.log(JSON.stringify(ret))
+                  console.log(ret)
+                  if(ret.auth=="true"){
+                    api.openFrame({
+                      name: "Home Page",
+                      url: 'main.html',
+                      bounces: true,
+                      rect: {
+                          marginTop: 71,
+                          marginBottom: 71,
+                          w: 'auto'
+                            }
+                              })
+                            }
+                                  })
 
-                  api.openFrame({
-                    name: "Home Page",
-                    url: 'main.html',
-                    bounces: true,
-                    rect: {
-                        marginTop: 71,
-                        marginBottom: 71,
-                        w: 'auto'
-                          }
-                            })
-      })
+
     })
 
 }
