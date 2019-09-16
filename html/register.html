@@ -25,11 +25,14 @@
             word-wrap: break-word;
         }
     </style>
+
+
+
 </head>
 
 <body>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
 
 <div id="signup">Register Now!</div>
@@ -41,20 +44,21 @@
     <form method="post" id="registerForm" class="form-group col-lg-12" enctype="multipart/form-data">
          <div class="form-group col-md-12" id="regbox">
             <div class="row">
-            <div  class="col-md-8 col-md-offset-2" class="edit">
-                <div class="form-group col-md-12">
-                    <br>
-                    <br>
-                <img id="output" src="https://s3-ap-southeast-1.amazonaws.com/ehubsg/generic-profile-square-580x535.jpgw6hp22s8jjkriboo" class="img-responsive" width="200" height="200">
+
+                <div class="col-md-12">
+
+                <img id="output" src="../image/profileTemp.png" class="img-responsive" width="100" height="100">
+
                 </div>
-                </div>
+              </div>
                 <br>
                 <br>
                 <div class="row">
-                        <div class="form-group col-md-12">
+
+                        <div class="col-md-12">
                 <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(event),validateFileType()">
                 </div>
-                </div>
+
                 <br>
                 <br>
                 <br>
@@ -91,6 +95,12 @@
                 </div>
                 </div>
                 <div class="row">
+                <div class="form-group col-md-12">
+                    Phone Number:<br>
+                <input type="number" name="phoneNo" id="phoneNo" class="form-control">
+                </div>
+                </div>
+                <div class="row">
                         <div class="form-group col-md-12">
                             School:<br>
                             <select class="form-control" name="pref">
@@ -124,9 +134,8 @@
 
 </div>
 
-
-
 <script>
+
 var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
@@ -134,6 +143,23 @@ var loadFile = function(event) {
 </script>
 
 <script type="text/javascript">
+
+var theIp = ''
+$(function (){
+  var myAjax = {
+    init: function(){
+      $.ajax({
+        url: "../wifi.txt",
+        async:true,
+        success:function(data){
+          theIp = data
+        }
+      })
+    }
+  };
+  myAjax.init()
+});
+
 function validateFileType(){
     var fileName = document.getElementById("image").value;
     var idxDot = fileName.lastIndexOf(".") + 1;
@@ -150,15 +176,16 @@ function validateFileType(){
 
 apiready = function() {
 
+
    $("#registerForm").submit(function(event) {
      event.preventDefault();
      var $form = $(this),
      tusername = $form.find('input[name="username"]').val(),
      temail = $form.find('input[name="email"]').val(),
-     tpassword = $form.find('input[name="password"]').val();
-
+     tpassword = $form.find('input[name="password"]').val(),
+      tphone = $form.find('input[name="phoneNo"]').val();
        api.ajax({
-           url: 'http://10.0.30.89:3000/register',
+           url: theIp + 'register',
            method: 'post',
            timeout:30,
            data: {
@@ -166,23 +193,20 @@ apiready = function() {
                    username: tusername,
                    email: temail,
                    password: tpassword,
-                   phoneNo: 123456
+                   phoneNo: tphone
                },
            },
          },
           function(ret, err){
-             api.alert({ msg: "post is working" });
+
              console.log(ret)
              if(ret.registerStatus=="true"){
-               api.openFrame({
+               api.alert({ msg: "post is working" });
+               api.openWin({
                  name: "Login Page",
-                 url: 'login.html',
+                 url: '../index.html',
                  bounces: true,
-                 rect: {
-                     marginTop: 71,
-                     marginBottom: 71,
-                     w: 'auto'
-                       }
+
                          })
                        }
                              })
@@ -203,8 +227,8 @@ apiready = function() {
 
 
       #file{
-  margin-left:250px;
-
+text-align: center;
+margin-left: 50px;
 }
 
 
@@ -218,7 +242,6 @@ apiready = function() {
     font-size: 14px;
     text-align: center;
         height: 42px;
-        margin-left:30px;
     }
 
 
@@ -243,13 +266,11 @@ apiready = function() {
 
 
 #output{
-    margin-left:200px;
+  text-align: center;
+    margin-left:50px;
 }
 
- #regbox{
-    width:70%;
-    margin-left:150px;
- }
+
 @media(max-width: 900px){
     #regbox{
     width:100%;
@@ -260,6 +281,10 @@ apiready = function() {
 }
 }
 
+#image{
+  text-align: center;
+  margin-left: 50px;
+}
 
 
 

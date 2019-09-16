@@ -1,6 +1,18 @@
 html{
 	font-family: sans-serif;
 }
+html,
+body {
+		height: 100%;
+}
+
+.wrap {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-flex-flow: column;
+}
+
+
 html,body,header,section,footer,div,ul,ol,li,img,a,span,em,del,legend,center,strong,var,fieldset,form,label,dl,dt,dd,cite,input,hr,time,mark,code,figcaption,figure,textarea,h1,h2,h3,h4,h5,h6,p{
 	margin:0;
 	border:0;
@@ -56,6 +68,27 @@ table {
 td,th {
   padding: 0;
 }
+
+header {
+		height: 71px;
+		width: 100%;
+		text-align: center;
+		background-color: #81a9c3;
+		color: #fff;
+		line-height: 44px;
+		font-size: 20px;
+}
+
+
+
+footer {
+		height: 50px;
+		width: 100%;
+		background-color: #81a9c3;
+		color: white;
+		line-height: 30px;
+		text-align: center;
+}
 .clearfix:after{
 	content: ' ';
 	display: block;
@@ -75,7 +108,7 @@ td,th {
 	background: url(../image/loading_more.gif) no-repeat center;
 	-webkit-background-size: contain;
 	background-size: contain;
-} 
+}
 .loading_more:after {
-	content: '加载更多';	
+	content: '加载更多';
 }

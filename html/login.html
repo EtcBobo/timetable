@@ -8,6 +8,7 @@
     <title>TimeTable</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+
         label {
             margin: 10px;
             font-size: 24px;
@@ -28,9 +29,10 @@
 
 <body>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <div class="container">
+        <img id="test" src="" alt="">
         <br><br>
         <form method="post" class="form-group col-md-12" id="loginForm" >
             <div id="login">Login</div>
@@ -108,17 +110,50 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+var theIp = ''
+$(function (){
+  var myAjax = {
+    init: function(){
+      $.ajax({
+        url: "../wifi.txt",
+        async:true,
+        success:function(data){
+          theIp = data
+        }
+      })
+    }
+  };
+  myAjax.init()
+});
+
+
 function registerButton(){
-  api.openFrame({
-    name: "Register Page",
-    url: 'register.html',
-    bounces: true,
-    rect: {
-        marginTop: 71,
-        marginBottom: 71,
-        w: 'auto'
-          }
-            })
+  console.log("reg button pressed")
+  // api.openWin({
+  //   name: "Register Page",
+  //   url: 'registerFrame.html'
+  //
+  //   // rect: {
+  //   //     marginTop: 71,
+  //   //     marginBottom: 71,
+  //   //     w: 'auto'
+  //   //       }
+  //           })
+  api.getPicture({
+      sourceType: 'library',
+      encodingType: 'jpg',
+      mediaValue: 'pic',
+      destinationType: 'base64',
+      allowEdit: true,
+      saveToPhotoAlbum: false
+  }, function(ret, err) {
+      if (ret) {
+          alert(JSON.stringify(ret));
+          $('#test').attr('src',ret.base64Data);
+      } else {
+          alert(JSON.stringify(err));
+      }
+  });
 }
      apiready = function() {
         // api.ajax({
@@ -140,34 +175,31 @@ function registerButton(){
           tpassword = $form.find('input[name="password"]').val();
 
             api.ajax({
-                url: 'http://10.0.30.89:3000/loginAuth',
+                url: theIp + 'loginAuth',
                 method: 'post',
                 timeout:30,
                 data: {
                     values: {
                         username: tusername,
                         email: 'andy.com',
-                        password: tpassword,
-                        phoneNo: 999666
+                        password: tpassword
                     },
                 },
               },
                function(ret, err){
-                  api.alert({ msg: "post is working" });
+
                   console.log(ret)
                   if(ret.auth=="true"){
-                    api.openFrame({
+                    api.alert({ msg: "Login Success" })
+                    api.openWin({
                       name: "Home Page",
-                      url: 'main.html',
-                      bounces: true,
-                      rect: {
-                          marginTop: 71,
-                          marginBottom: 71,
-                          w: 'auto'
-                            }
+                      url: 'mainFrame.html',
+                      bounces: true
                               })
-                            }
-                                  })
+                  }else{
+                    api.alert({ msg: "invalid username and password" })
+                  }
+                })
 
 
     })

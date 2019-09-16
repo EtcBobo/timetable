@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <title>Register Page</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        label {
+            margin: 10px;
+            font-size: 24px;
+        }
+
+        ul {
+            margin-bottom: 10px;
+        }
+
+        ul li {
+            margin: 5px 10px;
+            padding: 5px;
+            color: #000;
+            word-wrap: break-word;
+        }
+    </style>
+
+
+
+</head>
+
+<body class="wrap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+<header>APICloud</header>
+
+<section class="flex-1">
+
+</section>
+
+<footer>Copyright &copy;<span id="year"></span></footer>
+</body>
+<script>
+
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+};
+</script>
+
+<script type="text/javascript">
+
+
+apiready = function() {
+
+  var header = $api.dom('header');
+  var footer = $api.dom('footer');
+  var headerH = $api.fixStatusBar(header);
+  var footerH = $api.fixTabBar(footer);
+
+  api.openFrame({
+      name: 'login',
+      url: 'register.html',
+      bounces: true,
+      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+          marginTop: headerH, // main页面距离win顶部的高度
+          marginBottom: footerH, // main页面距离win底部的高度
+          w: 'auto' // main页面的宽度 自适应屏幕宽度
+      }
+  });
+}
+
+
+
+</script>
+
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+
+</html>
