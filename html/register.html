@@ -38,41 +38,41 @@
 <div id="signup">Register Now!</div>
  <div class="container">
     <br><br>
+    <div class="row">
 
+        <div class="col-md-12">
+
+        <img id="output" src="../image/profileTemp.png" class="img-responsive" width="100" height="100">
+
+        </div>
+      </div>
+        <br>
+        <br>
+        <div class="row">
+
+                <div class="col-md-12">
+        <button onclick="uploadImage()" id="upButton">Upload</button>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        </div>
 
 
     <form method="post" id="registerForm" class="form-group col-lg-12" enctype="multipart/form-data">
          <div class="form-group col-md-12" id="regbox">
-            <div class="row">
 
-                <div class="col-md-12">
-
-                <img id="output" src="../image/profileTemp.png" class="img-responsive" width="100" height="100">
-
-                </div>
-              </div>
-                <br>
-                <br>
-                <div class="row">
-
-                        <div class="col-md-12">
-                <button onclick="uploadImage()" id="upButton">Upload</button>
-                </div>
-
-                <br>
-                <br>
-                <br>
-                </div>
                 <div class="row">
                 <div class="form-group col-md-12">
                     Username:<br>
-                <input type="text" name="username" id="username" class="form-control">
+                <input type="text" name="username" id="username" class="form-control" required>
                 </div>
                 </div>
                 <div class="row">
                 <div class="form-group col-md-12">
                     Password:<br>
-                    <input type="password" name="password" class="form-control" id="password" required>
+                    <input type="password" name="password" class="form-control" id="password" minlength=6 required>
                     <!--
                 <input type="password" name="password" class="form-control" minlength=6>
               -->
@@ -82,7 +82,7 @@
                 <div class="row">
                 <div class="form-group col-md-12">
                     Confirm Password:<br>
-                    <input type="password" name="confirm_password" class="form-control">
+                    <input type="password" name="confirm_password" class="form-control" minlength=6 required>
                     <!--
                 <input type="password" name="confirm_password" class="form-control" minlength=6>
                 -->
@@ -91,28 +91,39 @@
                 <div class="row">
                 <div class="form-group col-md-12">
                     Email:<br>
-                <input type="email" name="email" id="email" class="form-control">
+                <input type="email" name="email" id="email" class="form-control" required>
                 </div>
                 </div>
                 <div class="row">
                 <div class="form-group col-md-12">
                     Phone Number:<br>
-                <input type="number" name="phoneNo" id="phoneNo" class="form-control">
+                <input type="number" name="phoneNo" id="phoneNo" class="form-control" required>
                 </div>
                 </div>
                 <div class="row">
                         <div class="form-group col-md-12">
                             School:<br>
-                            <select class="form-control" name="pref">
-                                    <option value="electronics">School 1</option>
-                                    <option value="games">School 2</option>
-                                    <option value="movies">School 3</option>
-                                    <option value="music">School 4</option>
-                                    <option value="books">School 5</option>
+                            <select class="form-control" name="pref" id="school">
+                                    <option value="School 1">School 1</option>
+                                    <option value="School 2">School 2</option>
+                                    <option value="School 3">School 3</option>
+                                    <option value="School 4">School 4</option>
+                                    <option value="School 5">School 5</option>
                                   </select>
-                                  </div>
-                                  </div>
-
+                        </div>
+                  </div>
+                  <div class="row">
+                          <div class="form-group col-md-12">
+                              Course:<br>
+                              <select class="form-control" name="pref" id="course">
+                                <option value="Course 1">Course 1</option>
+                                <option value="Course 2">Course 2</option>
+                                <option value="Course 3">Course 3</option>
+                                <option value="Course 4">Course 4</option>
+                                <option value="Course 5">Course 5</option>
+                              </select>
+                          </div>
+                  </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -122,8 +133,8 @@
                 <br>
 
 
-                    <div class="row">
-                    <div class='btn-toolbar' class="form-group col-md-12">
+                <div class="row">
+                <div class='btn-toolbar' class="form-group col-md-12">
                         <button type="submit" class="btn btn-primary btn-lg upload-group text-center" id="uploadButton">Register</button>
                     </div>
                     <br>
@@ -155,6 +166,7 @@ $(function (){
 });
 
 function uploadImage(){
+  console.log("why not working")
   api.getPicture({
       sourceType: 'library',
       encodingType: 'jpg',
@@ -178,13 +190,14 @@ apiready = function() {
 
 
    $("#registerForm").submit(function(event) {
-     event.preventDefault();
-     var $form = $(this),
-     tusername = $form.find('input[name="username"]').val(),
-     temail = $form.find('input[name="email"]').val(),
-     tpassword = $form.find('input[name="password"]').val(),
+      event.preventDefault();
+      var $form = $(this),
+      tusername = $form.find('input[name="username"]').val(),
+      temail = $form.find('input[name="email"]').val(),
+      tpassword = $form.find('input[name="password"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
-      console.log(document.getElementById("output").src,"the src for image")
+      var tschool = $('#school').find(":selected").text()
+      var tcourse = $('#course').find(":selected").text()
        api.ajax({
            url: theIp + 'register',
            method: 'post',
@@ -195,6 +208,8 @@ apiready = function() {
                    email: temail,
                    password: tpassword,
                    phoneNo: tphone,
+                   school:tschool,
+                   course:tcourse,
                    imgPath: document.getElementById("output").src
                },
            },
@@ -267,10 +282,7 @@ margin-left: 50px;
 
 
 
-#output{
-  text-align: center;
-    margin-left:50px;
-}
+
 
 
 @media(max-width: 900px){
@@ -279,7 +291,7 @@ margin-left: 50px;
     margin-left:0px;
 }
 #output{
-    margin-left:0px;
+  margin-left:120px;
 }
 }
 
@@ -288,6 +300,9 @@ margin-left: 50px;
   margin-left: 50px;
 }
 
+#upButton{
+  margin-left: 120px;
+}
 
 
 </style>
