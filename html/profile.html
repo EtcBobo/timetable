@@ -29,7 +29,7 @@
 
 <body class="wrap">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
   <div class="container" >
 
@@ -38,6 +38,7 @@
 <br>
 <br>
 <br>
+<img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg">
 <br>
 <br>
 
@@ -53,35 +54,38 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-var theIp = ''
-$(function (){
-  var myAjax = {
-    init: function(){
-      $.ajax({
-        url: "../wifi.txt",
-        async:true,
-        success:function(data){
-          theIp = data
-        }
-      })
-    }
-  };
-  myAjax.init()
-});
+
     apiready = function() {
 
+      var theIp = ''
+      $(function (){
+        var myAjax = {
+          init: function(){
+            $.ajax({
+              url: "../wifi.txt",
+              async:false,
+              success:function(data){
+                theIp = data
+              }
+            })
+          }
+        };
+        myAjax.init()
+      });
+    console.log(theIp)
     api.ajax({
         url: theIp + 'profile',
-        method: 'get',
+        method: 'post',
+        timeout:30,
         data: {
-          values: {
-            username:'god',
+            values: {
+              username:'god'
         },
       },
 
     },function(ret, err){
         if (ret) {
-            alert( JSON.stringify( ret ) );
+            $('#profileImg').attr('src',ret.image);
         } else {
             alert( JSON.stringify( err ) );
         }

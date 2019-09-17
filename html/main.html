@@ -29,7 +29,7 @@
 
 <body class="wrap">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 
   <div class="container" >
 
@@ -54,15 +54,22 @@
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
 
-    apiready = function() {
 function profileButton(){
   api.openFrame({
       name: 'Profile page',
       url: 'profile.html',
-      bounces: true
+      bounces: true,
+      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+          marginTop: 71, // main页面距离win顶部的高度
+          marginBottom: 71, // main页面距离win底部的高度
+          w: 'auto' // main页面的宽度 自适应屏幕宽度
+      }
 
   });
 }
+
+    apiready = function() {
+
 
 
 

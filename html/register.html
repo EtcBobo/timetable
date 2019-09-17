@@ -56,7 +56,7 @@
                 <div class="row">
 
                         <div class="col-md-12">
-                <input type="file" id="image" name="image" accept="image/*" onchange="loadFile(event),validateFileType()">
+                <button onclick="uploadImage()" id="upButton">Upload</button>
                 </div>
 
                 <br>
@@ -134,13 +134,7 @@
 
 </div>
 
-<script>
 
-var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-};
-</script>
 
 <script type="text/javascript">
 
@@ -160,17 +154,23 @@ $(function (){
   myAjax.init()
 });
 
-function validateFileType(){
-    var fileName = document.getElementById("image").value;
-    var idxDot = fileName.lastIndexOf(".") + 1;
-    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
-        //TO DO
-    }else{
-        alert("Only jpg/jpeg and png files are allowed!");
-        document.getElementById("image").value = null;
+function uploadImage(){
+  api.getPicture({
+      sourceType: 'library',
+      encodingType: 'jpg',
+      mediaValue: 'pic',
+      destinationType: 'base64',
+      allowEdit: true,
+      saveToPhotoAlbum: false
+  }, function(ret, err) {
+      if (ret) {
+          alert(JSON.stringify(ret));
+          $('#output').attr('src',ret.base64Data);
 
-    }
+      } else {
+          alert(JSON.stringify(err));
+      }
+  });
 }
 
 
@@ -184,6 +184,7 @@ apiready = function() {
      temail = $form.find('input[name="email"]').val(),
      tpassword = $form.find('input[name="password"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
+      console.log(document.getElementById("output").src,"the src for image")
        api.ajax({
            url: theIp + 'register',
            method: 'post',
@@ -193,7 +194,8 @@ apiready = function() {
                    username: tusername,
                    email: temail,
                    password: tpassword,
-                   phoneNo: tphone
+                   phoneNo: tphone,
+                   imgPath: document.getElementById("output").src
                },
            },
          },
@@ -201,7 +203,7 @@ apiready = function() {
 
              console.log(ret)
              if(ret.registerStatus=="true"){
-               api.alert({ msg: "post is working" });
+               api.alert({ msg: "You have successfully Registered" });
                api.openWin({
                  name: "Login Page",
                  url: '../index.html',
@@ -289,55 +291,5 @@ margin-left: 50px;
 
 
 </style>
-
-
-
-
 </body>
-<script type="text/javascript" src="../script/api.js"></script>
-<script type="text/javascript">
-/*
-    apiready = function() {
-
-
-
-        api.ajax({
-          url: 'http://10.0.30.70:3000/loginAuth',
-          method: 'get'
-      }, function(ret, err) {
-          if (ret) {
-              api.alert({ msg: JSON.stringify(ret) });
-          } else {
-              //api.alert({ msg: JSON.stringify(err) });
-              api.alert({ msg: "login auth not working" });
-          }
-      });
-
-
-      api.ajax({
-        url: 'http://10.0.30.70:3000/loginAuth',
-        method: 'post',
-        data: {
-          values: {
-            username: 'andy22',
-            email: 'andy.com',
-            password: 'andy123444',
-            phoneNo: 999666
-        }
-      },
-    }, function(ret, err) {
-        if (ret) {
-            api.alert({ msg: JSON.stringify(ret) });
-        } else {
-            //api.alert({ msg: JSON.stringify(err) });
-            api.alert({ msg: "ajax post not working" });
-        }
-    });
-
-
-
-    };
-    */
-</script>
-
 </html>

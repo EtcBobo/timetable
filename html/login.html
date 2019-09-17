@@ -129,44 +129,19 @@ $(function (){
 
 function registerButton(){
   console.log("reg button pressed")
-  // api.openWin({
-  //   name: "Register Page",
-  //   url: 'registerFrame.html'
-  //
-  //   // rect: {
-  //   //     marginTop: 71,
-  //   //     marginBottom: 71,
-  //   //     w: 'auto'
-  //   //       }
-  //           })
-  api.getPicture({
-      sourceType: 'library',
-      encodingType: 'jpg',
-      mediaValue: 'pic',
-      destinationType: 'base64',
-      allowEdit: true,
-      saveToPhotoAlbum: false
-  }, function(ret, err) {
-      if (ret) {
-          alert(JSON.stringify(ret));
-          $('#test').attr('src',ret.base64Data);
-      } else {
-          alert(JSON.stringify(err));
-      }
-  });
+  api.openWin({
+    name: "Register Page",
+    url: 'registerFrame.html'
+
+    // rect: {
+    //     marginTop: 71,
+    //     marginBottom: 71,
+    //     w: 'auto'
+    //       }
+            })
+
 }
      apiready = function() {
-        // api.ajax({
-        //     url: 'http://10.0.30.89:3000/loginAuth',
-        //     method: 'get'
-        // }, function(ret, err) {
-        //     if (ret) {
-        //         console.log((ret))
-        //     } else {
-        //         api.alert({ msg: "login auth not working" });
-        //     }
-        // });
-
 
         $("#loginForm").submit(function(event) {
           event.preventDefault();
