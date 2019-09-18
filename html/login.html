@@ -7,24 +7,7 @@
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
     <title>TimeTable</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
 
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
-
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 5px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-        }
-    </style>
 </head>
 
 <body>
@@ -133,11 +116,20 @@ function registerButton(){
     name: "Register Page",
     url: 'registerFrame.html'
             })
-
 }
      apiready = function() {
 
         $("#loginForm").submit(function(event) {
+          api.openFrame({
+            name: "Loading Page",
+            url: 'loadingScreen.html',
+            bounces: true,
+            rect: {
+                marginTop: 71,
+                marginBottom: 71,
+                w: 'auto'
+            }
+        })
           event.preventDefault();
           var $form = $(this),
           tusername = $form.find('input[name="username"]').val(),
@@ -150,27 +142,33 @@ function registerButton(){
                 data: {
                     values: {
                         username: tusername,
-                        email: 'andy.com',
                         password: tpassword
                     },
                 },
               },
                function(ret, err){
-
                   console.log(ret)
                   if(ret.auth=="true"){
                     api.alert({ msg: "Login Success" })
+
+                    api.closeFrame({
+                        name: 'Loading Page'
+                    });
+                    localStorage.setItem("username",ret.username);
+                    localStorage.setItem("isLoggedin","true");
                     api.openWin({
                       name: "Home Page",
                       url: 'mainFrame.html',
                       bounces: true
-                              })
+                    })
                   }else{
-                    api.alert({ msg: "invalid username and password" })
+                    api.alert({ msg: "Invalid username and password" })
+                    api.closeFrame({
+                        name: 'Loading Page'
+                    });
+
                   }
                 })
-
-
     })
 
 }

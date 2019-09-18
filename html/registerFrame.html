@@ -8,24 +8,6 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <title>Register Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
-
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 5px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-        }
-    </style>
-
 
 
 </head>
@@ -63,10 +45,10 @@ apiready = function() {
       name: 'login',
       url: 'register.html',
       bounces: true,
-      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-          marginTop: headerH, // main页面距离win顶部的高度
-          marginBottom: footerH, // main页面距离win底部的高度
-          w: 'auto' // main页面的宽度 自适应屏幕宽度
+      rect: {
+          marginTop: headerH,
+          marginBottom: footerH,
+          w: 'auto'
       }
   });
 }

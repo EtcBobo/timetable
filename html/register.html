@@ -8,24 +8,6 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <title>Register Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
-
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 5px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-        }
-    </style>
-
 
 
 </head>
@@ -195,6 +177,18 @@ apiready = function() {
 
 
    $("#registerForm").submit(function(event) {
+
+     api.openFrame({
+       name: "Loading Page",
+       url: 'loadingScreen.html',
+       bounces: true,
+       rect: {
+           marginTop: 71,
+           marginBottom: 71,
+           w: 'auto'
+       }
+    })
+
       event.preventDefault();
       var $form = $(this),
       tusername = $form.find('input[name="username"]').val(),
@@ -233,7 +227,7 @@ apiready = function() {
                   bounces: true
                           })
                         }
-                              })
+              })
       }
       else if(tpassword != tpasswordc){
         api.alert({
@@ -251,10 +245,6 @@ apiready = function() {
 })
 
 }
-
-
-
-
 
 </script>
 

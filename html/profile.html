@@ -8,23 +8,7 @@
     <title>Profile Page</title>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
 
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 5px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-        }
-    </style>
 </head>
 
 <body class="wrap">
@@ -41,7 +25,7 @@
 <img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg">
 <br>
 <br>
-
+<p id="tusername"></p>
 
 
 
@@ -54,8 +38,17 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+document.getElementById("tusername").innerHTML = localStorage.getItem("username")
 
     apiready = function() {
+      if(localStorage.getItem("isLoggedin") != "true"){
+        api.openWin({
+          name: "Login Page",
+          url: '../index.html',
+          bounces: true
+        })
+      }
+
 
       var theIp = ''
       $(function (){
@@ -72,7 +65,7 @@
         };
         myAjax.init()
       });
-    console.log(theIp)
+
     api.ajax({
         url: theIp + 'profile',
         method: 'post',
