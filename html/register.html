@@ -8,24 +8,6 @@
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <title>Register Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
-        label {
-            margin: 10px;
-            font-size: 24px;
-        }
-
-        ul {
-            margin-bottom: 10px;
-        }
-
-        ul li {
-            margin: 5px 10px;
-            padding: 5px;
-            color: #000;
-            word-wrap: break-word;
-        }
-    </style>
-
 
 
 </head>
@@ -82,7 +64,7 @@
                 <div class="row">
                 <div class="form-group col-md-12">
                     Confirm Password:<br>
-                    <input type="password" name="confirm_password" class="form-control" minlength=6 required>
+                    <input type="password" name="passwordc" class="form-control" minlength=6 required>
                     <!--
                 <input type="password" name="confirm_password" class="form-control" minlength=6>
                 -->
@@ -165,8 +147,14 @@ $(function (){
   myAjax.init()
 });
 
+function loadCourse(){
+  if(document.getElementById("course 1").selected){
+
+
+  }
+}
+
 function uploadImage(){
-  console.log("why not working")
   api.getPicture({
       sourceType: 'library',
       encodingType: 'jpg',
@@ -176,7 +164,6 @@ function uploadImage(){
       saveToPhotoAlbum: false
   }, function(ret, err) {
       if (ret) {
-          alert(JSON.stringify(ret));
           $('#output').attr('src',ret.base64Data);
 
       } else {
@@ -190,52 +177,74 @@ apiready = function() {
 
 
    $("#registerForm").submit(function(event) {
+
+     api.openFrame({
+       name: "Loading Page",
+       url: 'loadingScreen.html',
+       bounces: true,
+       rect: {
+           marginTop: 71,
+           marginBottom: 71,
+           w: 'auto'
+       }
+    })
+
       event.preventDefault();
       var $form = $(this),
       tusername = $form.find('input[name="username"]').val(),
       temail = $form.find('input[name="email"]').val(),
       tpassword = $form.find('input[name="password"]').val(),
+      tpasswordc = $form.find('input[name="passwordc"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
       var tschool = $('#school').find(":selected").text()
       var tcourse = $('#course').find(":selected").text()
-       api.ajax({
-           url: theIp + 'register',
-           method: 'post',
-           timeout:30,
-           data: {
-               values: {
-                   username: tusername,
-                   email: temail,
-                   password: tpassword,
-                   phoneNo: tphone,
-                   school:tschool,
-                   course:tcourse,
-                   imgPath: document.getElementById("output").src
-               },
-           },
-         },
-          function(ret, err){
+      var letterNumber = /^[0-9a-z]+$/;
+      if(letterNumber.test(tpassword) && tpassword != tpasswordc){
+        api.ajax({
+            url: theIp + 'register',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                    username: tusername,
+                    email: temail,
+                    password: tpassword,
+                    phoneNo: tphone,
+                    school:tschool,
+                    course:tcourse,
+                    imgPath: document.getElementById("output").src
+                },
+            },
+          },
+           function(ret, err){
 
-             console.log(ret)
-             if(ret.registerStatus=="true"){
-               api.alert({ msg: "You have successfully Registered" });
-               api.openWin({
-                 name: "Login Page",
-                 url: '../index.html',
-                 bounces: true,
+              console.log(ret)
+              if(ret.registerStatus=="true"){
+                api.alert({ msg: "You have successfully Registered" });
+                api.openWin({
+                  name: "Login Page",
+                  url: '../index.html',
+                  bounces: true
+                          })
+                        }
+              })
+      }
+      else if(tpassword != tpasswordc){
+        api.alert({
+          msg: "not the same password"
+        })
+      }
+      else{
+        api.alert({
+          msg: "Fail Register"
+        })
+      }
 
-                         })
-                       }
-                             })
 
 
 })
 
 }
-
-
-
-
 
 </script>
 
