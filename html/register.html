@@ -15,11 +15,17 @@
 <body>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-
-
-<div id="signup">Register Now!</div>
  <div class="container">
-    <br><br>
+   <br>
+
+   <div id="signup">Register Here!</div>
+    <br>
+<div class="row" id="divError" style="display:none;">
+<div class="col-md-12">
+  <p id="errorMsg" style="color:red;text-align:center"></p>
+</div>
+</div>
+
     <div class="row">
 
         <div class="col-md-12">
@@ -33,7 +39,7 @@
         <div class="row">
 
                 <div class="col-md-12">
-        <button onclick="uploadImage()" id="upButton">Upload</button>
+        <button onclick="uploadImage()" class="btn btn-primary btn-lg upload-group text-center" id="upButton">Upload</button>
         </div>
 
         <br>
@@ -116,7 +122,7 @@
 
 
                 <div class="row">
-                <div class='btn-toolbar' class="form-group col-md-12">
+                <div class="form-group col-md-12">
                         <button type="submit" class="btn btn-primary btn-lg upload-group text-center" id="uploadButton">Register</button>
                     </div>
                     <br>
@@ -178,16 +184,16 @@ apiready = function() {
 
    $("#registerForm").submit(function(event) {
 
-     api.openFrame({
-       name: "Loading Page",
-       url: 'loadingScreen.html',
-       bounces: true,
-       rect: {
-           marginTop: 71,
-           marginBottom: 71,
-           w: 'auto'
-       }
-    })
+    //  api.openFrame({
+    //    name: "Loading Page",
+    //    url: 'loadingScreen.html',
+    //    bounces: true,
+    //    rect: {
+    //        marginTop: 71,
+    //        marginBottom: 71,
+    //        w: 'auto'
+    //    }
+    // })
 
       event.preventDefault();
       var $form = $(this),
@@ -198,8 +204,8 @@ apiready = function() {
       tphone = $form.find('input[name="phoneNo"]').val();
       var tschool = $('#school').find(":selected").text()
       var tcourse = $('#course').find(":selected").text()
-      var letterNumber = /^[0-9a-z]+$/;
-      if(letterNumber.test(tpassword) && tpassword != tpasswordc){
+      var letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
+      if(letterNumber.test(tpassword) && tpassword == tpasswordc){
         api.ajax({
             url: theIp + 'register',
             method: 'post',
@@ -226,21 +232,34 @@ apiready = function() {
                   url: '../index.html',
                   bounces: true
                           })
-                        }
+                }
+                else if(ret.errorRea == "username"){
+                  document.getElementById("errorMsg").innerHTML = "Username taken, please choose another username"
+                  document.getElementById("divError").style.display = "block"
+                  window.scrollTo(0,0)
+                }
+                else if(ret.errorRea == "email"){
+                  document.getElementById("errorMsg").innerHTML = "Email has already been used, please enter another email"
+                  document.getElementById("divError").style.display = "block"
+                  window.scrollTo(0,0)
+                }
               })
       }
       else if(tpassword != tpasswordc){
-        api.alert({
-          msg: "not the same password"
-        })
+        document.getElementById("errorMsg").innerHTML = "Password does not match. Please ensure you enter the same password in the confirm password field"
+        document.getElementById("divError").style.display = "block"
+        window.scrollTo(0,0)
+      }
+      else if(letterNumber.test(tpassword) != true){
+        document.getElementById("errorMsg").innerHTML = "Please ensure that password have at least an Alphabet and a number"
+        document.getElementById("divError").style.display = "block"
+        window.scrollTo(0,0)
       }
       else{
-        api.alert({
-          msg: "Fail Register"
-        })
+        document.getElementById("errorMsg").innerHTML = "Unknown error"
+        document.getElementById("divError").style.display = "block"
+        window.scrollTo(0,0)
       }
-
-
 
 })
 
@@ -260,14 +279,11 @@ margin-left: 50px;
 
 
 
-    #uploadButton{
-        background-color: #007bff;
-    border: 0;
+  #uploadButton{
+    background-color: #007bff;
     color: #fff!important;
-    display: inline-block;
     font-size: 14px;
-    text-align: center;
-        height: 42px;
+    height: 42px;
     }
 
 
@@ -300,7 +316,7 @@ margin-left: 50px;
     margin-left:0px;
 }
 #output{
-  margin-left:120px;
+  margin-left:115px;
 }
 }
 
@@ -310,7 +326,11 @@ margin-left: 50px;
 }
 
 #upButton{
-  margin-left: 120px;
+  margin-left: 125px;
+  background-color: rgb(126, 134, 13);
+  color: #fff!important;
+  font-size: 14px;
+  height: 42px;
 }
 
 

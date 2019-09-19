@@ -6,13 +6,14 @@
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
         <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Main Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
+
 
 </head>
 
 <body class="wrap">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 <header>APICloud</header>
 
@@ -20,7 +21,7 @@
 
 </section>
 
-<footer>Copyright &copy;<span id="year"></span></footer>
+
 
 </body>
 <script>
@@ -37,9 +38,9 @@ var loadFile = function(event) {
 apiready = function() {
 
   var header = $api.dom('header');
-  var footer = $api.dom('footer');
+
   var headerH = $api.fixStatusBar(header);
-  var footerH = $api.fixTabBar(footer);
+
 
   api.openFrame({
       name: 'Main page',
@@ -47,7 +48,6 @@ apiready = function() {
       bounces: true,
       rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
           marginTop: headerH, // main页面距离win顶部的高度
-          marginBottom: footerH, // main页面距离win底部的高度
           w: 'auto' // main页面的宽度 自适应屏幕宽度
       }
   });
