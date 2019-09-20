@@ -11,6 +11,7 @@
         html,
         body {
             height: 100%;
+
         }
 
         .wrap {
@@ -19,14 +20,16 @@
             -webkit-flex-flow: column;
         }
 
+
         header {
-            height: 44px;
+            height: 64px;
             width: 100%;
             text-align: center;
-            background-color: #81a9c3;
-            color: red;
+            background-image:url(image/leaf2.jpg);
+            color: black;
             line-height: 44px;
-            font-size: 20px;
+            font-size: 23px;
+            font-family: monospace;
         }
 
         .flex-1 {
@@ -37,19 +40,21 @@
         footer {
             height: 30px;
             width: 100%;
-            background-color: #81a9c3;
-            color: white;
+            background-image: url(image/leaf.jpg);
+            color: black;
             line-height: 30px;
             text-align: center;
+            font-family: monospace;
         }
     </style>
 </head>
 
 <body class="wrap">
-   <header>Chengdu Polytechnic</header>
-   <h1>
-       <i class="ace-icon fa fa-leaf green"></i>
-   </h1>
+    <header>
+       <input type="button" name="submit" value="<--" onclick="javascript:window.history.back(-1);">
+    Chengdu Polytechnic</header>
+
+
     <section class="flex-1">
 
     </section>
