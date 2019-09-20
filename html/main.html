@@ -21,7 +21,9 @@
 <br>
 
 <button onclick="profileButton()">Profile</button>
-
+<br>
+<br>
+<button onclick="timeButton()">timetable</button>
 </div>
 
 </body>
@@ -40,6 +42,13 @@ function profileButton(){
       }
 
   });
+}
+
+function timeButton(){
+  api.openWin({
+      name: 'Timetable page',
+      url: 'timetableFrame.html'
+})
 }
 
     apiready = function() {

@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Profile Page</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+table, th, td{
+  border: 1px solid black;
+}
+th, td{
+  height:50px;
+  padding: 5px;
+}
+
+.timeCell{
+  width:60px;
+}
+
+#myModal{
+  display: none;
+  position: fixed;
+  z-index:1;
+  left:0;
+  top:0;
+  overflow:auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+  -webkit-animation-name:fadeIn;
+  -webkit-animation-duration:0.4s;
+  animation-name:fadeIn;
+  animation-duration:0.4
+}
+
+@-webkit-keyframes slideIn{
+  from {bottom: -300px; opacity:0}
+  to {bottom:0;opacity:1}
+}
+keyframes slideIn{
+  from {bottom: -300px; opacity:0}
+  to {bottom:0;opacity:1}
+}
+@-webkit-keyframes fadeIn{
+  from {opacity:0}
+  to {opacity:1}
+}
+keyframes fadeIn{
+  from {opacity:0}
+  to {opacity:1}
+}
+
+</style>
+</head>
+
+<body class="wrap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+  <div class="container" >
+
+    <section class="flex-1">
+      <br>
+      <div class="row">
+      <div class="col-md-12">
+      <h4 id="tusername" style="text-align:center;"></h4>
+      <p onclick="addTime()" style="float:right;font-size:4em;">+</p>
+      </div>
+      </div>
+
+      <div class="row">
+      <div class="col-md-12">
+      <table style="width">
+        <tr>
+        <th></th>
+      <th style="text-align:center;">Mon</th>
+      <th style="text-align:center;">Tue</th>
+      <th style="text-align:center;">Wed</th>
+      <th style="text-align:center;">Thu</th>
+      <th style="text-align:center;">Fri</th>
+        </tr>
+<tr>
+<th>8:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>9:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>10:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>11:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>12:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>13:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>14:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>15:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>16:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>17:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+<tr>
+<th>18:00</th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+<th class="timeCell"></th>
+</tr>
+      </table>
+      </div>
+      </div>
+
+    </section>
+
+</div>
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p>Add block</p>
+          </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+      </div>
+          </div>
+        </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+document.getElementById("tusername").innerHTML = localStorage.getItem("username") + "'s timetable"
+var theModal = document.getElementById("myModal")
+function addTime(){
+  console.log("opening modal")
+  theModal.style.display = "block"
+}
+
+window.onclick = function(event){
+  if (event.target == theModal){
+    theModal.style.display = "none"
+  }
+}
+
+    apiready = function() {
+      if(localStorage.getItem("isLoggedin") != "true"){
+        api.openWin({
+          name: "Login Page",
+          url: '../index.html',
+          bounces: true
+        })
+      }
+
+
+      var theIp = ''
+      $(function (){
+        var myAjax = {
+          init: function(){
+            $.ajax({
+              url: "../wifi.txt",
+              async:false,
+              success:function(data){
+                theIp = data
+              }
+            })
+          }
+        };
+        myAjax.init()
+      });
+
+    api.ajax({
+        url: theIp + 'profile',
+        method: 'post',
+        timeout:30,
+        data: {
+            values: {
+              username:localStorage.getItem("username")
+        },
+      },
+
+    },function(ret, err){
+        if (ret) {
+            $('#profileImg').attr('src',ret.image);
+        } else {
+            //alert( JSON.stringify( err ) );
+        }
+    });
+
+
+
+    };
+
+</script>
+
+</html>
