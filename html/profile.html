@@ -39,6 +39,7 @@
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+
 <script type="text/javascript">
 document.getElementById("tusername").innerHTML = localStorage.getItem("username")
 
@@ -49,7 +50,13 @@ document.getElementById("tusername").innerHTML = localStorage.getItem("username"
         phoneNumber:15102844940,
         zone:'86'
       },function(ret,err){
-        console.log(ret)
+        if (err !== null && err !== undefined && err !== '') {
+       // 错误消息示例：{"msg":"Template not exist.","code":484}
+        alert("Error:\n" + JSON.stringify(err));
+      } else {
+          // 正常消息示例：{"smart":false}
+         alert("Success:\n" + JSON.stringify(ret));
+      }
       })
 
       if(localStorage.getItem("isLoggedin") != "true"){

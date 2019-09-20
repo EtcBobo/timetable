@@ -243,6 +243,11 @@ apiready = function() {
                   document.getElementById("divError").style.display = "block"
                   window.scrollTo(0,0)
                 }
+                else if(ret.errorRea == "phone"){
+                  document.getElementById("errorMsg").innerHTML = "Phone number has already been used, please enter another number"
+                  document.getElementById("divError").style.display = "block"
+                  window.scrollTo(0,0)
+                }
               })
       }
       else if(tpassword != tpasswordc){
