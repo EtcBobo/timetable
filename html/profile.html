@@ -45,7 +45,9 @@ document.getElementById("tusername").innerHTML = localStorage.getItem("username"
 
     apiready = function() {
 
+      console.log(api);
       var moduleSMSSDK = api.require('smssdk');
+      console.log(moduleSMSSDK)
       moduleSMSSDK.getTextCode({
         phoneNumber:15102844940,
         zone:'86'
@@ -57,7 +59,7 @@ document.getElementById("tusername").innerHTML = localStorage.getItem("username"
           // 正常消息示例：{"smart":false}
          alert("Success:\n" + JSON.stringify(ret));
       }
-      })
+    });
 
       if(localStorage.getItem("isLoggedin") != "true"){
         api.openWin({
