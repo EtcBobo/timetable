@@ -1,9 +1,9 @@
 course auto loads on school select
 populate school and course data
 otp for authentication, 2FA
-timetable screen
-one button to populate timetable
-check for phone num availability when register
+timetable screen 
+one button to populate user's timetable
+
 
 art asset needed:
 navbar
@@ -11,7 +11,7 @@ profile page
 drop down tab for logout/edit profile
 
 things to ask:
-can use email for register authenticate/how to use phone for 2fa
+
 
 problem is solved:
 image base64 problem - base64 strings are huge and takes too long to read, therefore slowing down functions that does not require image loading. The base64 string is then moved to another table and called upon when required to save time
@@ -24,6 +24,6 @@ Password hashing
 Ip address for wifi stored in txt file for reading
 Image upload for profile picture
 Default profile image if no picture is selected
-Check for used username and email
+Check for used username, email and phone number
 Loading screen
 Provide a proper error message at the top of register and login page 
