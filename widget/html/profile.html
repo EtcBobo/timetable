@@ -24,11 +24,12 @@
 <br>
 <img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg">
 <br>
-<p>Name: Andy</p>
+
 <p>School: <p style="font-style:bold">Chengdu Uni</p>
 <br>
 <p id="tusername"></p>
-
+<br>
+<button onclick="timeButton()">timetable</button>
 
 
     </section>
@@ -42,24 +43,15 @@
 
 <script type="text/javascript">
 document.getElementById("tusername").innerHTML = localStorage.getItem("username")
-
+function timeButton(){
+  api.openWin({
+      name: 'Timetable page',
+      url: 'timetableFrame.html'
+})
+}
     apiready = function() {
 
-      console.log(api);
-      var moduleSMSSDK = api.require('smssdk');
-      console.log(moduleSMSSDK)
-      moduleSMSSDK.getTextCode({
-        phoneNumber:15102844940,
-        zone:'86'
-      },function(ret,err){
-        if (err !== null && err !== undefined && err !== '') {
-       // 错误消息示例：{"msg":"Template not exist.","code":484}
-        alert("Error:\n" + JSON.stringify(err));
-      } else {
-          // 正常消息示例：{"smart":false}
-         alert("Success:\n" + JSON.stringify(ret));
-      }
-    });
+
 
       if(localStorage.getItem("isLoggedin") != "true"){
         api.openWin({
@@ -89,7 +81,7 @@ document.getElementById("tusername").innerHTML = localStorage.getItem("username"
     api.ajax({
         url: theIp + 'profile',
         method: 'post',
-        timeout:30,
+        //timeout:30,
         data: {
             values: {
               username:localStorage.getItem("username")
@@ -99,8 +91,10 @@ document.getElementById("tusername").innerHTML = localStorage.getItem("username"
     },function(ret, err){
         if (ret) {
             $('#profileImg').attr('src',ret.image);
+            console.log("profile img working")
         } else {
             alert( JSON.stringify( err ) );
+            console.log("profile img not working")
         }
     });
 

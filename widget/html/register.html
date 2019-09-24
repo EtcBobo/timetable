@@ -82,12 +82,35 @@
                 <input type="email" name="email" id="email" class="form-control" required>
                 </div>
                 </div>
-                <div class="row">
-                <div class="form-group col-md-12">
-                    Phone Number:<br>
+                <div class="form-row">
+                <div class="form-group col-sm-3" style="width:60%">
+                    <label>Phone Number:</label>
                 <input type="number" name="phoneNo" id="phoneNo" class="form-control" required>
+
+
                 </div>
+                <div class="form-group col-sm-3" style="width:40%">
+                  <br>
+                  <span class="btn btn-primary btn-lg upload-group text-center" id="codeButton">Send Code</span>
                 </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-12" >
+                  <label>Verification Code:</label>
+              <input type="number" name="code" id="code" class="form-control" required>
+                </div>
+              </div>
+
+              <!--
+              <div class="form-row">
+                <div class="form-group col-sm-12" >
+                  <label>Verification Code:</label>
+            <span class="btn btn-primary btn-lg upload-group text-center" id="verifyButton">verify</span>
+                </div>
+              </div>
+
+            -->
+
                 <div class="row">
                         <div class="form-group col-md-12">
                             School:<br>
@@ -180,7 +203,39 @@ function uploadImage(){
 
 
 apiready = function() {
+  var moduleSMSSDK = api.require('smssdk');
+$("#codeButton").click(function(){
 
+    var tphoneNum = $("#phoneNo").val();
+    console.log(tphoneNum)
+    moduleSMSSDK.getTextCode({
+      phoneNumber:tphoneNum,
+      zone:'86'
+    },function(ret,err){
+      if (err !== null && err !== undefined && err !== '') {
+      alert("Error:\n" + JSON.stringify(err));
+    } else {
+       alert("Success:\n" + JSON.stringify(ret));
+    }
+  });
+  })
+
+$("#verifyButton").click(function(){
+var tphoneNum = $("#phoneNo").val();
+var tverify = $("#code").val();
+moduleSMSSDK.commitCode({
+  zone:'86',
+  phoneNumber:tphoneNum,
+  code:tverify
+},function(ret, err){
+  if (err !== null && err !== undefined && err !== '') {
+    // 错误消息示例：{"msg":"Template not exist.","code":484}
+    alert("Error:\n" + JSON.stringify(err));
+    } else {
+      console.log("correct code")
+    }
+})
+})
 
    $("#registerForm").submit(function(event) {
 
@@ -201,54 +256,68 @@ apiready = function() {
       temail = $form.find('input[name="email"]').val(),
       tpassword = $form.find('input[name="password"]').val(),
       tpasswordc = $form.find('input[name="passwordc"]').val(),
+      tcode = $form.find('input[name="code"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
       var tschool = $('#school').find(":selected").text()
       var tcourse = $('#course').find(":selected").text()
       var letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
       if(letterNumber.test(tpassword) && tpassword == tpasswordc){
-        api.ajax({
-            url: theIp + 'register',
-            method: 'post',
-            timeout:30,
-            data: {
-                values: {
-                    username: tusername,
-                    email: temail,
-                    password: tpassword,
-                    phoneNo: tphone,
-                    school:tschool,
-                    course:tcourse,
-                    imgPath: document.getElementById("output").src
+        moduleSMSSDK.commitCode({
+          zone:'86',
+          phoneNumber:tphone,
+          code:tcode
+        },function(ret, err){
+          if (err !== null && err !== undefined && err !== '') {
+            document.getElementById("errorMsg").innerHTML = "Incorrect verification code"
+            document.getElementById("divError").style.display = "block"
+            window.scrollTo(0,0)
+            alert("Error:\n" + JSON.stringify(err));
+            } else {
+              api.ajax({
+                  url: theIp + 'register',
+                  method: 'post',
+                  timeout:30,
+                  data: {
+                      values: {
+                          username: tusername,
+                          email: temail,
+                          password: tpassword,
+                          phoneNo: tphone,
+                          school:tschool,
+                          course:tcourse,
+                          imgPath: document.getElementById("output").src
+                      },
+                  },
                 },
-            },
-          },
-           function(ret, err){
+                 function(ret, err){
 
-              console.log(ret)
-              if(ret.registerStatus=="true"){
-                api.alert({ msg: "You have successfully Registered" });
-                api.openWin({
-                  name: "Login Page",
-                  url: '../index.html',
-                  bounces: true
-                          })
-                }
-                else if(ret.errorRea == "username"){
-                  document.getElementById("errorMsg").innerHTML = "Username taken, please choose another username"
-                  document.getElementById("divError").style.display = "block"
-                  window.scrollTo(0,0)
-                }
-                else if(ret.errorRea == "email"){
-                  document.getElementById("errorMsg").innerHTML = "Email has already been used, please enter another email"
-                  document.getElementById("divError").style.display = "block"
-                  window.scrollTo(0,0)
-                }
-                else if(ret.errorRea == "phone"){
-                  document.getElementById("errorMsg").innerHTML = "Phone number has already been used, please enter another number"
-                  document.getElementById("divError").style.display = "block"
-                  window.scrollTo(0,0)
-                }
-              })
+                    console.log(ret)
+                    if(ret.registerStatus=="true"){
+                      api.alert({ msg: "You have successfully Registered" });
+                      api.openWin({
+                        name: "Login Page",
+                        url: '../index.html',
+                        bounces: true
+                                })
+                      }
+                      else if(ret.errorRea == "username"){
+                        document.getElementById("errorMsg").innerHTML = "Username taken, please choose another username"
+                        document.getElementById("divError").style.display = "block"
+                        window.scrollTo(0,0)
+                      }
+                      else if(ret.errorRea == "email"){
+                        document.getElementById("errorMsg").innerHTML = "Email has already been used, please enter another email"
+                        document.getElementById("divError").style.display = "block"
+                        window.scrollTo(0,0)
+                      }
+                      else if(ret.errorRea == "phone"){
+                        document.getElementById("errorMsg").innerHTML = "Phone number has already been used, please enter another number"
+                        document.getElementById("divError").style.display = "block"
+                        window.scrollTo(0,0)
+                      }
+                    })
+            }
+            });
       }
       else if(tpassword != tpasswordc){
         document.getElementById("errorMsg").innerHTML = "Password does not match. Please ensure you enter the same password in the confirm password field"
@@ -281,7 +350,13 @@ text-align: center;
 margin-left: 50px;
 }
 
-
+#codeButton{
+  background-color: green;
+  color: #fff!important;
+  font-size: 14px;
+  height: 42px;
+  margin-top:5px;
+  }
 
 
   #uploadButton{
