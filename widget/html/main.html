@@ -12,16 +12,38 @@
         height: 100%;
 
     }
+    #return{
+      margin-left: 12px;
+    }
+    #write{
+      position: relative;
+      margin-left: 25px;
+      height:171px;
+       width: 299px;
+    }
 
-    h2 {
-        height: 64px;
-        width: 100%;
+    #title {
+
         text-align: center;
-        background-image:url(image/leaf2.jpg);
-        color: red;
-        line-height: 44px;
-        font-size: 23px;
+        color:rgb(19, 73, 128);
+        font-size: 22px;
         font-family: monospace;
+    }
+    #profile{
+      position: relative;
+      font-family: monospace;
+      font-size: 21px;
+      left: 27px;
+      top: 16px;
+      color: rgb(19, 73, 128);
+
+    }
+    #timetable{
+      position: relative;
+      font-size: 21px;
+      margin-left: 173px;
+      font-family: monospace;
+      color: rgb(19, 73, 128);
     }
         </style>
 </head>
@@ -31,19 +53,22 @@
 
 
   <div class="container">
-    <div class="return">
+    <div>
       <br>
-        <input type="image"  src="..\image\return.jpg" height=37px width=37px;>
+        <input  id="return" type="image"  src="..\image\return.jpg" height=37px width=37px;>
     <div>
 
-      <h2>welcome to the main page</h2>
+      <p id="title">personal information</p>
 <br>
 <br>
-
-<button onclick="profileButton()">Profile</button>
+<div >
+  <input  id="write" type="image"  src="..\image\write.jpg";>
+  <button onclick="profileButton()" id="profile">Profile</button>
+</div>
 <br>
 <br>
-<button onclick="timeButton()">timetable</button>
+<div>
+<button onclick="timeButton()" id="timetable">timetable</button>
 </div>
 
 </body>
