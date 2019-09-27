@@ -1,10 +1,14 @@
 course auto loads on school select
 populate school and course data
-otp for authentication, 2FA
-add block to timetable
+edit block in database
 one button to populate user's timetable
-fix back button (use addevent keyback) 
 profile picture loads slow
+forget username
+forget password
+put color on color select in timetable
+fix footer for nav bar
+after register go to login
+alert for verification for phone
 
 art asset needed:
 navbar
@@ -14,9 +18,11 @@ drop down tab for logout/edit profile
 things to ask:
 
 
-problem is solved:
+problem i solved:
 image base64 problem - base64 strings are huge and takes too long to read, therefore slowing down functions that does not require image loading. The base64 string is then moved to another table and called upon when required to save time
 openframe problem - using only openFrame or openWin is too limiting and the design looks very inconsistent. Therefore a frame and a body html page is created seperately and is loaded the same way as index.html
+smssdk - project folder could not sync with the cloud version, hence the module smssdk and mobtools could not be added. The current github folder have to match the criteria and uploaded to the cloud for the modules to run successfully
+designing dynamic timetable with html + CSS -  using a html table is challenging since any custom timetable block have to take up an exact amount of columns and rows.after much consideration I decided to give each grid an id so that i can change all affected grid's CSS at once. By setting display="none" for blocks i don't need, i can prevent an overflow of grids 
 
 task completed 3rd week:
 Local storage for persistent data across pages
@@ -30,3 +36,10 @@ Loading screen
 Provide a proper error message at the top of register and login page 
 
 task completed 4th week:
+otp for authentication, 2FA
+fix back button
+add specific block to timetable
+save array of strings into mongodb
+check for existing block
+load timetable block
+remove block
