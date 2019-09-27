@@ -8,28 +8,64 @@
     <title>Profile Page</title>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
 
+tr,td{
+  height: 50px;
+  width: 311px;
+}
+.row{
+  margin-top: 30px;
+}
+/*.pro1{
+
+
+}
+}*/
+</style>
 </head>
 
 <body class="wrap">
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
- -->
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <br>
 
   <div class="container" >
 
     <section class="flex-1">
-      <h2>Profile</h2>
-<br>
-<br>
-<br>
-<img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg">
-<br>
+      <h3>Profile</h3>
+      <table border="1">
+        <tr>
+          <td>eg1</td>
+          <td>eg2</td>
+        </tr>
+        <tr>
+          <td>eg3</td>
+          <td>eg4</td>
+        </tr>
+      </table>
 
-<p>School: <p style="font-style:bold">Chengdu Uni</p>
 <br>
-<p id="tusername"></p>
 <br>
-<button onclick="timeButton()">timetable</button>
+<div class="pro1">
+<div style="border:1px solid #ccc;"><p style="">School: Chengdu Polytechnic</p></div>
+<br>
+<div style="border:1px solid #ccc;"><p style="">family number</p></div>
+<br>
+<div style="border:1px solid #ccc;"><p style="">birthday place</p></div>
+<br>
+<div style="border:1px solid #ccc;"><p style="">family number</p></div>
+<br>
+<div style="border:1px solid #ccc;"><p style="">family number</p></div>
+
+</div>
+<!-- <img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg"> -->
+ <!-- <p>School: <p style="font-style:bold">Chengdu Uni</p> -->
+<br>
+<!-- <p id="tusername"></p>
+<p> id="tusername"<style></style><style></p>-->
+<br>
+<!-- <button onclick="timeButton()">timetable</button> -->
 
 
     </section>
@@ -39,10 +75,11 @@
 </div>
 
 </body>
+
 <script type="text/javascript" src="../script/api.js"></script>
 
 <script type="text/javascript">
-document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+//document.getElementById("tusername").innerHTML = localStorage.getItem("username")
 function timeButton(){
   api.openWin({
       name: 'Timetable page',
@@ -50,8 +87,6 @@ function timeButton(){
 })
 }
     apiready = function() {
-
-
 
       if(localStorage.getItem("isLoggedin") != "true"){
         api.openWin({
