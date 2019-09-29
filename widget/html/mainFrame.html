@@ -5,86 +5,72 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <title>Main Page</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <!-- /*<style type="text/css">
+    <style type="text/css">
         html,
         body {
             height: 100%;
-
         }
-
         .wrap {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-flex-flow: column;
         }
-
-        header {
-            height: 64px;
+        .flex-1 {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+        }
+        footer {
+            height: 30px;
             width: 100%;
+            background-image: url(../image/leaf.jpg);
+            color: black;
+            line-height: 30px;
             text-align: center;
-            color: red;
-            line-height: 44px;
-            font-size: 23px;
             font-family: monospace;
         }
-        </style>*/ -->
-
+    </style>
 </head>
-
 <body class="wrap">
-<header>
-<!--
-  <input type="image"  src="..\image\school.png" width="100%"; >
--->
-</header>
+    <section class="flex-1">
 
-<section class="flex-1">
-
-</section>
-
-
-
+    </section>
+    <footer>Copyright &copy;<span id="year"></span></footer>
 </body>
 <script>
-
-var loadFile = function(event) {
-    var output = document.getElementById('output');
-    output.src = URL.createObjectURL(event.target.files[0]);
-};
+    var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+    };
 </script>
-
 <script type="text/javascript">
+    apiready = function() {
 
+        var footer = $api.dom('footer');
 
-apiready = function() {
+        var footerH = $api.fixTabBar(footer);
+        console.log(footerH)
 
-  var header = $api.dom('header');
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            console.log("back button pressed")
+        });
 
-  var headerH = $api.fixStatusBar(header);
-
-  api.addEventListener({
-      name: 'keyback'
-  }, function(ret, err) {
-      console.log("back button pressed")
-  });
-
-  api.openFrame({
-      name: 'Main page',
-      url: 'profile.html',
-
-      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-          marginTop: headerH, // main页面距离win顶部的高度
-          w: 'auto' // main页面的宽度 自适应屏幕宽度
-      }
-  });
-}
-
-
-
+        api.openFrame({
+            name: 'Main page',
+            url: 'profile.html',
+            // bounces:true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:0,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+        });
+    }
 </script>
 
 

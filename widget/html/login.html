@@ -17,9 +17,7 @@
     <div class="container">
 
         <br><br>
-        <div class="return">
-            <input type="image"  src="..\image\return.jpg" height=37px width=37px;>
-        <div>
+
         <form method="post" class="form-group col-md-12" id="loginForm">
 
             <div id="login">Login</div>
@@ -125,9 +123,18 @@ $(function (){
 
 function registerButton(){
   console.log("reg button pressed")
-  api.openWin({
+  api.openFrame({
     name: "Register Page",
-    url: 'registerFrame.html'
+    url: 'register.html',
+    rect: {
+        marginTop: 71,
+        marginBottom: 30,
+        w: 'auto'
+    },
+    animation:{
+      type:"movein",
+      subType:"from_right"
+    }
             })
 }
      apiready = function() {
@@ -136,10 +143,9 @@ function registerButton(){
           api.openFrame({
             name: "Loading Page",
             url: 'loadingScreen.html',
-            bounces: true,
             rect: {
                 marginTop: 71,
-                marginBottom: 71,
+                marginBottom: 30,
                 w: 'auto'
             }
         })

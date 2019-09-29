@@ -60,16 +60,20 @@
 <script type="text/javascript">
     apiready = function() {
         //输出Log，Log将显示在APICloud Studio控制台
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+          api.closeFrame({
+              name: 'Register Page'
+          });
+        });
         console.log("Hello World! Hello APICloud!");
 
         var header = $api.dom('header'); // 获取 header 标签元素
         var footer = $api.dom('footer'); // 获取 footer 标签元素
 
-        // 1.修复开启沉浸式效果带来的顶部Header与手机状态栏重合的问题，最新api.js方法已支持适配iPhoneX；
-        // 2.默认已开启了沉浸式效果 config.xml中 <preference name="statusBarAppearance" value="true"/>
-        // 3.沉浸式效果适配支持iOS7+，Android4.4+以上版本
         var headerH = $api.fixStatusBar(header);
-        // 最新api.js为了适配iPhoneX增加的方法，修复底部Footer部分与iPhoneX的底部虚拟横条键重叠的问题；
+
         var footerH = $api.fixTabBar(footer);
 
         api.openFrame({
@@ -81,11 +85,6 @@
                 marginBottom: footerH,
                 w: 'auto'
             }
-        });
-        api.openWin({
-            name: 'login',
-            url: 'html/mainFrame.html'
-
         });
 
         // 获取当前年份时间，并加载显示到页面
