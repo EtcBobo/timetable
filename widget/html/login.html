@@ -123,9 +123,18 @@ $(function (){
 
 function registerButton(){
   console.log("reg button pressed")
-  api.openWin({
+  api.openFrame({
     name: "Register Page",
-    url: 'registerFrame.html'
+    url: 'register.html',
+    rect: {
+        marginTop: 71,
+        marginBottom: 30,
+        w: 'auto'
+    },
+    animation:{
+      type:"movein",
+      subType:"from_right"
+    }
             })
 }
      apiready = function() {
@@ -134,10 +143,9 @@ function registerButton(){
           api.openFrame({
             name: "Loading Page",
             url: 'loadingScreen.html',
-            bounces: true,
             rect: {
                 marginTop: 71,
-                marginBottom: 71,
+                marginBottom: 30,
                 w: 'auto'
             }
         })

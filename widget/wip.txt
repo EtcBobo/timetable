@@ -1,14 +1,7 @@
-course auto loads on school select
-populate school and course data
-edit block in database
+remain logged in when exit app
+preview color on color select in timetable
 
-profile picture loads slow
-forget username
-forget password
-put color on color select in timetable
-fix footer for nav bar
-after register go to login
-alert for verification for phone
+
 
 art asset needed:
 navbar
@@ -43,4 +36,10 @@ save array of strings into mongodb
 check for existing block
 load timetable block
 remove block
-one button to populate user's timetable
+populate school and course data
+
+task completed 5th week:
+edit block in database
+course auto loads on school select
+after register go to login
+fix footer for nav bar

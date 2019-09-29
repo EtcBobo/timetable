@@ -115,11 +115,14 @@
                         <div class="form-group col-md-12">
                             School:<br>
                             <select class="form-control" name="pref" id="school">
-                                    <option value="School 1">School 1</option>
-                                    <option value="School 2">School 2</option>
-                                    <option value="School 3">School 3</option>
-                                    <option value="School 4">School 4</option>
-                                    <option value="School 5">School 5</option>
+                                    <option value="软件学院">软件学院</option>
+                                    <option value="财经学院">财经学院</option>
+                                    <option value="旅游学院">旅游学院</option>
+                                    <option value="工商管理与房地产学院">工商管理与房地产学院</option>
+                                    <option value="医护分院">医护分院</option>
+                                    <option value="基础部">基础部</option>
+                                    <option value="外语部">外语部</option>
+
                                   </select>
                         </div>
                   </div>
@@ -127,11 +130,19 @@
                           <div class="form-group col-md-12">
                               Course:<br>
                               <select class="form-control" name="pref" id="course">
-                                <option value="Course 1">Course 1</option>
-                                <option value="Course 2">Course 2</option>
-                                <option value="Course 3">Course 3</option>
-                                <option value="Course 4">Course 4</option>
-                                <option value="Course 5">Course 5</option>
+                                <option value="软件技术">软件技术</option>
+                                <option value="计算机应用技术">计算机应用技术</option>
+                                <option value="计算机网络技术">计算机网络技术</option>
+                                <option value="应用电子技术">应用电子技术</option>
+                                <option value="楼宇智能化工程技术">楼宇智能化工程技术</option>
+                                <option value="光伏发电技术及应用">光伏发电技术及应用</option>
+                                <option value="汽车检测与维修技术">汽车检测与维修技术</option>
+                                <option value="动漫设计与制作">动漫设计与制作</option>
+                                <option value="艺术设计">艺术设计</option>
+                                <option value="人物形象设计">人物形象设计</option>
+
+
+
                               </select>
                           </div>
                   </div>
@@ -203,6 +214,8 @@ function uploadImage(){
 
 
 apiready = function() {
+
+  
   var moduleSMSSDK = api.require('smssdk');
 $("#codeButton").click(function(){
 
@@ -215,7 +228,7 @@ $("#codeButton").click(function(){
       if (err !== null && err !== undefined && err !== '') {
       alert("Error:\n" + JSON.stringify(err));
     } else {
-       alert("Success:\n" + JSON.stringify(ret));
+       alert("The code has been sent to your phone");
     }
   });
   })
@@ -234,6 +247,34 @@ moduleSMSSDK.commitCode({
     } else {
       console.log("correct code")
     }
+})
+})
+
+$("#school").change(function(){
+  var sel = document.getElementById('course')
+  var sel2 = document.getElementById('school')
+  var selL = sel.options.length
+  for(i=selL-1;i>=0;i--){
+    sel.remove(i)
+    console.log(sel)
+  }
+  api.ajax({
+      url: theIp + 'selectSchool',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+              school:sel2.options[sel2.selectedIndex].text
+          },
+      },
+    },
+     function(ret, err){
+      for(i= 0;i<ret.length;i++){
+        var opt = document.createElement('option')
+        opt.appendChild(document.createTextNode(ret[i].name))
+        opt.value = ret[i].name
+        sel.appendChild(opt)
+      }
 })
 })
 
