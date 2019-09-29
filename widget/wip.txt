@@ -1,7 +1,7 @@
 course auto loads on school select
 populate school and course data
 edit block in database
-one button to populate user's timetable
+
 profile picture loads slow
 forget username
 forget password
@@ -43,3 +43,4 @@ save array of strings into mongodb
 check for existing block
 load timetable block
 remove block
+one button to populate user's timetable

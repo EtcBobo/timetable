@@ -17,11 +17,6 @@ tr,td{
 .row{
   margin-top: 30px;
 }
-/*.pro1{
-
-
-}
-}*/
 </style>
 </head>
 
@@ -73,7 +68,7 @@ tr,td{
 
 
 </div>
-
+  <button onclick="timeButton()" id="profile">timetable</button>
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
@@ -87,7 +82,7 @@ function timeButton(){
 })
 }
     apiready = function() {
-      
+
       if(localStorage.getItem("isLoggedin") != "true"){
         api.openWin({
           name: "Login Page",
@@ -112,6 +107,13 @@ function timeButton(){
         };
         myAjax.init()
       });
+
+      function timeButton(){
+        api.openWin({
+            name: 'Timetable page',
+            url: 'timetableFrame.html'
+      })
+      }
 
     api.ajax({
         url: theIp + 'profile',
