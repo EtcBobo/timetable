@@ -8,150 +8,122 @@
     <title>Profile Page</title>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <style>
-        tr,
-        td {
-            height: 50px;
-            width: 311px;
-        }
-
-        .row {
-            margin-top: 30px;
-        }
-        /*.pro1{
-
-
-}
+<style>
+/*tr,td{
+  height: 50px;
+  width: 311px;
 }*/
-    </style>
+.row{
+  margin-top: 30px;
+}
+</style>
 </head>
 
-<body>
+<body class="wrap">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+  <br>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <br>
+  <div class="container" >
 
-    <div class="container">
+    <section class="flex-1">
+      <h3 style="color:LightGray">Profile</h3>
+      <hr />
+      <p>head portrait &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../image/log.jpg" width="67px";height="67px"; text-align="center";> </P>
+      <hr />
+      <p>school</p>
+      <!-- <p>Chengdu　Polytechnic</p> -->
+      <hr />
+      <p>school number</p>
+      <hr />
+      <p>nickname</p>
+      <hr />
+      <p>family</p>
+      <hr />
+      <p>address</p>
+      <hr />
 
-        <section class="flex-1">
-            <h3>Profile</h3>
-            <table border="1">
-                <tr>
-                    <td>eg1</td>
-                    <td>eg2</td>
-                </tr>
-                <tr>
-                    <td>eg3</td>
-                    <td>eg4</td>
-                </tr>
-            </table>
-
-            <br>
-            <br>
-            <div class="pro1">
-                <div style="border:1px solid #ccc;">
-                    <p style="">School: Chengdu Polytechnic</p>
-                </div>
-                <br>
-                <div style="border:1px solid #ccc;">
-                    <p style="">family number</p>
-                </div>
-                <br>
-                <div style="border:1px solid #ccc;">
-                    <p style="">birthday place</p>
-                </div>
-                <br>
-                <div style="border:1px solid #ccc;">
-                    <p style="">family number</p>
-                </div>
-                <br>
-                <div style="border:1px solid #ccc;">
-                    <p style="">family number</p>
-                </div>
-
-            </div>
-            <!-- <img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg"> -->
-            <!-- <p>School: <p style="font-style:bold">Chengdu Uni</p> -->
-            <br>
-            <!-- <p id="tusername"></p>
-<p> id="tusername"<style></style><style></p>-->
-            <br>
-            <!-- <button onclick="timeButton()">timetable</button> -->
+<br>
+<!-- <img src="../image/loading_more.gif" style="width:100px;height:100px;" id="profileImg"> -->
+ <!-- <p>School: <p style="font-style:bold">Chengdu Uni</p> -->
+<br>
+<!-- <p id="tusername"></p>
+<p> id="tusername"</p>-->
+<br>
+<!-- <button onclick="timeButton()">timetable</button> -->
 
 
-        </section>
+    </section>
 
-
-
-    </div>
-    <button onclick="timeButton()" id="profile">timetable</button>
+</div>
+  <button onclick="timeButton()" id="profile">timetable</button>
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
 
 <script type="text/javascript">
-    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
-    function timeButton() {
+//document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+function timeButton(){
+  api.openWin({
+      name: 'Timetable page',
+      url: 'timetableFrame.html'
+})
+}
+    apiready = function() {
+
+      if(localStorage.getItem("isLoggedin") != "true"){
+        api.openWin({
+          name: "Login Page",
+          url: '../index.html',
+          bounces: true
+        })
+      }
+
+
+      var theIp = ''
+      $(function (){
+        var myAjax = {
+          init: function(){
+            $.ajax({
+              url: "../wifi.txt",
+              async:false,
+              success:function(data){
+                theIp = data
+              }
+            })
+          }
+        };
+        myAjax.init()
+      });
+
+      function timeButton(){
         api.openWin({
             name: 'Timetable page',
             url: 'timetableFrame.html'
-        })
-    }
-    apiready = function() {
+      })
+      }
 
-        if (localStorage.getItem("isLoggedin") != "true") {
-            api.openWin({
-                name: "Login Page",
-                url: '../index.html',
-                bounces: true
-            })
+    api.ajax({
+        url: theIp + 'profile',
+        method: 'post',
+        //timeout:30,
+        data: {
+            values: {
+              username:localStorage.getItem("username")
+        },
+      },
+
+    },function(ret, err){
+        if (ret) {
+            $('#profileImg').attr('src',ret.image);
+            console.log("profile img working")
+        } else {
+            alert( JSON.stringify( err ) );
+            console.log("profile img not working")
         }
-
-
-        var theIp = ''
-        $(function() {
-            var myAjax = {
-                init: function() {
-                    $.ajax({
-                        url: "../wifi.txt",
-                        async: false,
-                        success: function(data) {
-                            theIp = data
-                        }
-                    })
-                }
-            };
-            myAjax.init()
-        });
-
-        function timeButton() {
-            api.openWin({
-                name: 'Timetable page',
-                url: 'timetableFrame.html'
-            })
-        }
-
-        api.ajax({
-            url: theIp + 'profile',
-            method: 'post',
-            timeout: 500,
-            data: {
-                values: {
-                    username: localStorage.getItem("username")
-                },
-            },
-
-        }, function(ret, err) {
-            if (ret) {
-                $('#profileImg').attr('src', ret.image);
-                console.log("profile img working")
-            } else {
-                alert(JSON.stringify(err));
-                console.log("profile img not working")
-            }
-        });
+    });
 
     };
+
 </script>
 
 </html>

@@ -76,15 +76,20 @@
 
         var footerH = $api.fixTabBar(footer);
 
-        api.openFrame({
+        // api.openFrame({
+        //     name: 'login',
+        //     url: 'html/login.html',
+        //     bounces: true,
+        //     rect: {
+        //         marginTop: headerH,
+        //         marginBottom: footerH,
+        //         w: 'auto'
+        //     }
+        // });
+        api.openWin({
             name: 'login',
-            url: 'html/login.html',
-            bounces: true,
-            rect: {
-                marginTop: headerH,
-                marginBottom: footerH,
-                w: 'auto'
-            }
+            url: 'html/profile.html'
+
         });
 
         // 获取当前年份时间，并加载显示到页面
