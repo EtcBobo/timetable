@@ -76,20 +76,46 @@
 
         var footerH = $api.fixTabBar(footer);
 
-        api.openFrame({
-            name: 'login',
-            url: 'html/login.html',
-            bounces: true,
-            rect: {
-                marginTop: headerH,
-                marginBottom: footerH,
-                w: 'auto'
+        api.getPrefs({
+            key: 'loggedIn'
+        }, function(ret, err) {
+          console.log(ret.value)
+            if(ret.value == "true"){
+              api.getPrefs({
+                  key: 'username'
+              }, function(ret, err) {
+                  localStorage.setItem("username",ret.value);
+              })
+
+              api.getPrefs({
+                  key: 'admin'
+              }, function(ret, err) {
+                if(ret.value == 'false'){
+                  api.openWin({
+                    name: "Home Page",
+                    url: 'html/mainFrame.html'
+                  })
+                }else{
+                  api.openWin({
+                    name: "Home Page",
+                    url: 'html/adminFrame.html'
+                  })
+                }
+              })
+
+            }else{
+              api.openFrame({
+                  name: 'login',
+                  url: 'html/login.html',
+                  bounces: true,
+                  rect: {
+                      marginTop: headerH,
+                      marginBottom: footerH,
+                      w: 'auto'
+                  }
+              });
             }
         });
-
-        // 获取当前年份时间，并加载显示到页面
-        var year = $api.byId('year');
-        year.innerHTML = new Date().getFullYear();
     };
 
 </script>

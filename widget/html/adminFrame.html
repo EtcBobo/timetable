@@ -74,15 +74,26 @@
         var footerH = $api.fixTabBar(footer);
         console.log(footerH)
 
+
+
         api.addEventListener({
             name: 'keyback'
         }, function(ret, err) {
-            console.log("back button pressed")
+          var frames = api.frames()
+          console.log(JSON.stringify(frames))
+          if(frames.length > 1){
+            api.closeFrame({
+              name:frames[frames.length-1].name
+            });
+          }
+
+
+
+
         });
 
 
         $("#goToProf").click(function(){
-
           api.openFrame({
             name: 'Timetable page',
             url: 'profile.html',
@@ -96,7 +107,6 @@
         })
 
         $("#goToTime").click(function(){
-
           api.openFrame({
             name: 'Timetable page',
             url: 'timetable.html',
@@ -110,7 +120,6 @@
         })
 
         $("#goToSetting").click(function(){
-
           api.openFrame({
             name: 'Setting page',
             url: 'setting.html',
@@ -124,9 +133,10 @@
         })
 
 
+
         api.openFrame({
             name: 'Main page',
-            url: 'profile.html',
+            url: 'admin.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
                 marginTop:0,

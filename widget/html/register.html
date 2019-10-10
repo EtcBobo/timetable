@@ -215,7 +215,7 @@ function uploadImage(){
 
 apiready = function() {
 
-  
+
   var moduleSMSSDK = api.require('smssdk');
 $("#codeButton").click(function(){
 
@@ -314,6 +314,15 @@ $("#school").change(function(){
             window.scrollTo(0,0)
             alert("Error:\n" + JSON.stringify(err));
             } else {
+              api.openFrame({
+                name: "Loading Page",
+                url: 'loadingScreen.html',
+                rect: {
+                    marginTop: 71,
+                    marginBottom: 30,
+                    w: 'auto'
+                }
+              })
               api.ajax({
                   url: theIp + 'register',
                   method: 'post',
@@ -335,10 +344,12 @@ $("#school").change(function(){
                     console.log(ret)
                     if(ret.registerStatus=="true"){
                       api.alert({ msg: "You have successfully Registered" });
+                      api.closeFrame({
+                        name:"Loading Page"
+                      })
                       api.openWin({
                         name: "Login Page",
                         url: '../index.html'
-
                                 })
                       }
                       else if(ret.errorRea == "username"){

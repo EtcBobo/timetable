@@ -84,7 +84,7 @@
 
 
     </div>
-    <button onclick="timeButton()" id="profile">timetable</button>
+
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
@@ -123,13 +123,6 @@
             };
             myAjax.init()
         });
-
-        function timeButton() {
-            api.openWin({
-                name: 'Timetable page',
-                url: 'timetableFrame.html'
-            })
-        }
 
         api.ajax({
             url: theIp + 'profile',
