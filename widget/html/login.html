@@ -174,9 +174,43 @@ function registerButton(){
                     });
                     localStorage.setItem("username",ret.username);
                     localStorage.setItem("isLoggedin","true");
+                    api.setPrefs({
+                        key: 'username',
+                        value: ret.username
+                    });
+                    api.setPrefs({
+                        key: 'loggedIn',
+                        value: 'true'
+                    });
+                    api.setPrefs({
+                        key: 'admin',
+                        value: 'false'
+                    });
                     api.openWin({
                       name: "Home Page",
                       url: 'mainFrame.html'
+                    })
+                  }else if(ret.auth=="admin"){
+                    api.closeFrame({
+                        name: 'Loading Page'
+                    });
+                    localStorage.setItem("username",ret.username);
+                    localStorage.setItem("isLoggedin","true");
+                    api.setPrefs({
+                        key: 'username',
+                        value: ret.username
+                    });
+                    api.setPrefs({
+                        key: 'loggedIn',
+                        value: 'true'
+                    });
+                    api.setPrefs({
+                        key: 'admin',
+                        value: 'true'
+                    });
+                    api.openWin({
+                      name: "Admin Page",
+                      url: 'adminFrame.html'
                     })
                   }else{
                     api.closeFrame({

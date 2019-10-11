@@ -91,32 +91,41 @@ function timeButton(){
         myAjax.init()
       });
 
-      function timeButton(){
-        api.openWin({
-            name: 'Timetable page',
-            url: 'timetableFrame.html'
-      })
-      }
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
 
-    api.ajax({
-        url: theIp + 'profile',
-        method: 'post',
-        //timeout:30,
-        data: {
-            values: {
-              username:localStorage.getItem("username")
-        },
-      },
+        api.ajax({
+            url: theIp + 'profile',
+            method: 'post',
+            timeout: 500,
+            data: {
+                values: {
+                    username: localStorage.getItem("username")
+                },
+            },
 
-    },function(ret, err){
-        if (ret) {
-            $('#profileImg').attr('src',ret.image);
-            console.log("profile img working")
-        } else {
-            alert( JSON.stringify( err ) );
-            console.log("profile img not working")
-        }
-    });
+        }, function(ret, err) {
+            if (ret) {
+                $('#profileImg').attr('src', ret.image);
+                console.log("profile img working")
+            } else {
+                alert(JSON.stringify(err));
+                console.log("profile img not working")
+            }
+        });
 
     };
 

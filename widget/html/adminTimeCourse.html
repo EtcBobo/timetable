@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Profile Page</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        tr,
+        td {
+            height: 50px;
+            width: 311px;
+        }
+
+        .row {
+            margin-top: 30px;
+        }
+        /*.pro1{
+
+
+}
+}*/
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <br>
+
+    <div class="container">
+
+        <section class="flex-1">
+<div class="row" id="goTo1" style="display:none" onclick="goToTime('1')">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="1"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo2" style="display:none">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="2"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo3" style="display:none">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="3"></p>
+</div>
+<div class="col-2" >
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo4" style="display:none">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="4"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo5" style="display:none">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="5"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo6" style="display:none">
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;" id="6"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo7" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="7"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo8" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="8"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo9" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="9"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo10" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="10"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo11" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="11"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo12" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="12"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+<div class="row" id="goTo13" style="display:none">
+  <div class="col-10">
+<p style="font-size:1.2em;font-weight:bold;" id="13"></p>
+</div>
+<div class="col-2">
+<p style="font-size:1.5em;">></p>
+</div>
+</div>
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    function goToTime(course){
+      console.log(course)
+      api.openFrame({
+      name: "Timetable Admin Page",
+      url: 'adTimetable.html',
+      rect: {
+        marginTop: 0,
+        marginBottom: 60,
+          w: 'auto'
+      },
+      animation:{
+        type:"movein",
+        subType:"from_right"
+      },
+      pageParam:({course:course})
+    })
+    }
+
+    apiready = function() {
+
+        if (localStorage.getItem("isLoggedin") != "true") {
+            api.openWin({
+                name: "Login Page",
+                url: '../index.html',
+                bounces: true
+            })
+        }
+
+
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        console.log(api.pageParam.school)
+
+        api.ajax({
+          url: theIp + 'loadCourse',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                school:api.pageParam.school
+            },
+          },
+      },function(ret, err){
+        //populate the courses
+        console.log(ret[0].name)
+        for(i=0;i<ret.length;i++){
+          document.getElementById(String(i+1)).innerHTML = ret[i].name
+          var tString = "goTo" + String(i+1)
+          document.getElementById(tString).style.display = ""
+          var funcStr = 'goToTime("' + ret[i].name  +'")'
+          document.getElementById(tString).setAttribute('onclick',funcStr)
+        }
+        });
+
+
+
+    };
+</script>
+
+</html>

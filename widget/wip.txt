@@ -1,12 +1,12 @@
-remain logged in when exit app
 preview color on color select in timetable
 
+setting page function
+admin edit course
 
 
-art asset needed:
-navbar
-profile page
-drop down tab for logout/edit profile
+
+grand master plan:
+implement bid for timetable
 
 things to ask:
 
@@ -16,6 +16,7 @@ image base64 problem - base64 strings are huge and takes too long to read, there
 openframe problem - using only openFrame or openWin is too limiting and the design looks very inconsistent. Therefore a frame and a body html page is created seperately and is loaded the same way as index.html
 smssdk - project folder could not sync with the cloud version, hence the module smssdk and mobtools could not be added. The current github folder have to match the criteria and uploaded to the cloud for the modules to run successfully
 designing dynamic timetable with html + CSS -  using a html table is challenging since any custom timetable block have to take up an exact amount of columns and rows.after much consideration I decided to give each grid an id so that i can change all affected grid's CSS at once. By setting display="none" for blocks i don't need, i can prevent an overflow of grids 
+back button - because frames are being opened on top of each other, the method closeFrame() has to be dynamic since the frame name is required to close them. In order to make it dynamic, the api.frame method is called to get all current frames' name. After that I just have to close the last frame in the array to mimic a back action.
 
 task completed 3rd week:
 Local storage for persistent data across pages
@@ -43,3 +44,13 @@ edit block in database
 course auto loads on school select
 after register go to login
 fix footer for nav bar
+
+task completed 6th week:
+navbar
+back button
+populate course on admin sch select
+set up admin control of timetable default
+populate timetable using admin default timetable
+remain logged in when exit app
+setting page
+add more color to timetable
