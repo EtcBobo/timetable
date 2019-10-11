@@ -1,14 +1,15 @@
-remain logged in when exit app - use setPrefs
 preview color on color select in timetable
-setting page
+
+setting page function
 admin edit course
-populate timetable using admin default timetable
+
+
 
 grand master plan:
 implement bid for timetable
 
 things to ask:
-app data persist on app close
+
 
 problem i solved:
 image base64 problem - base64 strings are huge and takes too long to read, therefore slowing down functions that does not require image loading. The base64 string is then moved to another table and called upon when required to save time
@@ -49,3 +50,7 @@ navbar
 back button
 populate course on admin sch select
 set up admin control of timetable default
+populate timetable using admin default timetable
+remain logged in when exit app
+setting page
+add more color to timetable
