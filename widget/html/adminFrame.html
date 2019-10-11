@@ -41,22 +41,18 @@
     <footer>
     <div class="container" style="background-color:rgb(242, 247, 248);height:60px;">
       <div class="row" style="padding-top:10px;">
-        <div class="col-3" id="goToProf">
-          <img src="../image/profile.png" width="25px" height="25px">
+        <div class="col-4" id="goToMain">
+          <img src="../image/home.png" width="25px" height="25px">
           <br>
-          <p>Profile</p>
+          <p>Home</p>
         </div>
-        <div class="col-3" id="goToTime">
-          <img src="../image/timetable.png" width="25px" height="25px">
+        <div class="col-4" id="goToChat">
+          <img src="../image/chat.png" width="25px" height="25px">
           <br>
-          <p>Timetable</p>
+          <p>Chat</p>
         </div>
-        <div class="col-3">
-          <img src="../image/profile.png" width="25px" height="25px">
-          <br>
-          <p>Profile</p>
-        </div>
-        <div class="col-3" id="goToSetting">
+
+        <div class="col-4" id="goToSetting">
           <img src="../image/setting.png" width="25px" height="25px">
           <br>
           <p>Setting</p>
@@ -93,10 +89,10 @@
         });
 
 
-        $("#goToProf").click(function(){
+        $("#goToMain").click(function(){
           api.openFrame({
-            name: 'Timetable page',
-            url: 'profile.html',
+            name: 'Main page',
+            url: 'admin.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
                 marginTop:0,
@@ -106,17 +102,17 @@
           })
         })
 
-        $("#goToTime").click(function(){
-          api.openFrame({
-            name: 'Timetable page',
-            url: 'timetable.html',
-            // bounces:true,
-            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
-                marginBottom: footerH, // main页面距离win顶部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
-          })
+        $("#goToChat").click(function(){
+          // api.openFrame({
+          //   name: 'Timetable page',
+          //   url: 'timetable.html',
+          //
+          //   rect: {
+          //       marginTop:0,
+          //       marginBottom: footerH,
+          //       w: 'auto'
+          //   }
+          // })
         })
 
         $("#goToSetting").click(function(){
