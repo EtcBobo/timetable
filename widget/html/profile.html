@@ -26,10 +26,9 @@
       <hr />
       <p>head portrait &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="../image/log.jpg" width="67px";height="67px"; text-align="center";> </P>
       <hr />
-      <p>school&nbsp&nbsp&nbsp&nbsp&nbsp&nbspChengdu Polytechnnic</p>
-     -->
+      <p>school&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Chengdu &nsbsp Polytechnic</p>
       <hr />
-      <p>school number</p>
+      <p>school &nbsp number</p>
       <hr />
       <p>nickname</p>
       <hr />
@@ -91,41 +90,32 @@ function timeButton(){
         myAjax.init()
       });
 
-        var theIp = ''
-        $(function() {
-            var myAjax = {
-                init: function() {
-                    $.ajax({
-                        url: "../wifi.txt",
-                        async: false,
-                        success: function(data) {
-                            theIp = data
-                        }
-                    })
-                }
-            };
-            myAjax.init()
-        });
+      function timeButton(){
+        api.openWin({
+            name: 'Timetable page',
+            url: 'timetableFrame.html'
+      })
+      }
 
-        api.ajax({
-            url: theIp + 'profile',
-            method: 'post',
-            timeout: 500,
-            data: {
-                values: {
-                    username: localStorage.getItem("username")
-                },
-            },
+    api.ajax({
+        url: theIp + 'profile',
+        method: 'post',
+        //timeout:30,
+        data: {
+            values: {
+              username:localStorage.getItem("username")
+        },
+      },
 
-        }, function(ret, err) {
-            if (ret) {
-                $('#profileImg').attr('src', ret.image);
-                console.log("profile img working")
-            } else {
-                alert(JSON.stringify(err));
-                console.log("profile img not working")
-            }
-        });
+    },function(ret, err){
+        if (ret) {
+            $('#profileImg').attr('src',ret.image);
+            console.log("profile img working")
+        } else {
+            alert( JSON.stringify( err ) );
+            console.log("profile img not working")
+        }
+    });
 
     };
 
