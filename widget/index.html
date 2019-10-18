@@ -20,16 +20,7 @@
             -webkit-flex-flow: column;
         }
 
-        header {
-            height: 64px;
-            width: 100%;
-            text-align: center;
-            background-image:url(image/leaf2.jpg);
-            color: black;
-            line-height: 44px;
-            font-size: 23px;
-            font-family: monospace;
-        }
+
 
 
         .flex-1 {
@@ -37,24 +28,14 @@
             -webkit-flex: 1;
         }
 
-        footer {
-            height: 30px;
-            width: 100%;
-            background-image: url(image/leaf.jpg);
-            color: black;
-            line-height: 30px;
-            text-align: center;
-            font-family: monospace;
-        }
     </style>
 </head>
 
 <body class="wrap">
-      <header>Chengdu Polytechnic</header>
   <section class="flex-1">
 
     </section>
-    <footer>Copyright &copy;<span id="year"></span></footer>
+
 </body>
 <script type="text/javascript" src="./script/api.js"></script>
 <script type="text/javascript">
@@ -107,7 +88,6 @@
               api.openFrame({
                   name: 'login',
                   url: 'html/login.html',
-                  bounces: true,
                   rect: {
                       marginTop: headerH,
                       marginBottom: footerH,

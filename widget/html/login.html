@@ -14,61 +14,64 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+    <br>
+    <br>
     <div class="container">
 
-        <br><br>
+        <div class="row">
+          <img src="../image/schoolLogo.png" class="rounded mx-auto d-block" style="height:50px;width:150px;">
+        </div>
+        <div class="row">
+          <img src="../image/loginPic.png" class="rounded mx-auto d-block" style="height:250px;width:240px;">
+        </div>
 
         <form method="post" class="form-group col-md-12" id="loginForm">
 
             <div id="login">Login</div>
-            <br>
-
             <div class="row" id="divError" style="display:none;">
             <div class="col-md-12">
               <p id="errorMsg" style="color:red;text-align:center"></p>
             </div>
             </div>
-            <br>
+
             <div class="form-group col-md-12" id="form">
 
                 <div class="row">
-                    <br>
+
                     <div class="form-group col-md-12">
-                        Username:<br>
-                        <input name="username" class="form-control" id="username" required>
-                        <span><a class='forgetus' href="/forgetus">forget username?</a></span>
+                      <p style="font-size:0.7em;color:rgb(141, 129, 129);margin-left:20px;padding-top:20px;">Username:</p>
+                        <img src="../image/loginu.png" style="height:15px;width15px;"><input name="username" type="text" style="outline:0;border:0;margin-left:5px;border-bottom:2px solid rgb(141, 129, 129)" id="username" required/>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group col-md-12">
-                        Password:<br>
-                        <input type="password" name="password" class="form-control" id="password" required>
-                        <span><a class='forgetpw' href="/forgetpw">forget password?</a></span>
+                          <p style="font-size:0.7em;color:rgb(141, 129, 129);margin-left:20px;padding-top:20px;">Password:</p>
+                          <img src="../image/password.png" style="height:15px;width15px;"><input type="password" name="password" style="outline:0;border:0;margin-left:5px;border-bottom:2px solid rgb(141, 129, 129)" id="password" required>
+
                     </div>
 
                 </div>
                 <br>
-                <br>
                 <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <button id="loginbtn" class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+                    <div class="col text-center">
+                        <button id="loginbtn" type="submit" style="height:40px;width:200px;border-radius:25px;color:white;background:#A0AC9E;font-size:15px;">Sign In</button>
                     </div>
                 </div>
                 <br>
-                <div class="form-group col-md-12">
-                <div class="col-md-4">
+
+                <div class="form-group">
+                <div class="col text-center">
                     <span><p class='register' onclick="registerButton()" style="color:blue;">No Account? Register here!</p></span>
                 </div>
               </div>
-
     </div>
     </form>
+
   </div>
     <style>
-        .return{
-          display: block;
-        }
+
         #login {
             display: block;
             font-size: 150%;
@@ -76,29 +79,10 @@
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
-            color: red;
         }
 
-        #loginbtn {
-             background-color: white;
-            border: 0;
-            color:red;
-            display: inline-block;
-            font-size: 21px;
-            text-align: center;
-            height: 42px;
-            width: 50%;
-        }
 
-        .forgetpw:hover {
-            color: black;
-        }
 
-        @media(max-width: 991px) {
-            #loginbtn {
-                width: 100%;
-            }
-        }
     </style>
 
 </body>
@@ -127,8 +111,8 @@ function registerButton(){
     name: "Register Page",
     url: 'register.html',
     rect: {
-        marginTop: 71,
-        marginBottom: 30,
+        marginTop: 0,
+        marginBottom: 0,
         w: 'auto'
     },
     animation:{
@@ -172,8 +156,8 @@ function registerButton(){
                     api.closeFrame({
                         name: 'Loading Page'
                     });
+                    document.getElementById("password").val = ""
                     localStorage.setItem("username",ret.username);
-                    localStorage.setItem("isLoggedin","true");
                     api.setPrefs({
                         key: 'username',
                         value: ret.username
@@ -186,16 +170,27 @@ function registerButton(){
                         key: 'admin',
                         value: 'false'
                     });
-                    api.openWin({
-                      name: "Home Page",
-                      url: 'mainFrame.html'
-                    })
+
+                    if(ret.role == "student"){
+
+                      api.openWin({
+                        name: "Home Page",
+                        url: 'mainFrame.html'
+                      })
+                    }else{
+
+                      api.openWin({
+                        name: "Home Page",
+                        url: 'mainTframe.html'
+                      })
+                    }
+
                   }else if(ret.auth=="admin"){
                     api.closeFrame({
                         name: 'Loading Page'
                     });
+                    document.getElementById("password").val = ""
                     localStorage.setItem("username",ret.username);
-                    localStorage.setItem("isLoggedin","true");
                     api.setPrefs({
                         key: 'username',
                         value: ret.username

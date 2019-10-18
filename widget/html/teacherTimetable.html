@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Profile Page</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+table, th, td{
+  border: 1px solid black;
+
+}
+th, td{
+  height:50px;
+  padding: 5px;
+}
+
+.timeCell{
+  width:60px;
+}
+
+
+
+</style>
+</head>
+
+<body class="wrap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+  <div class="container" >
+
+    <section class="flex-1">
+      <br>
+      <div class="row">
+      <div class="col-md-12">
+      <h4 id="tusername" style="text-align:center;"></h4>
+
+      </div>
+      </div>
+      <br>
+
+      <div class="row">
+      <div class="col-md-12">
+      <table style="width">
+        <tr>
+        <th></th>
+      <th style="text-align:center;">Mon</th>
+      <th style="text-align:center;">Tue</th>
+      <th style="text-align:center;">Wed</th>
+      <th style="text-align:center;">Thu</th>
+      <th style="text-align:center;">Fri</th>
+        </tr>
+<tr>
+<th>8:00</th>
+<th class="timeCell" id="11"></th>
+<th class="timeCell" id="12"></th>
+<th class="timeCell" id="13"></th>
+<th class="timeCell" id="14"></th>
+<th class="timeCell" id="15"></th>
+</tr>
+<tr>
+<th>9:00</th>
+<th class="timeCell" id="21"></th>
+<th class="timeCell" id="22"></th>
+<th class="timeCell" id="23"></th>
+<th class="timeCell" id="24"></th>
+<th class="timeCell" id="25"></th>
+</tr>
+<tr>
+<th>10:00</th>
+<th class="timeCell" id="31"></th>
+<th class="timeCell" id="32"></th>
+<th class="timeCell" id="33"></th>
+<th class="timeCell" id="34"></th>
+<th class="timeCell" id="35"></th>
+</tr>
+<tr>
+<th>11:00</th>
+<th class="timeCell" id="41"></th>
+<th class="timeCell" id="42"></th>
+<th class="timeCell" id="43"></th>
+<th class="timeCell" id="44"></th>
+<th class="timeCell" id="45"></th>
+</tr>
+<tr>
+<th>12:00</th>
+<th class="timeCell" id="51"></th>
+<th class="timeCell" id="52"></th>
+<th class="timeCell" id="53"></th>
+<th class="timeCell" id="54"></th>
+<th class="timeCell" id="55"></th>
+</tr>
+<tr>
+<th>13:00</th>
+<th class="timeCell" id="61"></th>
+<th class="timeCell" id="62"></th>
+<th class="timeCell" id="63"></th>
+<th class="timeCell" id="64"></th>
+<th class="timeCell" id="65"></th>
+</tr>
+<tr>
+<th>14:00</th>
+<th class="timeCell" id="71"></th>
+<th class="timeCell" id="72"></th>
+<th class="timeCell" id="73"></th>
+<th class="timeCell" id="74"></th>
+<th class="timeCell" id="75"></th>
+</tr>
+<tr>
+<th>15:00</th>
+<th class="timeCell" id="81"></th>
+<th class="timeCell" id="82"></th>
+<th class="timeCell" id="83"></th>
+<th class="timeCell" id="84"></th>
+<th class="timeCell" id="85"></th>
+</tr>
+<tr>
+<th>16:00</th>
+<th class="timeCell" id="91"></th>
+<th class="timeCell" id="92"></th>
+<th class="timeCell" id="93"></th>
+<th class="timeCell" id="94"></th>
+<th class="timeCell" id="95"></th>
+</tr>
+<tr>
+<th>17:00</th>
+<th class="timeCell" id="101"></th>
+<th class="timeCell" id="102"></th>
+<th class="timeCell" id="103"></th>
+<th class="timeCell" id="104"></th>
+<th class="timeCell" id="105"></th>
+</tr>
+<tr>
+<th>18:00</th>
+<th class="timeCell" id="111"></th>
+<th class="timeCell" id="112"></th>
+<th class="timeCell" id="113"></th>
+<th class="timeCell" id="114"></th>
+<th class="timeCell" id="115"></th>
+</tr>
+      </table>
+      </div>
+      </div>
+
+    </section>
+
+</div>
+
+
+
+
+  <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin = "anonymous"></script>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+document.getElementById("tusername").innerHTML = localStorage.getItem("username") + "'s timetable"
+
+
+    apiready = function() {
+      if(localStorage.getItem("isLoggedin") != "true"){
+        api.openWin({
+          name: "Login Page",
+          url: '../index.html',
+          bounces: true
+        })
+      }
+
+      var theIp = ''
+      $(function (){
+        var myAjax = {
+          init: function(){
+            $.ajax({
+              url: "../wifi.txt",
+              async:false,
+              success:function(data){
+                theIp = data
+              }
+            })
+          }
+        };
+        myAjax.init()
+      });
+
+      api.ajax({
+          url: theIp + 'adloadBlock',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                course:api.pageParam.course
+            },
+          },
+      },function(ret, err){
+        for(i=0;i<ret.length;i++){
+
+          document.getElementById(ret[i].start).rowSpan = ret[i].end.length + 1
+          document.getElementById(ret[i].start).style.backgroundColor = ret[i].color
+          for(i2=0;i2<ret[i].end.length;i2++){
+            document.getElementById(ret[i].end[i2]).style.display = "none"
+          }
+          document.getElementById(ret[i].start).innerHTML = ret[i].module
+
+          var funcStr = 'blockPressed("' + ret[i].module + '","' +ret[i].start+ '","' +ret[i].end[ret[i].end.length - 1] + '","' +ret[i].color +'")'
+          console.log(funcStr)
+
+        }
+      })
+
+
+
+    };
+
+</script>
+
+</html>

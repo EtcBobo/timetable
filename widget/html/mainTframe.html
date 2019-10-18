@@ -34,51 +34,33 @@
     </style>
 </head>
 <body class="wrap">
-  <header>
-      <div class="container" style="background-color:#EFDFCF;height:105px;">
-      <br>
-        <div class="row" >
-          <div class="col 11">
-           <span id="hmonth" style="font-size:1.5em;margin:0">OCT</span><span id="hyear" style="padding-left:5px;">2019</span>
-          </div>
-          <div class="col 1">
-            <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
-          </div>
-        </div>
-
-        <div class="row" style="margin-top:15px;">
-          <div class="col 6" style="text-align:center;border-bottom:2px solid #A0AC9E;padding-bottom:4px;">
-            <p>Monthly</p>
-          </div>
-          <div class="col 6" style="text-align:center;padding-bottom:4px;">
-            <p>Weekly</p>
-          </div>
-        </div>
-      </div>
-  </header>
     <section class="flex-1">
 
     </section>
 
     <footer>
-    <div class="container" style="background-color:#EFDFCF;height:60px;">
+    <div class="container" style="background-color:rgb(242, 247, 248);height:60px;">
       <div class="row" style="padding-top:10px;">
-        <div class="col-4" id="goToCalendar">
-          <img src="../image/calendar.png" width="25px" height="25px">
+        <div class="col-3" id="goToProf">
+          <img src="../image/profile.png" width="25px" height="25px">
           <br>
-          <p style="font-size:0.8em;">Calendar</p>
+          <p>Profile</p>
         </div>
-        <div class="col-4" id="goToTime">
+        <div class="col-3" id="goToTime">
           <img src="../image/timetable.png" width="25px" height="25px">
           <br>
-          <p style="font-size:0.8em;">Timetable</p>
+          <p>Timetable</p>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <img src="../image/chat.png" width="25px" height="25px">
           <br>
-          <p style="font-size:0.8em;">Chat</p>
+          <p>Chat</p>
         </div>
-
+        <div class="col-3" id="goToSetting">
+          <img src="../image/setting.png" width="25px" height="25px">
+          <br>
+          <p>Setting</p>
+        </div>
       </div>
     </div>
 
@@ -86,11 +68,11 @@
 </body>
 <script type="text/javascript">
     apiready = function() {
-        var header = $api.dom('header');
+
         var footer = $api.dom('footer');
-        var headerH = $api.fixStatusBar(header);
+
         var footerH = $api.fixTabBar(footer);
-        console.log(headerH)
+        console.log(footerH)
 
         api.addEventListener({
             name: 'keyback'
@@ -99,14 +81,14 @@
         });
 
 
-        $("#goToCalendar").click(function(){
+        $("#goToProf").click(function(){
 
           api.openFrame({
-            name: 'Calendar page',
-            url: 'calendar.html',
+            name: 'Profile page',
+            url: 'profile.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
+                marginTop:0,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
@@ -117,24 +99,24 @@
 
           api.openFrame({
             name: 'Timetable page',
-            url: 'timetable.html',
+            url: 'teacherTimetable.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
+                marginTop:0,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
           })
         })
 
-        $("#goToSetting").click(function(){ //not using footer
+        $("#goToSetting").click(function(){
 
           api.openFrame({
             name: 'Setting page',
             url: 'setting.html',
-
+            // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
+                marginTop:0,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
@@ -143,11 +125,11 @@
 
 
         api.openFrame({
-            name: 'Calendar page',
-            url: 'calendar.html',
+            name: 'Main page',
+            url: 'profile.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
+                marginTop:0,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }

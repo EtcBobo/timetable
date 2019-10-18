@@ -29,27 +29,40 @@
 <body>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <br>
+
 
     <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 style="text-align:center">Schools</h3>
+        </div>
+      </div>
 
         <section class="flex-1">
-          <div class="row">
-            <div class="col-10" id="goToManageTime">
-          <p style="font-size:1.2em;font-weight:bold;">Manage Timetable</p>
-        </div>
-        <div class="col-2">
-          <p style="font-size:1.5em;">></p>
-        </div>
-</div>
-<div class="row">
-  <div class="col-10" id="goToEditCourse">
-<p style="font-size:1.2em;font-weight:bold;">Manage Courses</p>
-</div>
-<div class="col-2">
-<p style="font-size:1.5em;">></p>
-</div>
-</div>
+
+
+
+              <form method="post" id="registerForm" class="form-group col-lg-12">
+                   <div class="form-group col-md-12" id="regbox">
+
+                          <div class="row">
+                          <div class="form-group col-md-12">
+                              Username:<br>
+                          <input type="text" name="username" id="username" class="form-control" required>
+                          </div>
+                          </div>
+                          <div class="row">
+                          <div class="form-group col-md-12">
+                              Password:<br>
+                              <input type="password" name="password" class="form-control" id="password" minlength=6 required>
+                              <!--
+                          <input type="password" name="password" class="form-control" minlength=6>
+                        -->
+                          </div>
+                          </div>
+                        </div>
+                      </form>
+
         </section>
 
 
@@ -89,45 +102,6 @@
             };
             myAjax.init()
         });
-
-          $("#goToManageTime").click(function(){
-
-            api.openFrame({
-              name: "Time School Page",
-              url: 'adminTimeSch.html',
-              rect: {
-                  marginTop: 0,
-                  marginBottom: 60,
-                  w: 'auto'
-              },
-              animation:{
-                type:"movein",
-                subType:"from_right"
-              }
-                      })
-
-
-          })
-
-          $("#goToManageCourse").click(function(){
-
-            api.openFrame({
-              name: "Course Page",
-              url: 'manageCourse.html',
-              rect: {
-                  marginTop: 0,
-                  marginBottom: 60,
-                  w: 'auto'
-              },
-              animation:{
-                type:"movein",
-                subType:"from_right"
-              }
-                      })
-
-          })
-
-
     };
 </script>
 

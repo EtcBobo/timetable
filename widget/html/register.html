@@ -76,12 +76,7 @@
                 -->
                 </div>
                 </div>
-                <div class="row">
-                <div class="form-group col-md-12">
-                    Email:<br>
-                <input type="email" name="email" id="email" class="form-control" required>
-                </div>
-                </div>
+
                 <div class="form-row">
                 <div class="form-group col-sm-3" style="width:60%">
                     <label>Phone Number:</label>
@@ -143,6 +138,16 @@
 
 
 
+                              </select>
+                          </div>
+                  </div>
+
+                  <div class="row">
+                          <div class="form-group col-md-12">
+                              Role:<br>
+                              <select class="form-control" name="pref" id="role">
+                                <option value="student">student</option>
+                                <option value="teacher">teacher</option>
                               </select>
                           </div>
                   </div>
@@ -221,16 +226,31 @@ $("#codeButton").click(function(){
 
     var tphoneNum = $("#phoneNo").val();
     console.log(tphoneNum)
-    moduleSMSSDK.getTextCode({
-      phoneNumber:tphoneNum,
-      zone:'86'
-    },function(ret,err){
-      if (err !== null && err !== undefined && err !== '') {
-      alert("Error:\n" + JSON.stringify(err));
-    } else {
-       alert("The code has been sent to your phone");
-    }
-  });
+    api.ajax({
+        url: theIp + 'checkPhone',
+        method: 'post',
+        timeout:30,
+        data: {
+            values: {
+                phoneNo:tphoneNum
+            },
+        },
+      },function(ret, err){
+        if(ret.check == 'false'){
+          moduleSMSSDK.getTextCode({
+            phoneNumber:tphoneNum,
+            zone:'86'
+          },function(ret,err){
+            if (err !== null && err !== undefined && err !== '') {
+            alert("Error:\n" + JSON.stringify(err));
+          } else {
+             alert("The code has been sent to your phone");
+          }
+        });
+        }else{
+          alert("This phone number has already been used");
+        }
+      })
   })
 
 $("#verifyButton").click(function(){
@@ -280,27 +300,16 @@ $("#school").change(function(){
 
    $("#registerForm").submit(function(event) {
 
-    //  api.openFrame({
-    //    name: "Loading Page",
-    //    url: 'loadingScreen.html',
-    //    bounces: true,
-    //    rect: {
-    //        marginTop: 71,
-    //        marginBottom: 71,
-    //        w: 'auto'
-    //    }
-    // })
-
       event.preventDefault();
       var $form = $(this),
       tusername = $form.find('input[name="username"]').val(),
-      temail = $form.find('input[name="email"]').val(),
       tpassword = $form.find('input[name="password"]').val(),
       tpasswordc = $form.find('input[name="passwordc"]').val(),
       tcode = $form.find('input[name="code"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
       var tschool = $('#school').find(":selected").text()
       var tcourse = $('#course').find(":selected").text()
+      var trole = $('#role').find(":selected").text()
       var letterNumber = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$/;
       if(letterNumber.test(tpassword) && tpassword == tpasswordc){
         moduleSMSSDK.commitCode({
@@ -312,7 +321,6 @@ $("#school").change(function(){
             document.getElementById("errorMsg").innerHTML = "Incorrect verification code"
             document.getElementById("divError").style.display = "block"
             window.scrollTo(0,0)
-            alert("Error:\n" + JSON.stringify(err));
             } else {
               api.openFrame({
                 name: "Loading Page",
@@ -330,11 +338,11 @@ $("#school").change(function(){
                   data: {
                       values: {
                           username: tusername,
-                          email: temail,
                           password: tpassword,
                           phoneNo: tphone,
                           school:tschool,
                           course:tcourse,
+                          role:trole,
                           imgPath: document.getElementById("output").src
                       },
                   },
