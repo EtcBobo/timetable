@@ -41,58 +41,58 @@
         <section class="flex-1">
 <div class="row" id="goTo1">
   <div class="col-10" >
-<p style="font-size:1.2em;font-weight:bold;">软件学院</p>
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">软件学院</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo2">
-  <div class="col-10">
-<p style="font-size:1.2em;font-weight:bold;">财经学院</p>
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">财经学院</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo3">
-  <div class="col-10">
-<p style="font-size:1.2em;font-weight:bold;">旅游学院</p>
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">旅游学院</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo4">
   <div class="col-10" >
-<p style="font-size:1.2em;font-weight:bold;">工商管理与房地产学院</p>
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">工商管理与房地产学院</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo5">
-  <div class="col-10">
-<p style="font-size:1.2em;font-weight:bold;">医护分院</p>
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">医护分院</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo6">
   <div class="col-10" >
-<p style="font-size:1.2em;font-weight:bold;">基础部</p>
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">基础部</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
 <div class="row" id="goTo7">
-  <div class="col-10">
-<p style="font-size:1.2em;font-weight:bold;">外语部</p>
+  <div class="col-10" >
+<p style="font-size:1.2em;font-weight:bold;padding-top:18px">外语部</p>
 </div>
 <div class="col-2">
-<p style="font-size:1.5em;">></p>
+<p style="font-size:1.5em;padding-top:13px">></p>
 </div>
 </div>
         </section>
@@ -141,6 +141,10 @@
         });
 
           $("#goTo1").click(function(){
+            document.getElementById("goTo1").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo1").style.backgroundColor = ""
+            },500)
 
             api.openFrame({
               name: "Time Course Page",
@@ -159,7 +163,10 @@
           })
 
           $("#goTo2").click(function(){
-
+            document.getElementById("goTo2").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo2").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',
@@ -177,7 +184,10 @@
           })
 
           $("#goTo3").click(function(){
-
+            document.getElementById("goTo3").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo3").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',
@@ -195,7 +205,10 @@
           })
 
           $("#goTo4").click(function(){
-
+            document.getElementById("goTo4").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo4").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',
@@ -213,7 +226,10 @@
           })
 
           $("#goTo5").click(function(){
-
+            document.getElementById("goTo5").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo5").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',
@@ -231,7 +247,10 @@
           })
 
           $("#goTo6").click(function(){
-
+            document.getElementById("goTo6").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo6").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',
@@ -249,7 +268,10 @@
           })
 
           $("#goTo7").click(function(){
-
+            document.getElementById("goTo7").style.backgroundColor = "rgb(220, 230, 233)"
+            setTimeout(function(){
+              document.getElementById("goTo7").style.backgroundColor = ""
+            },500)
             api.openFrame({
               name: "Time Course Page",
               url: 'adminTimeCourse.html',

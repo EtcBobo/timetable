@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-    <title>Profile Page</title>
+    <title>Setting Page</title>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
@@ -34,15 +34,15 @@
     <div class="container">
 
         <section class="flex-1">
-          <div class="row">
-            <div class="col-10" id="logOut">
-          <p style="font-size:1.2em;font-weight:bold;">Log Out</p>
+          <div class="row" id="logOut">
+            <div class="col-10" >
+          <p style="font-weight:bold;">Log Out</p>
         </div>
         <div class="col-2">
-          <p style="font-size:1.5em;">></p>
+          <p style="font-size:1.2em;">></p>
         </div>
 </div>
-<hr>
+
         </section>
 
 
@@ -76,6 +76,7 @@
         });
 
           $("#logOut").click(function(){
+            document.getElementById("logOut").style.backgroundColor = "rgb(220, 230, 233)"
             api.confirm({
               title: 'Log Out',
               msg: 'Do you wish to log out?',

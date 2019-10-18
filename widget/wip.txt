@@ -1,10 +1,12 @@
 preview color on color select in timetable
 setting page function
 admin edit course
-
-
-grand master plan:
-implement bid for timetable
+user edit profile
+profile page for teacher
+feedback for buttons and navbar
+teacher in charge of pulling student into classes
+create class table in database
+remember me function
 
 things to ask:
 
@@ -15,6 +17,7 @@ openframe problem - using only openFrame or openWin is too limiting and the desi
 smssdk - project folder could not sync with the cloud version, hence the module smssdk and mobtools could not be added. The current github folder have to match the criteria and uploaded to the cloud for the modules to run successfully
 designing dynamic timetable with html + CSS -  using a html table is challenging since any custom timetable block have to take up an exact amount of columns and rows.after much consideration I decided to give each grid an id so that i can change all affected grid's CSS at once. By setting display="none" for blocks i don't need, i can prevent an overflow of grids 
 back button - because frames are being opened on top of each other, the method closeFrame() has to be dynamic since the frame name is constantly changing. In order to make it dynamic, the api.frame method is called to get all current frames' name. After that I just have to close the last frame in the array to mimic a back action.
+Changing the core function to a calendar -  After much consideration, I decided to add a calendar feature on top of my timetable feature. The whole design is also going to be overhauled to provide better user experience.
 
 task completed 3rd week:
 Local storage for persistent data across pages
@@ -52,3 +55,11 @@ User get Admin's timetable and populate on their own timetable
 Remain logged in after App closes
 Create Setting page for logging out
 Added more color to timetable blocks
+
+task completed 7th week:
+fixed bug affecting Registration due to phone number
+redesigned login page
+added calendar screen
+Redesigned navbar
+Added calendar month logic
+Added calendar swiping

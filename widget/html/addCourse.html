@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Profile Page</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+        tr,
+        td {
+            height: 50px;
+            width: 311px;
+        }
+
+        .row {
+            margin-top: 30px;
+        }
+        /*.pro1{
+
+
+}
+}*/
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 style="text-align:center">Schools</h3>
+        </div>
+      </div>
+
+        <section class="flex-1">
+
+
+
+              <form method="post" id="registerForm" class="form-group col-lg-12">
+                   <div class="form-group col-md-12" id="regbox">
+                     <div class="row">
+                             <div class="form-group col-md-12">
+                                 School:<br>
+                                 <select class="form-control" name="pref" id="school">
+                                   <option value="软件学院">软件学院</option>
+                                   <option value="财经学院">财经学院</option>
+                                   <option value="旅游学院">旅游学院</option>
+                                   <option value="工商管理与房地产学院">工商管理与房地产学院</option>
+                                   <option value="医护分院">医护分院</option>
+                                   <option value="基础部">基础部</option>
+                                   <option value="外语部">外语部</option>
+
+
+                                 </select>
+                             </div>
+                     </div>
+
+                          <div class="row">
+                          <div class="form-group col-md-12">
+                              Course Name:<br>
+                          <input type="text" name="username" id="username" class="form-control" required>
+                          </div>
+                          </div>
+
+                        </div>
+                      </form>
+
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    apiready = function() {
+
+        if (localStorage.getItem("isLoggedin") != "true") {
+            api.openWin({
+                name: "Login Page",
+                url: '../index.html',
+                bounces: true
+            })
+        }
+
+
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        $("#registerForm").submit(function(event) {
+
+          event.preventDefault();
+          var $form = $(this),
+          tcourse = $form.find('input[name="username"]').val();
+          var tschool = $('#school').find(":selected").text()
+          api.ajax({
+              url: theIp + 'addCourse',
+              method: 'post',
+              timeout:30,
+              data: {
+                  values: {
+                      school:tschool,
+                      course: tcourse
+                  },
+              },
+            },
+             function(ret, err){
+               if (ret.check == "true"){
+
+               }else{
+
+               }
+             })
+
+
+
+
+
+         })
+
+    };
+</script>
+
+</html>
