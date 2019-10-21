@@ -39,7 +39,7 @@
       <br>
         <div class="row" >
           <div class="col 11">
-           <span id="hmonth" style="font-size:1.5em;margin:0">OCT</span><span id="hyear" style="padding-left:5px;">2019</span>
+           <span id="hmonth" style="font-size:1.5em;margin:0"></span><span id="hyear" style="padding-left:5px;"></span>
           </div>
           <div class="col 1">
             <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
@@ -86,6 +86,14 @@
 </body>
 <script type="text/javascript">
     apiready = function() {
+
+      api.addEventListener({
+          name: 'changeMonth'
+      }, function(ret, err) {
+        document.getElementById("hmonth").innerHTML = ret.value.month
+        document.getElementById("hyear").innerHTML = ret.value.year
+      });
+
         var header = $api.dom('header');
         var footer = $api.dom('footer');
         var headerH = $api.fixStatusBar(header);
