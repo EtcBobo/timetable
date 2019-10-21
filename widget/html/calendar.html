@@ -197,6 +197,9 @@ p{
 </div>
 </div>
 
+<div class="row">
+<img src="../image/add.png" id="goToAddTime">
+</div>
 
 
   </div>
@@ -262,8 +265,15 @@ function blockPressed(date,day,task){
       }
       var allDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
       var allMonth = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
-      //document.getElementById("hmonth").innerHTML = allMonth[curM]
-      //document.getElementById("hyear").innerHTML = allMonth[curY]
+      api.sendEvent({
+            name: 'changeMonth',
+            extra: {
+                month: allMonth[curM],
+                year: curY
+
+            }
+        });
+
       var numDays = new Date(curY,curM,0).getDate() +1
       var startDay = new Date(curY,curM,1).getDay() // sunday is 0
 
@@ -288,13 +298,28 @@ function blockPressed(date,day,task){
       }
 
 
+      $("#goToAddTime").click(function(){
+
+        api.openFrame({
+          name: 'Add Time page',
+          url: 'addTime.html',
+          // bounces:true,
+          rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+              marginTop:0,
+              marginBottom: 60, // main页面距离win顶部的高度
+              w: 'auto' // main页面的宽度 自适应屏幕宽度
+          }
+        })
+      })
+
+
 
       api.addEventListener({
           name:'swipeleft'
       }, function(ret, err){
         api.openFrame({
-          name: "Calendar Page"+String(curM),
-          url: 'calendar2.html',
+          name: "Calendar Page"+String(Math.random()),
+          url: 'calendar.html',
           pageParam:({month:curM+1,year:curY}),
           rect: {
             marginTop: 132,
@@ -311,8 +336,8 @@ function blockPressed(date,day,task){
        name:'swiperight'
    }, function(ret, err){
      api.openFrame({
-       name: "Calendar Page"+String(curM),
-       url: 'calendar2.html',
+       name: "Calendar Page"+String(Math.random()),
+       url: 'calendar.html',
        pageParam:({month:curM-1,year:curY}),
        rect: {
          marginTop: 132,

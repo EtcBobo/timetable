@@ -7,6 +7,8 @@ feedback for buttons and navbar
 teacher in charge of pulling student into classes
 create class table in database
 remember me function
+cannot change style of null, adtimetable
+
 
 things to ask:
 
@@ -63,3 +65,5 @@ added calendar screen
 Redesigned navbar
 Added calendar month logic
 Added calendar swiping
+
+task completed 8th week:
