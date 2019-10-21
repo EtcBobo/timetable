@@ -73,7 +73,7 @@
           <br>
           <p style="font-size:0.8em;">Timetable</p>
         </div>
-        <div class="col-4">
+        <div class="col-4" id="goToProfile">
           <img src="../image/chat.png" width="25px" height="25px">
           <br>
           <p style="font-size:0.8em;">Chat</p>
@@ -98,6 +98,19 @@
             console.log("back button pressed")
         });
 
+        $("#goToProfile").click(function(){
+
+          api.openFrame({
+            name: 'Profile page',
+            url: 'profile.html',
+            // bounces:true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:headerH,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+          })
+        })
 
         $("#goToCalendar").click(function(){
 
