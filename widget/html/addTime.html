@@ -18,29 +18,54 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
-    <div class="container">
+    <div class="container" style="margin-top:50px;">
       <div class="row">
         <div class="col-12">
-          <h3 style="text-align:center">Schools</h3>
+          <input type="text" name="title" style="outline:0;border:0;font-size:2em" placeholder="Title" id="title" required>
         </div>
       </div>
+      <br>
+      <br>
+
 
         <section class="flex-1">
 
-              <form method="post" id="registerForm" class="form-group col-lg-12">
+              <form method="post" id="addTimeForm">
 
                           <div class="row">
-                          <div class="col-md-8">
-                              <p>Username:</p>
+                          <div class="col-5" style="color:#DC2227">
+                              Start
                           </div>
-                          <div class="col-md-2">
-                            <p>Username:</p>
+                          <div class="col-4">
+                            Thu, Oct 17
                           </div>
-                          <div class="col-md-2">
-                            <p>Username:</p>
+                          <div class="col-3" style="font-size:0.9em">
+                            8:00 AM
+                          </div>
+                          </div>
+                          <div class="row" style="margin-top:15px">
+                          <div class="col-5" style="color:#DC2227">
+                              End
+                          </div>
+                          <div class="col-4">
+                            Thu, Oct 17
+                          </div>
+                          <div class="col-3" style="font-size:0.9em">
+                            9:00 AM
                           </div>
                           </div>
 
+                          <br>
+
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/loginu.png" style="height:20px;width20px;"><input type="text" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
+                          </div>
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/loginu.png" style="height:20px;width20px;"><input type="text" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes" required/>
+                          </div>
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/loginu.png" style="height:20px;width20px;"><input type="text" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Invite" required/>
+                          </div>
 
                       </form>
         </section>
