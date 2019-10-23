@@ -134,6 +134,7 @@
         $("#tweekly").click(function(){
           document.getElementById("tweekly").style.borderBottom = "2px solid #A0AC9E"
           document.getElementById("tmonthly").style.borderBottom = ""
+          console.log('checking from weekly')
           api.openFrame({
             name: 'Weekly page',
             url: 'weekly.html',
