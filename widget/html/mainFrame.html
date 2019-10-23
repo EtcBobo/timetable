@@ -38,26 +38,28 @@
       <div class="container" style="background-color:#EFDFCF;height:105px;">
       <br>
         <div class="row" >
-          <div class="col 11">
+          <div class="col-11">
            <span id="hmonth" style="font-size:1.5em;margin:0"></span><span id="hyear" style="padding-left:5px;"></span>
           </div>
-          <div class="col 1">
+          <!-- <div class="col-1">
+          <img src="../image/add.png" id="goToAddTime" height="25px" width="25px" style="float:right;"  data-toggle="modal" data-target="#exampleModal2">
+        </div> -->
+          <div class="col-1">
             <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
           </div>
         </div>
 
         <div class="row" style="margin-top:15px;">
-          <div class="col 6" style="text-align:center;border-bottom:2px solid #A0AC9E;padding-bottom:4px;">
+          <div class="col 6" style="text-align:center;border-bottom:2px solid #A0AC9E;padding-bottom:4px;" id="tmonthly">
             <p>Monthly</p>
           </div>
-          <div class="col 6" style="text-align:center;padding-bottom:4px;">
+          <div class="col 6" style="text-align:center;padding-bottom:4px;" id="tweekly">
             <p>Weekly</p>
           </div>
         </div>
       </div>
   </header>
     <section class="flex-1">
-
     </section>
 
     <footer>
@@ -83,6 +85,8 @@
     </div>
 
     </footer>
+
+
 </body>
 <script type="text/javascript">
     apiready = function() {
@@ -103,10 +107,17 @@
         api.addEventListener({
             name: 'keyback'
         }, function(ret, err) {
-            console.log("back button pressed")
+          var frames = api.frames()
+          console.log(JSON.stringify(frames))
+          if(frames.length > 1){
+            api.closeFrame({
+              name:frames[frames.length-1].name
+            });
+          }
         });
 
         $("#goToProfile").click(function(){
+
 
           api.openFrame({
             name: 'Profile page',
@@ -120,7 +131,45 @@
           })
         })
 
+        $("#tweekly").click(function(){
+          document.getElementById("tweekly").style.borderBottom = "2px solid #A0AC9E"
+          document.getElementById("tmonthly").style.borderBottom = ""
+          api.openFrame({
+            name: 'Weekly page',
+            url: 'weekly.html',
+
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:headerH,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+            //page param
+          })
+        })
+
+        $("#tmonthly").click(function(){
+          document.getElementById("tmonthly").style.borderBottom = "2px solid #A0AC9E"
+          document.getElementById("tweekly").style.borderBottom = ""
+          api.openFrame({
+            name: 'Calendar page',
+            url: 'calendar.html',
+
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:headerH,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+            //page param
+          })
+        })
+
         $("#goToCalendar").click(function(){
+
+
+            api.closeFrame({
+              name:"Add Time page"
+            });
+
 
           api.openFrame({
             name: 'Calendar page',
@@ -135,7 +184,9 @@
         })
 
         $("#goToTime").click(function(){
-
+          api.closeFrame({
+            name:"Add Time page"
+          });
           api.openFrame({
             name: 'Timetable page',
             url: 'timetable.html',

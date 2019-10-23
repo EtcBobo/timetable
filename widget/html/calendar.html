@@ -197,9 +197,9 @@ p{
 </div>
 </div>
 
-<div class="row">
-<img src="../image/add.png" id="goToAddTime">
-</div>
+
+<img src="../image/add.png" id="addTimeButton" height="50px" width="50px" style="float:right;"  data-toggle="modal" data-target="#exampleModal2">
+
 
 
   </div>
@@ -220,6 +220,33 @@ p{
         </div>
         </div>
         </div>
+
+        <div class = "modal fade" id = "exampleModal2" tabindex = "-1" role = "dialog" aria-labelledby ="exampleModalLabel" aria-hidden = "true">
+                   <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class = "modal-content">
+                        <div class = "modal-header" >
+                           <h6 class = "modal-title text-center col-12" id = "wcreate">
+                             Which are you creating?
+                           </h6>
+
+
+                        </div>
+
+                         <div class = "modal-body">
+                           <div class="row">
+                             <div class="col-6 text-center" style="border-right:1px solid black" id="goToAddTime">
+                               Event
+                               </div>
+                               <div class="col-6 text-center">
+                               Reminder
+                             </div>
+                             </div>
+
+                         </div>
+
+              </div>
+              </div>
+              </div>
 
 
 
@@ -299,7 +326,7 @@ function blockPressed(date,day,task){
 
 
       $("#goToAddTime").click(function(){
-
+        $('#exampleModal2').modal('hide')
         api.openFrame({
           name: 'Add Time page',
           url: 'addTime.html',
@@ -309,6 +336,7 @@ function blockPressed(date,day,task){
               marginBottom: 60, // main页面距离win顶部的高度
               w: 'auto' // main页面的宽度 自适应屏幕宽度
           }
+          //pageParam:
         })
       })
 
