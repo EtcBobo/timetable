@@ -265,13 +265,7 @@ function blockPressed(date,day,task){
   document.getElementById("exampleModalLabel").innerHTML = date+'<br><p>'+ day +'</p>'
 }
     apiready = function() {
-      if(localStorage.getItem("isLoggedin") != "true"){
-        
-        api.openWin({
-          name: "Login Page",
-          url: '../index.html',
-        })
-      }
+
 
       var theIp = ''
       $(function (){
