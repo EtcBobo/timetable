@@ -19,7 +19,7 @@ p{
   font-size: 0.6em;
 }
 
-@media screen and (min-width:350px){
+@media screen and (max-height:400px){
   .img{
     position: fixed;
     margin-top: -43%;
@@ -27,10 +27,10 @@ p{
   }
 }
 
-@media screen and (max-width:350px){
+@media screen and (min-height:400px){
   .img{
     position: fixed;
-    margin-top: -33%;
+    margin-top: -13%;
     margin-left: 80%;
   }
 }
@@ -344,7 +344,7 @@ function blockPressed(date,day,task){
           // bounces:true,
           rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
               marginTop:0,
-              marginBottom: 60, // main页面距离win顶部的高度
+              marginBottom: 0, // main页面距离win顶部的高度
               w: 'auto' // main页面的宽度 自适应屏幕宽度
           }
           //pageParam:
