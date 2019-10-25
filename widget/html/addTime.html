@@ -23,7 +23,7 @@
         <form method="post" id="addTimeForm" style="height:100%;">
       <div class="row">
         <div class="col-10">
-          <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:80px;" placeholder="Title" id="title" required>
+          <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
         </div>
         <div class="col-1" style="float:right;">
           <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
@@ -41,11 +41,20 @@
                           <div class="col-5" style="color:#DC2227">
                               Start
                           </div>
-                          <div class="col-4">
+                          <!-- <div class="col-4">
                             Thu, Oct 17
                           </div>
                           <div class="col-3" style="font-size:0.9em">
                             8:00 AM
+
+                          </div> -->
+
+                          <div class="col-4">
+                          <input style="width:90%" type="text" id="sdate" value="25-10-2019">
+                          </div>
+                          <div class="col-3" style="font-size:0.9em">
+                            8:00 AM
+
                           </div>
                           </div>
                           <div class="row" style="margin-top:15px">
@@ -53,7 +62,7 @@
                               End
                           </div>
                           <div class="col-4">
-                            Thu, Oct 17
+                          <input style="width:90%" type="text" id="edate" value="25-10-2019">
                           </div>
                           <div class="col-3" style="font-size:0.9em">
                             9:00 AM
@@ -62,50 +71,91 @@
 
                           <br>
                           <div class="row" style="margin-left:10px;margin-top:30px">
-                            <img src="../image/loginu.png" style="height:20px;width20px;margin-top:5px;"><p id="addAlert"  style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;width:80%">Add Alert</p>
+                            <img src="../image/bell.png" style="height:20px;width20px;margin-top:5px;"><p id="addAlert" style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Add Alert</p>
                           </div>
-                          <div class="row" style="margin-left:10px;margin-top:30px">
-                            <img src="../image/loginu.png" style="height:20px;width20px;margin-top:5px;"><p id="addRepeat"  style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;width:80%">Repeat</p>
+                          <div class="row" style="margin-left:10px;">
+                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
+                              <option value="">None</option>
+                              <option value="">At time of event</option>
+                              <option value="">5 mins before</option>
+                              <option value="">10 mins before</option>
+                              <option value="">15 mins before</option>
+                            </select>
+                          </div>
+                          <div class="row" style="margin-left:10px;margin-top:10px">
+                            <img src="../image/repeat.png" style="height:20px;width20px;margin-top:5px;"><p id="addRepeat"  style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Repeat</p>
+                          </div>
+                          <div class="row" style="margin-left:10px;">
+                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
+                              <option value="">Never</option>
+                              <option value="">Daily</option>
+                              <option value="">Weekly</option>
+                              <option value="">Monthly</option>
+                              <option value="">Yearly</option>
+
+                            </select>
                           </div>
 
                           <div class="row" style="margin-left:10px;margin-top:30px">
-                            <img src="../image/loginu.png" style="height:20px;width20px;margin-top:5px;"><input type="text" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
+                            <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
                           </div>
                           <div class="row" style="margin-left:10px;margin-top:30px">
-                            <img src="../image/loginu.png" style="height:20px;width20px;margin-top:5px;"><input type="text" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes" required/>
+                            <img src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes" required/>
                           </div>
+
+                          <input type="text" class="form-control" />
+
+
 
                           <div class="row" style="height:60px; width:100%;position:fixed;bottom:0;z-index:999">
-                  <div class="col-6" style="background-color:#EFDFCF;text-align:center">
-                    <p>Cancel</p>
+                  <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="cancelTime">
+                    <p style="padding-top:17px;font-weight:bold;">Cancel</p>
                   </div>
-                  <div class="col-6" style="background-color:#EFDFCF;text-align:center">
-                    <p>Save</p>
+                  <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="saveTime">
+                    <p style="padding-top:17px;font-weight:bold;">Save</p>
                   </div>
                           </div>
                       </form>
         </section>
-
-
-
-
-
-
-
-
-
 
     </div>
 
 </body>
 
 <script type="text/javascript" src="../script/api.js"></script>
-
+<script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
+//<script type="text/javascript" src="../popoPicker/popoPicker.js"></script>
 <script type="text/javascript">
     //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
-
     apiready = function() {
 
+
+
+      new Jdate({
+          el: '#sdate',
+          format: 'DD-MM-YYYY',
+          beginYear: 2000,
+          endYear: 2100,
+          confirm:function(date){
+            console.log('data is ' + date)
+
+          }
+      })
+
+      new Jdate({
+          el: '#edate',
+          format: 'DD-MM-YYYY',
+          beginYear: 2000,
+          endYear: 2100,
+          confirm:function(date){
+            console.log('data is ' + date)
+
+          }
+      })
+      if(api.pageParam.date){
+        document.getElementById("sdate").value = api.pageParam.date
+        document.getElementById("edate").value = api.pageParam.date
+      }
 
 
         var theIp = ''
@@ -123,9 +173,57 @@
             };
             myAjax.init()
         });
+
+
+
+
 $('#addAlert').click(function(){
   console.log('shout')
 })
+
+$('#saveTime').click(function(){
+  console.log('come into add time')
+
+  var title = document.getElementById("title").value
+  var tcolor = document.getElementById("tcolor").value
+  var tlocation = document.getElementById("tlocation").value
+  var tnotes = document.getElementById("tnotes").value
+  console.log(tcolor)
+  // check block exist
+
+//if number below 10 make sure add 0 infront
+  api.ajax({
+      url: theIp + 'addBlock',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+              username: localStorage.getItem("username"),
+              title: title,
+              start: "201910241315",
+              end: "201910241620",
+              color: tcolor,
+              notes:tnotes,
+              location:tlocation,
+              type:"task",
+              day:'1' // implement day logic
+          },
+      },
+    },
+     function(ret, err){
+       console.log('add block working')
+})
+})
+
+$('#cancelTime').click(function(){
+  console.log('cancel time')
+api.closeFrame({
+    name: 'Add Time page'
+});
+
+})
+
+
 
     };
 

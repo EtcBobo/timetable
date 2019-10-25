@@ -1,12 +1,11 @@
-preview color on color select in timetable
-setting page incomplete
 admin edit course
 user edit profile
 profile page for teacher
 feedback for buttons and navbar
 teacher in charge of pulling student into classes
 remember me function
-cannot change style of null, adtimetable
+error in add button in weekly empty slot
+
 
 
 things to ask:
@@ -66,3 +65,7 @@ Added calendar month logic
 Added calendar swiping
 
 task completed 8th week:
+Redesigned timetable page into weekly page
+Created Add task page
+Added weekly date logic into weekly page
+Redesign the database for timetable

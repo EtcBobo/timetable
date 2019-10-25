@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../popoPicker.css">
+    <link rel="stylesheet" href="./css/demo.css">
+</head>
+
+<body>
+    <div>
+        <header>
+            <p>popopicker</p>
+        </header>
+        <div class="tit">Picker</div>
+        <input class="inp js-picker" placeholder="请选择选项">
+        <div class="tit">Date</div>
+        <input class="inp js-date" placeholder="请选择日期" value=2019-06-06>
+        <div class="tit">Time</div>
+        <input class="inp js-time" placeholder="请选择时间">
+        <div class="tit">DateTime</div>
+        <input class="inp js-datetime" placeholder="请选择日期时间">
+    </div>
+</body>
+<script src="../popoPicker.min.js"></script>
+<script>
+    //Picker
+    new popoPicker('.js-picker', {
+        wheels: [{
+            infinite: false,
+            //selected: 3,
+            data: [
+                { value: 0, display: '选项一' },
+                { value: 1, display: '选项二' },
+                { value: 2, display: '选项三' },
+                { value: 3, display: '选项四' },
+                { value: 4, display: '选项五' },
+                { value: 5, display: '选项六' },
+                { value: 6, display: '选项七' }
+
+            ]
+        }],
+        background: 'dark'
+    });
+
+    //Date
+    new popoDateTime('.js-date', {
+        time: false,
+        background: 'light'
+    });
+
+    //Time
+    new popoDateTime('.js-time', {
+        date: false,
+        background: 'dark'
+    });
+
+    //DateTime
+    new popoDateTime('.js-datetime', {
+        background: 'dark'
+    });
+</script>
+
+</html>
