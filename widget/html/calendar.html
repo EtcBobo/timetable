@@ -13,6 +13,8 @@
   height:75px;
   border-style: ridge;
   border-width: 1px;
+  font-size:0.6em;
+  width:45px;
 }
 p{
   font-weight:bold;
@@ -33,6 +35,13 @@ p{
     margin-top: -13%;
     margin-left: 80%;
   }
+}
+
+.pspan{
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left:-13px;
+  width:45px;
 }
 
 </style>
@@ -71,7 +80,7 @@ p{
 
 <div class="row">
 <div class="col 1 day" id="d0">
-<p id="0"></p>
+<p id="0" ></p>
 </div>
 <div class="col 1 day" id="d1">
 <p id="1"></p>
@@ -129,7 +138,7 @@ p{
 <p id="16"></p>
 </div>
 <div class="col 1 day" id="d17">
-<p id="17"></p>
+
 </div>
 <div class="col 1 day" id="d18">
 <p id="18"></p>
@@ -230,7 +239,10 @@ p{
                     <hr>
                    </div>
 
-                   <div class = "modal-body">
+                   <div class="modal-body" id="mbody">
+                     <span style="height:16px;width:16px;background-color:lightblue;border-radius:50%;margin-bottom:-3px;"></span><span style="margin-left:10px;">test</span>
+                     <br>
+                     <span style="margin-left:26px;font-size:0.8em;color:#a8a8a8;">asda</span>
                    </div>
 
         </div>
@@ -253,7 +265,7 @@ p{
                              <div class="col-6 text-center" style="border-right:1px solid black" id="goToAddTime">
                                Event
                                </div>
-                               <div class="col-6 text-center">
+                               <div class="col-6 text-center" id="goToAddMemo">
                                Reminder
                              </div>
                              </div>
@@ -271,13 +283,49 @@ p{
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
 //document.getElementById("tusername").innerHTML = localStorage.getItem("username") + "'s timetable"
-function blockPressed(date,day,task){
+
+var theIp = ''
+$(function (){
+  var myAjax = {
+    init: function(){
+      $.ajax({
+        url: "../wifi.txt",
+        async:false,
+        success:function(data){
+          theIp = data
+        }
+      })
+    }
+  };
+  myAjax.init()
+});
+
+function blockPressed(date,day,fullDate){
   console.log(day)
   document.getElementById("exampleModalLabel").innerHTML = date+'<br><p>'+ day +'</p>'
+  var dayList = []
+  dayList.push(fullDate)
+  api.ajax({
+      url: theIp + 'loadCalBlock',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+              username: localStorage.getItem("username"),
+              tdate:dayList
+          },
+      },
+    },
+     function(ret, err){
+       if(ret){
+         for(i=0;i<ret.length;i++){
+           //document.getElementById("mbody").innerHTML = ret
+         }
+       }
+     })
+
 }
     apiready = function() {
-
-
       var theIp = ''
       $(function (){
         var myAjax = {
@@ -299,7 +347,6 @@ function blockPressed(date,day,task){
       if(api.pageParam.month){
         curM = api.pageParam.month
         curY = api.pageParam.year
-        console.log(curM)
       }
       var allDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
       var allMonth = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
@@ -320,20 +367,65 @@ function blockPressed(date,day,task){
       }else{
         startDay = startDay -1
       }
+      var dayList2 = []
+
       for(i=0;i<numDays;i++){
 
         var tday = String(startDay + i)
 
-        document.getElementById(tday).innerHTML = String(i+1)
         var dday = "d" + tday
-
+        document.getElementById(dday).innerHTML = '<span style="font-size:10px;font-weight:bold;">' + String(i+1) +'</span>'
         var dayIndex = new Date(curY,curM,i+1).getDay()
-        var funcStr = 'blockPressed("' + String(i+1) + '","' + allDay[dayIndex] + '","' +"placeholder" +'")'
+
+        if(i<10){
+          var dateStr = String(curY)+String(curM+1)+"0" + String(i+1)
+        }else{
+          var dateStr = String(curY)+String(curM+1)+String(i+1)
+        }
+
+        dayList2.push(dateStr)
+
+        var funcStr = 'blockPressed("' + String(i+1) + '","' + allDay[dayIndex] + '","' + dateStr +'")'
         //console.log(funcStr)
         document.getElementById(dday).setAttribute('onclick',funcStr)
         document.getElementById(dday).setAttribute('data-toggle','modal')
         document.getElementById(dday).setAttribute('data-target','#exampleModal')
+
+        //push all date into new array for loadcalblock
+
       }
+      console.log(dayList2)
+
+
+      api.ajax({
+          url: theIp + 'loadCalBlock',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                  username: localStorage.getItem("username"),
+                  tdate:dayList2
+              },
+          },
+        },
+         function(ret, err){
+           if(ret){
+
+              for(i=0;i<ret.length;i++){
+                if(ret[i].start.substring(0,8) == ret[i].end.substring(0,8)){
+
+                  var tid = parseInt(ret[i].start.substring(6,8))
+                  var thestr = document.getElementById("d"+String(tid+startDay-1)).innerHTML + '<br><span style="margin-left:-13px;border-left:2px solid '+ ret[i].color +';">&nbsp' + ret[i].title + '</span>'
+
+                  document.getElementById("d"+String(tid+startDay-1)).innerHTML = thestr
+                  document.getElementById("d"+String(tid+startDay-1)).style.width = "45px"
+                  console.log(ret[i].title)
+
+                }
+
+              }
+           }
+         })
 
 
       $("#goToAddTime").click(function(){
@@ -351,6 +443,20 @@ function blockPressed(date,day,task){
         })
       })
 
+      $("#goToAddMemo").click(function(){
+        $('#exampleModal2').modal('hide')
+        api.openFrame({
+          name: 'Add Memo page',
+          url: 'addMemo.html',
+          // bounces:true,
+          rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+              marginTop:0,
+              marginBottom: 0, // main页面距离win顶部的高度
+              w: 'auto' // main页面的宽度 自适应屏幕宽度
+          }
+          //pageParam:
+        })
+      })
 
 
       api.addEventListener({

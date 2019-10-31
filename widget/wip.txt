@@ -1,11 +1,13 @@
 admin edit course
 user edit profile
-profile page for teacher
 feedback for buttons and navbar
 teacher in charge of pulling student into classes
 remember me function
-error in add button in weekly empty slot
-
+display task on modal in calendar
+set limit on calendar screen for task per day
+have validation to avoid clashing blocks
+notification on the phone
+setting page
 
 
 things to ask:
@@ -69,3 +71,9 @@ Redesigned timetable page into weekly page
 Created Add task page
 Added weekly date logic into weekly page
 Redesign the database for timetable
+
+
+task completed 9th week:
+add button can appear on colored block
+login screen alignment
+weekly display more than school time block problem

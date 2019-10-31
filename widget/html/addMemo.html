@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container" style="margin-top:30px;height:100%;">
+        <form method="post" id="addTimeForm" style="height:100%;">
+      <div class="row">
+        <div class="col-10">
+          <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Memo" id="title" required>
+        </div>
+      </div>
+      <br>
+      <br>
+
+
+        <section class="flex-1">
+
+          <div class="row">
+            <div class="col-12">
+            <textarea class="form-control" row="5" id="note" placeholder="Add notes here"></textarea>
+          </div>
+          </div>
+          <br>
+
+            <div class="row">
+            <div class="col-1" style="color:#DC2227">
+              <img src="../image/bell.png" style="height:20px;width20px;">
+            </div>
+
+            <div class="col-4 cstart" id="sdate">
+            </div>
+            <div class="col-3 cstart" id="stime">
+              09:00
+            </div>
+
+
+            </div>
+
+
+
+
+          <div class="row" style="height:60px; width:100%;position:fixed;bottom:0;z-index:999">
+          <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="cancelTime">
+            <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+          </div>
+          <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="saveTime">
+            <p style="padding-top:17px;font-weight:bold;">Save</p>
+          </div>
+                  </div>
+            </form>
+        </section>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
+
+<link rel="stylesheet" href="../popoPicker/css/popoPicker.css">
+<script type="text/javascript" src="../popoPicker/js/popoPicker.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+    apiready = function() {
+
+
+
+      new popoDateTime('.cstart', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+              $("#sdate").html(date.substring(0,10));
+              $("#stime").html(date.slice(11));
+          }
+      });
+
+
+      new popoDateTime('.cend', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+              $("#edate").html(date.substring(0,10));
+              $("#etime").html(date.slice(11));
+          }
+      });
+
+
+      if(api.pageParam.date){
+        document.getElementById("sdate").innerHTML = api.pageParam.date
+        console.log(api.pageParam.time)
+        document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+      }else{
+        var thecurr = new Date()
+        var currStr = thecurr.getFullYear() + "-" + String(thecurr.getMonth()+1) + "-" + thecurr.getDate()
+        document.getElementById("sdate").innerHTML = currStr
+      }
+
+
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+
+
+
+$('#addAlert').click(function(){
+  console.log('shout')
+})
+
+$('#saveTime').click(function(){
+  console.log('come into add time')
+
+  var title = document.getElementById("title").value
+  var tnote = document.getElementById("note").value
+  var sdate =  document.getElementById("sdate").innerText
+  var stime = document.getElementById("stime").innerText
+  var tdate = sdate.substring(0,4) + sdate.substring(5,7) + sdate.slice(8) + stime.substring(0,2) + stime.slice(3)
+
+
+  console.log(tdate)
+
+var curr = new Date()
+
+curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10)))
+console.log(curr)
+
+var tday = curr.getDay()
+
+if(tday == 0){
+  tday = 6
+}else{
+  tday = tday -1
+}
+  // check block exist
+
+  api.ajax({
+      url: theIp + 'addMemo',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+              username: localStorage.getItem("username"),
+              title: title,
+              start: tdate,
+              note:tnote,
+              day:tday
+          },
+      },
+    },
+     function(ret, err){
+         api.alert({title:"Success",msg:"The Memo has been saved successfully"});
+       api.closeFrame({
+           name: 'Add Memo page'
+       });
+       api.openFrame({
+         name: 'Calendar page',
+         url: 'calendar.html',
+
+         rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+             marginTop:132,
+             marginBottom: 60, // main页面距离win顶部的高度
+             w: 'auto' // main页面的宽度 自适应屏幕宽度
+         }
+         //page param
+       })
+
+    })
+})
+
+$('#cancelTime').click(function(){
+  console.log('cancel time')
+api.closeFrame({
+    name: 'Add Memo page'
+});
+
+})
+
+
+
+    };
+
+
+</script>
+
+</html>

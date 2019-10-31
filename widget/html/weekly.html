@@ -440,7 +440,7 @@
                              <div class="col-6 text-center" style="border-right:1px solid black" id="goToAddTime">
                                Event
                                </div>
-                               <div class="col-6 text-center">
+                               <div class="col-6 text-center" id="goToAddMemo">
                                Reminder
                              </div>
                              </div>
@@ -488,21 +488,39 @@ if(clearS.length != 0){
   // $(newId).prop("onclick",null).off("click")
 }
 function goToAddTime(id){
-  var tid = parseInt(id.slice(2))
+  var tid = parseInt(id.slice(-1))
 
-  var curM = new Date().getMonth() + 1
+
   var curY = new Date().getFullYear()
   var curr = new Date()
-
-  var dayList = []
-  for(i=0;i<7;i++){
-  let first = curr.getDate() - curr.getDay() + i
-  let day = new Date(curr.setDate(first)).getDate()
-  dayList.push(day)
-}
-
-  var tday = dayList[tid]
-  wdString = String(tday) + "-" + curM + "-" + curY
+  var curr2 = new Date()
+  //format getDay
+  if(curr.getDay() == 0){
+    var cday = 6
+  }else{
+    var cday = curr.getDay() -1
+  }
+  var minusM = cday -tid
+  console.log(minusM)
+  var nday = curr.getDate() - minusM
+  let tday = new Date(curr.setDate(nday)).getDate()
+  let mday = new Date(curr2.setDate(nday)).getMonth() + 1
+  if(mday < 10){
+    mday = "0" + String(mday)
+  }
+  console.log(tday,cday,mday)
+//   var dayList = []
+//   var monthList = []
+//   for(i=1;i<8;i++){
+//   let first = curr.getDate() - curr.getDay() + i
+//   let day = new Date(curr.setDate(first)).getDate()
+//   let month = new Date(curr.setDate(first)).getMonth()
+//   dayList.push(day)
+//   monthList.push(month)
+// }
+// console.log(monthList,dayList)
+//   var tday = dayList[tid]
+  wdString = curY + "-" + mday + "-" + String(tday)
   console.log(wdString)
 
 
@@ -516,7 +534,8 @@ function goToAddTime(id){
         w: 'auto' // main页面的宽度 自适应屏幕宽度
     },
     pageParam:({
-      date:wdString
+      date:wdString,
+      time:id.substring(1,id.length - 1)
     })
   })
 }
@@ -545,19 +564,20 @@ function goToAddTime(id){
       var curM = new Date().getMonth()
       var curY = new Date().getFullYear()
       var curr = new Date()
+      var curr2 = new Date()
 
       var dayList = []
       for(i=0;i<7;i++){
       let first = curr.getDate() - curr.getDay() + i
       let day = new Date(curr.setDate(first)).getDate()
+
       dayList.push(day)
     }
-
-
       for(i=0;i<7;i++){
         document.getElementById(String(i)).innerHTML = dayList[i]
         var dday = "d" + String(i)
       }
+
 
       var allTime = document.getElementsByClassName('time')
       console.log(allTime)
@@ -568,13 +588,30 @@ function goToAddTime(id){
 
         allTime[i].setAttribute('onclick',funcStr)
       }
+      var curr = new Date()
+      var curr2 = new Date()
+      if(curr.getDay() == 0){
+        var cday = 6
+      }else{
+        var cday = curr.getDay() -1
+      }
 
       var dayList2 = []
       for(i=0;i<7;i++){
-      let firstD = curr.getDate() - curr.getDay() + i
-      let dday = new Date(curr.setDate(firstD)).getDate()
-      var nDay = String(curY) + String(curM+1) + String(dday)
-      dayList2.push(nDay)
+        let firstD = curr.getDate()  - cday + i
+        console.log(firstD)
+        let dday = new Date(curr.setDate(firstD)).getDate()
+        let dmonth = new Date(curr2.setDate(firstD)).getMonth() + 1
+        var curr = new Date()
+        var curr2 = new Date()
+        if (dday < 10){
+          dday = "0" + String(dday)
+        }
+        if (dmonth < 10){
+          dmonth = "0" + String(dmonth)
+        }
+        var nDay = String(curY) + String(dmonth) + String(dday)
+        dayList2.push(nDay)
     }
     console.log(dayList2)
 
@@ -595,55 +632,54 @@ function goToAddTime(id){
              for(i=0;i<ret.length;i++){
                var tstart = ret[i].start.slice(8)// get 0900
                var tend = ret[i].end.slice(8)
+                if(parseInt(tend)<1801 && parseInt(tstart)>0759){
+                 if(parseInt(tstart.slice(2)) == 0 || parseInt(tstart.slice(2)) == 0){
+                   var newStart = (parseInt(tstart) - 800) / 10
+                   var newEnd = (parseInt(tend) - 800) / 10
+                   var tCount = (newEnd - newStart) /10
+                   for(i2=0;i2<tCount;i2++){
+                     var tBlock = "d" + String(newStart  + (i2+1) *10)
+                     document.getElementById(tBlock).style.backgroundColor = ret[i].color
+                     document.getElementById(tBlock).style.borderBottom = "0px"
+                     document.getElementById(tBlock).style.borderTop = "0px"
+                   }
+                 }else{
+                    var startp = parseInt(tstart.slice(2)) / 60 *100
+                    var startpr = 100 - startp
+                    var endp = parseInt(tend.slice(2)) / 60 *100
+                    var endpr = 100 - endp
+                    var newStart = (parseInt(tstart.substring(0,2)) - 8) * 10
+                    var newEnd = (parseInt(tend.substring(0,2)) - 8) * 10
+                    var tCount = (newEnd - newStart) /10
+                    var pposition = String(startp/10 * 3.8) +"px"
 
-               if(parseInt(tstart.slice(2)) == 0 || parseInt(tstart.slice(2)) == 0){
-                 var newStart = (parseInt(tstart) - 800) / 10
-                 var newEnd = (parseInt(tend) - 800) / 10
-                 var tCount = (newEnd - newStart) /10
-                 for(i2=0;i2<tCount;i2++){
-                   var tBlock = "d" + String(newStart  + (i2+1) *10)
-                   document.getElementById(tBlock).style.backgroundColor = ret[i].color
-                   document.getElementById(tBlock).style.borderBottom = "0px"
-                   document.getElementById(tBlock).style.borderTop = "0px"
-                 }
-               }else{
-                  var startp = parseInt(tstart.slice(2)) / 60 *100
-                  var startpr = 100 - startp
-                  var endp = parseInt(tend.slice(2)) / 60 *100
-                  var endpr = 100 - endp
-                  var newStart = (parseInt(tstart.substring(0,2)) - 8) * 10
-                  var newEnd = (parseInt(tend.substring(0,2)) - 8) * 10
-                  var tCount = (newEnd - newStart) /10
-                  var pposition = String(startp/10 * 3.8) +"px"
+                    console.log(newStart)
 
-                  console.log(newStart)
+                    for(i2=0;i2<tCount;i2++){
+                      var tBlock = "d" + String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
+                      if(i2 == 0){
+                        document.getElementById(tBlock).style.background = "linear-gradient(to top,"+ ret[i].color + " "+ String(startpr) +"%,transparent "+ String(startpr) +"%,transparent "+String(startp)+"%,#ffffff "+String(startp)+"%)"
+                        var tptag = String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
+                        document.getElementById(tptag).innerHTML = ret[i].title
+                        document.getElementById(tptag).style.marginLeft = "-14px"
+                        document.getElementById(tBlock).style.width = "45px"
+                        document.getElementById(tptag).style.width = "40px"
+                        document.getElementById(tptag).style.marginTop = pposition
 
-                  for(i2=0;i2<tCount;i2++){
-                    var tBlock = "d" + String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
-                    if(i2 == 0){
-                      document.getElementById(tBlock).style.background = "linear-gradient(to top,"+ ret[i].color + " "+ String(startpr) +"%,transparent "+ String(startpr) +"%,transparent "+String(startp)+"%,#ffffff "+String(startp)+"%)"
-                      var tptag = String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
-                      document.getElementById(tptag).innerHTML = ret[i].title
-                      document.getElementById(tptag).style.marginLeft = "-14px"
-                      document.getElementById(tBlock).style.width = "45px"
-                      document.getElementById(tptag).style.width = "40px"
-                      document.getElementById(tptag).style.marginTop = pposition
-
-                    }else if(i2 == tCount-1){
-                      document.getElementById(tBlock).style.background = "linear-gradient(to bottom,"+ ret[i].color + " "+ String(endp) +"%,transparent "+ String(endp) +"%,transparent "+String(endpr)+"%,#ffffff "+String(endpr)+"%)"
-                    }else{
+                      }else if(i2 == tCount-1){
+                        document.getElementById(tBlock).style.background = "linear-gradient(to bottom,"+ ret[i].color + " "+ String(endp) +"%,transparent "+ String(endp) +"%,transparent "+String(endpr)+"%,#ffffff "+String(endpr)+"%)"
+                      }else{
 
                       document.getElementById(tBlock).style.backgroundColor = ret[i].color
 
                     }
                     document.getElementById(tBlock).style.borderBottom = "0px"
                     document.getElementById(tBlock).style.borderTop = "0px"
+                    document.getElementById(tBlock).setAttribute('onclick',"")
 
                   }
                }
-
-
-
+             }
 
              }
            }
@@ -668,46 +704,20 @@ function goToAddTime(id){
         })
       })
 
-
-
-
-
-//       api.addEventListener({
-//           name:'swipeleft'
-//       }, function(ret, err){
-//         api.openFrame({
-//           name: "Calendar Page"+String(Math.random()),
-//           url: 'calendar.html',
-//           pageParam:({month:curM+1,year:curY}),
-//           rect: {
-//             marginTop: 132,
-//             marginBottom: 60,
-//               w: 'auto'
-//           },
-//           animation:{
-//             type:"movein",
-//             subType:"from_right"
-//           },
-//         })
-//    })
-//    api.addEventListener({
-//        name:'swiperight'
-//    }, function(ret, err){
-//      api.openFrame({
-//        name: "Calendar Page"+String(Math.random()),
-//        url: 'calendar.html',
-//        pageParam:({month:curM-1,year:curY}),
-//        rect: {
-//          marginTop: 132,
-//          marginBottom: 60,
-//            w: 'auto'
-//        },
-//        animation:{
-//          type:"movein",
-//          subType:"from_left"
-//        },
-//      })
-// })
+      $("#goToAddMemo").click(function(){
+        $('#exampleModal2').modal('hide')
+        api.openFrame({
+          name: 'Add Memo page',
+          url: 'addMemo.html',
+          // bounces:true,
+          rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+              marginTop:0,
+              marginBottom: 0, // main页面距离win顶部的高度
+              w: 'auto' // main页面的宽度 自适应屏幕宽度
+          }
+          //pageParam:
+        })
+      })
 
 
     };

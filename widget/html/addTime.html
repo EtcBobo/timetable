@@ -49,24 +49,24 @@
 
                           </div> -->
 
-                          <div class="col-4">
-                          <input style="width:90%" type="text" id="sdate" value="25-10-2019">
+                          <div class="col-4 cstart" id="sdate">
                           </div>
-                          <div class="col-3" style="font-size:0.9em">
-                            8:00 AM
+                          <div class="col-3 cstart" id="stime">
+                            09:00
+                          </div>
 
-                          </div>
+
                           </div>
                           <div class="row" style="margin-top:15px">
                           <div class="col-5" style="color:#DC2227">
                               End
                           </div>
-                          <div class="col-4">
-                          <input style="width:90%" type="text" id="edate" value="25-10-2019">
+                          <div class="col-4 cend" id="edate">
                           </div>
-                          <div class="col-3" style="font-size:0.9em">
-                            9:00 AM
+                          <div class="col-3 cend" id="etime">
+                            18:00
                           </div>
+
                           </div>
 
                           <br>
@@ -82,7 +82,7 @@
                               <option value="">15 mins before</option>
                             </select>
                           </div>
-                          <div class="row" style="margin-left:10px;margin-top:10px">
+                          <!-- <div class="row" style="margin-left:10px;margin-top:10px">
                             <img src="../image/repeat.png" style="height:20px;width20px;margin-top:5px;"><p id="addRepeat"  style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Repeat</p>
                           </div>
                           <div class="row" style="margin-left:10px;">
@@ -94,7 +94,7 @@
                               <option value="">Yearly</option>
 
                             </select>
-                          </div>
+                          </div> -->
 
                           <div class="row" style="margin-left:10px;margin-top:30px">
                             <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
@@ -103,7 +103,7 @@
                             <img src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes" required/>
                           </div>
 
-                          <input type="text" class="form-control" />
+
 
 
 
@@ -121,40 +121,58 @@
     </div>
 
 </body>
-
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
-//<script type="text/javascript" src="../popoPicker/popoPicker.js"></script>
+
+<link rel="stylesheet" href="../popoPicker/css/popoPicker.css">
+<script type="text/javascript" src="../popoPicker/js/popoPicker.js"></script>
+
 <script type="text/javascript">
     //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
     apiready = function() {
 
 
 
-      new Jdate({
-          el: '#sdate',
-          format: 'DD-MM-YYYY',
-          beginYear: 2000,
-          endYear: 2100,
-          confirm:function(date){
-            console.log('data is ' + date)
+      new popoDateTime('.cstart', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
+              $("#sdate").html(date.substring(0,10));
+              $("#stime").html(date.slice(11));
           }
-      })
+      });
 
-      new Jdate({
-          el: '#edate',
-          format: 'DD-MM-YYYY',
-          beginYear: 2000,
-          endYear: 2100,
-          confirm:function(date){
-            console.log('data is ' + date)
 
+      new popoDateTime('.cend', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+              $("#edate").html(date.substring(0,10));
+              $("#etime").html(date.slice(11));
           }
-      })
+      });
+
+
       if(api.pageParam.date){
-        document.getElementById("sdate").value = api.pageParam.date
-        document.getElementById("edate").value = api.pageParam.date
+        document.getElementById("sdate").innerHTML = api.pageParam.date
+        document.getElementById("edate").innerHTML = api.pageParam.date
+        console.log(api.pageParam.time)
+        document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+      }else{
+        var thecurr = new Date()
+        var currStr = thecurr.getFullYear() + "-" + String(thecurr.getMonth()+1) + "-" + thecurr.getDate()
+        document.getElementById("sdate").innerHTML = currStr
+        document.getElementById("edate").innerHTML = currStr
       }
 
 
@@ -188,31 +206,93 @@ $('#saveTime').click(function(){
   var tcolor = document.getElementById("tcolor").value
   var tlocation = document.getElementById("tlocation").value
   var tnotes = document.getElementById("tnotes").value
-  console.log(tcolor)
-  // check block exist
+  var sdate =  document.getElementById("sdate").innerText
+  var stime = document.getElementById("stime").innerText
 
-//if number below 10 make sure add 0 infront
-  api.ajax({
-      url: theIp + 'addBlock',
-      method: 'post',
-      timeout:30,
-      data: {
-          values: {
-              username: localStorage.getItem("username"),
-              title: title,
-              start: "201910241315",
-              end: "201910241620",
-              color: tcolor,
-              notes:tnotes,
-              location:tlocation,
-              type:"task",
-              day:'1' // implement day logic
-          },
-      },
+
+  var tdate = sdate.substring(0,4) + sdate.substring(5,7) + sdate.slice(8) + stime.substring(0,2) + stime.slice(3)
+  var edate =  document.getElementById("edate").innerText
+  var etime = document.getElementById("etime").innerText
+  var tedate = edate.substring(0,4) + edate.substring(5,7) + edate.substring(8,10) + etime.substring(0,2) + etime.slice(3)
+
+  console.log(tdate)
+
+var curr = new Date()
+console.log(sdate.substring(5,7))
+curr.setMonth(parseInt(sdate.substring(5,7)),parseInt(sdate.substring(8,10)))
+
+
+var tday = curr.getDay()
+
+if(tday == 0){
+  tday = 6
+}else{
+  tday = tday -1
+}
+api.ajax({
+    url: theIp + 'checkBlock',
+    method: 'post',
+    timeout:30,
+    data: {
+        values: {
+            username: localStorage.getItem("username"),
+            start: tdate,
+            end: tedate,
+            stime:parseInt(tdate.slice(8)),
+            etime:parseInt(tedate.slice(8))
+        },
     },
-     function(ret, err){
-       console.log('add block working')
-})
+  },
+   function(ret, err){
+      if(ret.check == 'clear'){
+        api.ajax({
+            url: theIp + 'addBlock',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                    username: localStorage.getItem("username"),
+                    title: title,
+                    start: tdate,
+                    end: tedate,
+                    color: tcolor,
+                    notes:tnotes,
+                    location:tlocation,
+                    type:"task",
+                    day:tday // implement day logic
+                },
+            },
+          },
+           function(ret, err){
+               api.alert({title:"Success",msg:"The Event has been saved successfully"});
+             api.closeFrame({
+                 name: 'Add Time page'
+             });
+             api.openFrame({
+               name: 'Weekly page',
+               url: 'weekly.html',
+
+               rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                   marginTop:132,
+                   marginBottom: 60, // main页面距离win顶部的高度
+                   w: 'auto' // main页面的宽度 自适应屏幕宽度
+               }
+               //page param
+             })
+      })
+
+
+    }else{
+      api.alert({
+        title:'Failed',
+        msg:'There is an existing event in that timing'
+      })
+    }
+
+   })
+
+
+
 })
 
 $('#cancelTime').click(function(){
