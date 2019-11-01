@@ -116,21 +116,6 @@
           }
         });
 
-        $("#goToProfile").click(function(){
-
-
-          api.openFrame({
-            name: 'Profile page',
-            url: 'profile.html',
-            // bounces:true,
-            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
-                marginBottom: footerH, // main页面距离win顶部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
-          })
-        })
-
         $("#tweekly").click(function(){
           document.getElementById("tweekly").style.borderBottom = "2px solid #A0AC9E"
           document.getElementById("tmonthly").style.borderBottom = ""
@@ -206,8 +191,8 @@
             url: 'setting.html',
 
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:headerH,
-                marginBottom: footerH, // main页面距离win顶部的高度
+                marginTop:0,
+                marginBottom: 0, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
           })

@@ -3,11 +3,9 @@ user edit profile
 feedback for buttons and navbar
 teacher in charge of pulling student into classes
 remember me function
-display task on modal in calendar
-set limit on calendar screen for task per day
-have validation to avoid clashing blocks
 notification on the phone
-setting page
+add username and student id
+
 
 
 things to ask:
@@ -77,3 +75,8 @@ task completed 9th week:
 add button can appear on colored block
 login screen alignment
 weekly display more than school time block problem
+have validation to avoid clashing blocks
+display task on modal in calendar
+set limit on calendar screen for task per day
+next year logic
+setting page
