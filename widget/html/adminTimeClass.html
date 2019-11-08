@@ -5,24 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-    <title>Profile Page</title>
+
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        tr,
-        td {
-            height: 50px;
-            width: 311px;
-        }
-
-        .row {
-            margin-top: 30px;
-        }
-        /*.pro1{
-
-
-}
-}*/
+    .row {
+        margin-top: 30px;
+    }
     </style>
 </head>
 
@@ -34,7 +23,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <h3 style="text-align:center">Courses</h3>
+          <h3 style="text-align:center">Class</h3>
         </div>
       </div>
         <section class="flex-1">
@@ -174,7 +163,7 @@
         type:"movein",
         subType:"from_right"
       },
-      pageParam:({course:course})
+      pageParam:({class:tcourse})
     })
     }
 
@@ -198,25 +187,23 @@
             myAjax.init()
         });
 
-        console.log(api.pageParam.school)
+        console.log(api.pageParam.course)
 
         api.ajax({
-          url: theIp + 'loadCourse',
+          url: theIp + 'loadClassByCourse',
           method: 'post',
           timeout:30,
           data: {
               values: {
-                school:api.pageParam.school
+                course:api.pageParam.course
             },
           },
       },function(ret, err){
         //populate the courses
         if(ret){
 
-
-        console.log(ret[0].name)
         for(i=0;i<ret.length;i++){
-          document.getElementById(String(i+1)).innerHTML = ret[i].name
+          document.getElementById(String(i+1)).innerHTML = ret[i].classname
           var tString = "goTo" + String(i+1)
           document.getElementById(tString).style.display = ""
           var funcStr = 'goToTime("' + tString  +'")'

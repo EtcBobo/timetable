@@ -4,16 +4,17 @@ feedback for buttons and navbar
 edit/delete timetable
 teacher in charge of pulling student into classes
 remember me function
-notification on the phone
-referesh upon 
+
 make sure timeblock happen every week 
 calendar and weekly load from admin tableblock too
 admin weekly have to load from adminblock
 extend more rows in admintimeclass
-
+use pop picker for end time only adminaddtime
 
 
 things to ask:
+notification on the phone
+referesh upon 
 
 
 problem i solved:
@@ -96,3 +97,6 @@ validation for start date/time not after end
 admin use dropdown to narrow down class and course to select teacher
 fixed position bug for cancel and save buttons
 teacher name is inaccurate in class db
+
+task completed 11th week:
+add admintimeblock and nweek forloop

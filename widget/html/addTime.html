@@ -78,7 +78,7 @@
                     <div class="col-4 cstart" id="sdate">
                     </div>
                     <div class="col-3 cstart" id="stime">
-                        09:00
+                        08:00
                     </div>
 
 
@@ -201,7 +201,21 @@
             document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
         } else {
             var thecurr = new Date()
-            var currStr = thecurr.getFullYear() + "-" + String(thecurr.getMonth() + 1) + "-" + thecurr.getDate()
+            curY = String(thecurr.getFullYear())
+            if(thecurr.getMonth()+1 < 10){
+              var curM = "0" + String(thecurr.getMonth()+1)
+            }
+            else{
+              var curM = thecurr.getMonth()+1
+            }
+            if(thecurr.getDate() < 10){
+              var curD = "0" + String(thecurr.getDate())
+            }
+            else{
+              var curD = String(thecurr.getDate())
+            }
+            var currStr = curY + "-" + curM + "-" + curD
+
             document.getElementById("sdate").innerHTML = currStr
             document.getElementById("edate").innerHTML = currStr
         }
