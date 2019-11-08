@@ -71,30 +71,8 @@
 
                           <br>
                           <div class="row" style="margin-left:10px;margin-top:30px">
-                            <img src="../image/bell.png" style="height:20px;width20px;margin-top:5px;"><p id="addAlert" style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Add Alert</p>
+                            <img src="../image/calendar.png" style="height:20px;width20px;margin-top:5px;"><input type="number" id="nweeks" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Number of Weeks" required/>
                           </div>
-                          <div class="row" style="margin-left:10px;">
-                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
-                              <option value="">None</option>
-                              <option value="">At time of event</option>
-                              <option value="">5 mins before</option>
-                              <option value="">10 mins before</option>
-                              <option value="">15 mins before</option>
-                            </select>
-                          </div>
-                          <!-- <div class="row" style="margin-left:10px;margin-top:10px">
-                            <img src="../image/repeat.png" style="height:20px;width20px;margin-top:5px;"><p id="addRepeat"  style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Repeat</p>
-                          </div>
-                          <div class="row" style="margin-left:10px;">
-                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
-                              <option value="">Never</option>
-                              <option value="">Daily</option>
-                              <option value="">Weekly</option>
-                              <option value="">Monthly</option>
-                              <option value="">Yearly</option>
-
-                            </select>
-                          </div> -->
 
                           <div class="row" style="margin-left:10px;margin-top:30px">
                             <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
@@ -223,6 +201,7 @@ $('#saveTime').click(function(){
   var title = document.getElementById("title").value
   var tcolor = document.getElementById("tcolor").value
   var tlocation = document.getElementById("tlocation").value
+  var tnweeks = document.getElementById("nweeks").value
   var tnotes = document.getElementById("tnotes").value
   var sdate =  document.getElementById("sdate").innerText
   var stime = document.getElementById("stime").innerText
@@ -230,97 +209,70 @@ $('#saveTime').click(function(){
   var edate =  document.getElementById("edate").innerText
   var etime = document.getElementById("etime").innerText
   var tedate = edate.substring(0,4) + edate.substring(5,7) + edate.substring(8,10) + etime.substring(0,2) + etime.slice(3)
-    console.log(tedate,tdate)
-if(tedate > tdate){
 
+  for(i=0;i<tnweeks;i++){
+  if(tedate > tdate){
+    var curr = new Date()
+    console.log(sdate.substring(5,7))
+    curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10))+i*7)
+    var tday = curr.getDay()
+    if(tday == 0){
+      tday = 6
+    }else{
+      tday = tday -1
+    }
 
-var curr = new Date()
-console.log(sdate.substring(5,7))
-curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10)))
-
-
-var tday = curr.getDay()
-
-if(tday == 0){
-  tday = 6
-}else{
-  tday = tday -1
-}
-api.ajax({
-    url: theIp + 'checkBlock',
-    method: 'post',
-    timeout:30,
-    data: {
-        values: {
-            username: localStorage.getItem("username"),
-            start: tdate,
-            end: tedate,
-            stime:parseInt(tdate.slice(8)),
-            etime:parseInt(tedate.slice(8))
-        },
-    },
-  },
-   function(ret, err){
-      if(ret.check == 'clear'){
-        api.ajax({
-            url: theIp + 'addBlock',
-            method: 'post',
-            timeout:30,
-            data: {
-                values: {
-                    username: localStorage.getItem("username"),
-                    title: title,
-                    start: tdate,
-                    end: tedate,
-                    color: tcolor,
-                    notes:tnotes,
-                    location:tlocation,
-                    type:"task",
-                    day:tday // implement day logic
-                },
-            },
+      api.ajax({
+          url: theIp + 'addAdminBlock',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                  classname: localStorage.getItem("username"),
+                  title: title,
+                  start: tdate,
+                  end: tedate,
+                  color: tcolor,
+                  notes:tnotes,
+                  location:tlocation,
+                  type:"task",
+                  day:tday // implement day logic
+              },
           },
-           function(ret, err){
-               api.alert({title:"Success",msg:"The Event has been saved successfully"});
-             api.closeFrame({
-                 name: 'Add Time page'
-             });
-             api.closeFrame({
-                 name: 'Weekly page'
-             });
-             api.openFrame({
-               name: 'Weekly page',
-               url: 'weekly.html',
+        },
+         function(ret, err){
 
-               rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                   marginTop:132,
-                   marginBottom: 60, // main页面距离win顶部的高度
-                   w: 'auto' // main页面的宽度 自适应屏幕宽度
-               }
-               //page param
-             })
-      })
+    })
 
 
     }else{
       api.alert({
         title:'Failed',
-        msg:'There is an existing event in that timing'
+        msg:'Starting time cannot be after the ending time'
       })
     }
 
-   })
-}else{
-  api.alert({
-    title:'Failed',
-    msg:'Starting time cannot be after the ending time'
+
+  }
+  api.alert({title:"Success",msg:"The Event has been saved successfully"});
+  api.closeFrame({
+    name: 'Add Time page'
+  });
+  api.closeFrame({
+    name: 'Weekly page'
+  });
+  api.openFrame({
+  name: 'Weekly page',
+  url: 'weekly.html',
+
+  rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+      marginTop:132,
+      marginBottom: 60, // main页面距离win顶部的高度
+      w: 'auto' // main页面的宽度 自适应屏幕宽度
+  }
+  //page param
   })
-}
-
-
-
-
-})
+  })
 
 $('#cancelTime').click(function(){
   console.log('cancel time')

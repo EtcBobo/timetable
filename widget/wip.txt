@@ -1,10 +1,12 @@
 admin edit course
 user edit profile
 feedback for buttons and navbar
+edit/delete timetable
 teacher in charge of pulling student into classes
 remember me function
 notification on the phone
-add username and student id
+referesh upon 
+admin use dropdown to narrow down class and course to select teacher
 
 
 
@@ -80,3 +82,11 @@ display task on modal in calendar
 set limit on calendar screen for task per day
 next year logic
 setting page
+
+
+task completed 10th week:
+add username and student id
+week number on top does not match
+block still clickable after color
+single digit time bug 
+validation for start date/time not after end

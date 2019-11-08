@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    .joinbtn{
+      float:right;
+    }
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container">
+<br>
+<div id="listclass">
+  <div class="row">
+    <div class="col-3">
+    <p>DMX102</p>
+  </div>
+
+  <div class="col-3">
+  <p>DMX102</p>
+</div>
+
+<div class="col-3">
+<p>DMX102</p>
+</div>
+
+  </div>
+</div>
+
+        <section class="flex-1">
+
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    apiready = function() {
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+
+       api.ajax({
+           url: theIp + 'checkCourse',
+           method: 'post',
+           timeout:30,
+           data: {
+               values: {
+                   username:localStorage.getItem("username")
+               },
+           },
+         },
+          function(ret, err){
+            if(ret.class == ""){
+              api.ajax({
+                  url: theIp + 'getSpecClass',
+                  method: 'post',
+                  timeout:30,
+                  data: {
+                      values: {
+                          course:ret.course
+                      },
+                  },
+                },
+                 function(ret2, err){
+                   for(i=0;i<ret2.length;i++){
+
+
+
+
+                   }
+                 })
+            }else{
+              api.closeFrame({
+                  name: 'Student Class page'
+              });
+              api.openFrame({
+                name: "Class Detail page",
+                url: 'classDet.html',
+                rect: {
+                    marginTop: 0,
+                    marginBottom: 60,
+                    w: 'auto'
+                }
+              })
+            }
+          })
+
+
+
+    };
+</script>
+
+</html>

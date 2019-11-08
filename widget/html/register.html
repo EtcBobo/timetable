@@ -53,8 +53,14 @@
 
                 <div class="row">
                 <div class="form-group col-md-12">
-                    Student ID:<br>
+                    User ID:<br>
                 <input type="text" name="username" id="username" class="form-control" required>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Username:<br>
+                <input type="text" name="nickname" id="nickname" class="form-control" required>
                 </div>
                 </div>
                 <div class="row">
@@ -135,8 +141,6 @@
                                 <option value="动漫设计与制作">动漫设计与制作</option>
                                 <option value="艺术设计">艺术设计</option>
                                 <option value="人物形象设计">人物形象设计</option>
-
-
 
                               </select>
                           </div>
@@ -305,6 +309,7 @@ $("#school").change(function(){
       tusername = $form.find('input[name="username"]').val(),
       tpassword = $form.find('input[name="password"]').val(),
       tpasswordc = $form.find('input[name="passwordc"]').val(),
+      tnickname = $form.find('input[name="nickname"]').val(),
       tcode = $form.find('input[name="code"]').val(),
       tphone = $form.find('input[name="phoneNo"]').val();
       var tschool = $('#school').find(":selected").text()
@@ -317,17 +322,21 @@ $("#school").change(function(){
           phoneNumber:tphone,
           code:tcode
         },function(ret, err){
-          if (err !== null && err !== undefined && err !== '') {
-            document.getElementById("errorMsg").innerHTML = "Incorrect verification code"
-            document.getElementById("divError").style.display = "block"
-            window.scrollTo(0,0)
-            } else {
+
+            //comment this out to disable phone num validation, remember below too
+          // if (err !== null && err !== undefined && err !== '') {
+          //   document.getElementById("errorMsg").innerHTML = "Incorrect verification code"
+          //   document.getElementById("divError").style.display = "block"
+          //   window.scrollTo(0,0)
+          //   } else {
+              ////
+
               api.openFrame({
                 name: "Loading Page",
                 url: 'loadingScreen.html',
                 rect: {
-                    marginTop: 71,
-                    marginBottom: 30,
+                    marginTop: 0,
+                    marginBottom: 0,
                     w: 'auto'
                 }
               })
@@ -338,6 +347,7 @@ $("#school").change(function(){
                   data: {
                       values: {
                           username: tusername,
+                          nickname: tnickname,
                           password: tpassword,
                           phoneNo: tphone,
                           school:tschool,
@@ -365,18 +375,15 @@ $("#school").change(function(){
                         document.getElementById("divError").style.display = "block"
                         window.scrollTo(0,0)
                       }
-                      else if(ret.errorRea == "email"){
-                        document.getElementById("errorMsg").innerHTML = "Email has already been used, please enter another email"
-                        document.getElementById("divError").style.display = "block"
-                        window.scrollTo(0,0)
-                      }
                       else if(ret.errorRea == "phone"){
                         document.getElementById("errorMsg").innerHTML = "Phone number has already been used, please enter another number"
                         document.getElementById("divError").style.display = "block"
                         window.scrollTo(0,0)
                       }
                     })
-            }
+        ////
+          //} // for phone validation
+        ////
             });
       }
       else if(tpassword != tpasswordc){
