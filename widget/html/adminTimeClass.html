@@ -159,13 +159,12 @@
       console.log(course.slice(4))
       document.getElementById(course).style.backgroundColor = "rgb(220, 230, 233)"
       var tcourse = document.getElementById(course.slice(4)).innerHTML
-      console.log(tcourse)
       setTimeout(function(){
         document.getElementById(course).style.backgroundColor = ""
       },500)
       api.openFrame({
-      name: "Time Class Page",
-      url: 'adminTimeClass.html',
+      name: "Admin Add Time page",
+      url: 'adminWeekly.html',
       rect: {
         marginTop: 0,
         marginBottom: 60,
@@ -175,7 +174,7 @@
         type:"movein",
         subType:"from_right"
       },
-      pageParam:({course:tcourse})
+      pageParam:({course:course})
     })
     }
 
@@ -199,7 +198,7 @@
             myAjax.init()
         });
 
-
+        console.log(api.pageParam.school)
 
         api.ajax({
           url: theIp + 'loadCourse',
@@ -212,14 +211,17 @@
           },
       },function(ret, err){
         //populate the courses
+        if(ret){
 
+
+        console.log(ret[0].name)
         for(i=0;i<ret.length;i++){
           document.getElementById(String(i+1)).innerHTML = ret[i].name
           var tString = "goTo" + String(i+1)
           document.getElementById(tString).style.display = ""
           var funcStr = 'goToTime("' + tString  +'")'
-          console.log(ret[i].name)
           document.getElementById(tString).setAttribute('onclick',funcStr)
+        }
         }
         });
 

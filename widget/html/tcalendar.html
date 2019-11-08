@@ -1,0 +1,596 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>Profile Page</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+<style>
+.day{
+  height:80px;
+  border-style: ridge;
+  border-width: 1px;
+  font-size:0.6em;
+  width:45px;
+}
+p{
+  font-weight:bold;
+  font-size: 0.6em;
+}
+
+@media screen and (max-height:400px){
+  .img{
+    position: fixed;
+    margin-top: -43%;
+    margin-left: 80%;
+  }
+}
+
+@media screen and (min-height:400px){
+  .img{
+    position: fixed;
+    margin-top: -13%;
+    margin-left: 80%;
+  }
+}
+
+.pspan{
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left:-13px;
+  width:45px;
+}
+
+.mcircle{
+  height:16px
+  ;width:16px;
+  border-radius:50%;
+  margin-bottom:-3px;
+}
+
+</style>
+</head>
+
+<body class="wrap">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+  <div class="container" style="margin-top:10px;">
+    <div class="row">
+  <div class="col 1">
+<p>M</p>
+</div>
+  <div class="col 1">
+<p>T</p>
+</div>
+  <div class="col 1">
+<p>W</p>
+</div>
+  <div class="col 1">
+<p>T</p>
+</div>
+  <div class="col 1">
+<p>F</p>
+</div>
+  <div class="col 1">
+<p>S</p>
+</div>
+  <div class="col 1">
+<p>S</p>
+</div>
+</div>
+
+
+
+<div class="row">
+<div class="col 1 day" id="d0">
+<p id="0" ></p>
+</div>
+<div class="col 1 day" id="d1">
+<p id="1"></p>
+</div>
+<div class="col 1 day" id="d2">
+<p id="2"></p>
+</div>
+<div class="col 1 day" id="d3">
+<p id="3"></p>
+</div>
+<div class="col 1 day" id="d4">
+<p id="4"></p>
+</div>
+<div class="col 1 day" id="d5">
+<p id="5"></p>
+</div>
+<div class="col 1 day" id="d6">
+<p id="6"></p>
+</div>
+</div>
+
+
+<div class="row">
+<div class="col 1 day" id="d7">
+<p id="7"></p>
+</div>
+<div class="col 1 day" id="d8">
+<p id="8"></p>
+</div>
+<div class="col 1 day" id="d9">
+<p id="9"></p>
+</div>
+<div class="col 1 day" id="d10">
+<p id="10"></p>
+</div>
+<div class="col 1 day" id="d11">
+<p id="11"></p>
+</div>
+<div class="col 1 day" id="d12">
+<p id="12"></p>
+</div>
+<div class="col 1 day" id="d13">
+<p id="13"></p>
+</div>
+</div>
+
+<div class="row">
+<div class="col 1 day" id="d14">
+<p id="14"></p>
+</div>
+<div class="col 1 day" id="d15">
+<p id="15"></p>
+</div>
+<div class="col 1 day" id="d16">
+<p id="16"></p>
+</div>
+<div class="col 1 day" id="d17">
+
+</div>
+<div class="col 1 day" id="d18">
+<p id="18"></p>
+</div>
+<div class="col 1 day" id="d19">
+<p id="19"></p>
+</div>
+<div class="col 1 day" id="d20">
+<p id="20"></p>
+</div>
+</div>
+
+<div class="row">
+<div class="col 1 day" id="d21">
+<p id="21"></p>
+</div>
+<div class="col 1 day" id="d22">
+<p id="22"></p>
+</div>
+<div class="col 1 day" id="d23">
+<p id="23"></p>
+</div>
+<div class="col 1 day" id="d24">
+<p id="24"></p>
+</div>
+<div class="col 1 day" id="d25">
+<p id="25"></p>
+</div>
+<div class="col 1 day" id="d26">
+<p id="26"></p>
+</div>
+<div class="col 1 day" id="d27">
+<p id="27"></p>
+</div>
+</div>
+
+<div class="row">
+<div class="col 1 day" id="d28">
+<p id="28"></p>
+</div>
+<div class="col 1 day" id="d29">
+<p id="29"></p>
+</div>
+<div class="col 1 day" id="d30">
+<p id="30"></p>
+</div>
+<div class="col 1 day" id="d31">
+<p id="31"></p>
+</div>
+<div class="col 1 day" id="d32">
+<p id="32"></p>
+</div>
+<div class="col 1 day" id="d33">
+<p id="33"></p>
+</div>
+<div class="col 1 day" id="d34">
+<p id="34"></p>
+</div>
+</div>
+<div class="row">
+<div class="col 1 day" id="d35">
+<p id="35"></p>
+</div>
+<div class="col 1 day" id="d36">
+<p id="36"></p>
+</div>
+<div class="col 1 day" id="d37">
+<p id="37"></p>
+</div>
+<div class="col 1 day" id="d38">
+<p id="38"></p>
+</div>
+<div class="col 1 day" id="d39">
+<p id="39"></p>
+</div>
+<div class="col 1 day" id="d40">
+<p id="40"></p>
+</div>
+<div class="col 1 day" id="d41">
+<p id="41"></p>
+</div>
+</div>
+
+<div class="img">
+<img src="../image/add.png" id="addTimeButton" height="50px" width="50px"  data-toggle="modal" data-target="#exampleModal2">
+</div>
+
+
+  </div>
+
+  <div class = "modal fade" id = "exampleModal" tabindex = "-1" role = "dialog" aria-labelledby ="exampleModalLabel" aria-hidden = "true">
+             <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class = "modal-content">
+                   <div class = "modal-header" >
+                      <h5 class = "modal-title text-center col-12" id = "exampleModalLabel"><br>
+                          </h5>
+
+                    <hr>
+                   </div>
+
+                   <div class="modal-body" id="mbody">
+                   </div>
+
+        </div>
+        </div>
+        </div>
+
+        <div class = "modal fade" id = "exampleModal2" tabindex = "-1" role = "dialog" aria-labelledby ="exampleModalLabel" aria-hidden = "true">
+                   <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class = "modal-content">
+                        <div class = "modal-header" >
+                           <h6 class = "modal-title text-center col-12" id = "wcreate">
+                             Which are you creating?
+                           </h6>
+
+
+                        </div>
+
+                         <div class = "modal-body">
+                           <div class="row">
+                             <div class="col-6 text-center" style="border-right:1px solid black" id="goToAddTime">
+                               Event
+                               </div>
+                               <div class="col-6 text-center" id="goToAddMemo">
+                               Reminder
+                             </div>
+                             </div>
+
+                         </div>
+
+              </div>
+              </div>
+              </div>
+
+
+
+  <script src = "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity = "sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin = "anonymous"></script>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+//document.getElementById("tusername").innerHTML = localStorage.getItem("username") + "'s timetable"
+
+var theIp = ''
+$(function (){
+  var myAjax = {
+    init: function(){
+      $.ajax({
+        url: "../wifi.txt",
+        async:false,
+        success:function(data){
+          theIp = data
+        }
+      })
+    }
+  };
+  myAjax.init()
+});
+
+function blockPressed(date,day,fullDate){
+  document.getElementById("mbody").innerHTML = ""
+  document.getElementById("exampleModalLabel").innerHTML = date+'<br><p>'+ day +'</p>'
+  var dayList = []
+  dayList.push(fullDate)
+  api.ajax({
+      url: theIp + 'loadCalBlock',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+              username: localStorage.getItem("username"),
+              tdate:dayList
+          },
+      },
+    },
+     function(ret, err){
+       if(ret){
+         for(i=0;i<ret.length;i++){
+           var placeStr = document.getElementById("mbody").innerHTML
+           var stime = ret[i].start.substring(8,10) + ':' + ret[i].start.substring(10,12)
+           var etime = ret[i].end.substring(8,10) + ':' + ret[i].end.substring(10,12)
+           var tstr = placeStr + '<span style="background-color:' + ret[i].color + ';" class="mcircle"></span><span style="margin-left:10px;">' + ret[i].title + '</span><br><span style="margin-left:26px;font-size:0.8em;color:#a8a8a8;">'+ stime +' '+ etime+ ' '+ ret[i].notes + ' '+ ret[i].location +'</span><br>'
+           document.getElementById("mbody").innerHTML = tstr
+         }
+       }
+     })
+     //load memo here
+
+     api.ajax({
+         url: theIp + 'loadCalMemo',
+         method: 'post',
+         timeout:30,
+         data: {
+             values: {
+                 username: localStorage.getItem("username"),
+                 tdate:dayList
+             },
+         },
+       },
+        function(ret, err){
+          if(ret){
+            for(i=0;i<ret.length;i++){
+              var placeStr = document.getElementById("mbody").innerHTML
+              var stime = ret[i].start.substring(8,10) + ':' + ret[i].start.substring(10,12)
+              var tstr = placeStr + '<img src="../image/bell.png" style="height:20px;width:16px;margin-bottom:-3px;"><span style="margin-left:10px;">' + ret[i].title + '</span><br><span style="margin-left:26px;font-size:0.8em;color:#a8a8a8;">'+ stime + ' '+ ret[i].note +'</span><br>'
+              document.getElementById("mbody").innerHTML = tstr
+            }
+          }
+        })
+
+}
+    apiready = function() {
+      var theIp = ''
+      $(function (){
+        var myAjax = {
+          init: function(){
+            $.ajax({
+              url: "../wifi.txt",
+              async:false,
+              success:function(data){
+                theIp = data
+              }
+            })
+          }
+        };
+        myAjax.init()
+      });
+
+      var curM = new Date().getMonth()
+      var curY = new Date().getFullYear()
+      if(api.pageParam.month || api.pageParam.year){
+        curM = api.pageParam.month
+        curY = api.pageParam.year
+      }
+      var allDay = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+      var allMonth = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC']
+      api.sendEvent({
+            name: 'changeMonth',
+            extra: {
+                month: allMonth[curM],
+                year: curY
+
+            }
+        });
+      console.log(curM)
+
+      var numDays = new Date(curY,curM+1,0).getDate()
+      var startDay = new Date(curY,curM,1).getDay() // sunday is 0
+
+      if(startDay == 0){
+        startDay = 6
+      }else{
+        startDay = startDay -1
+      }
+      var dayList2 = []
+
+      for(i=0;i<numDays;i++){
+
+        var tday = String(startDay + i)
+
+        var dday = "d" + tday
+        document.getElementById(dday).innerHTML = '<span style="font-size:10px;font-weight:bold;">' + String(i+1) +'</span>'
+        var dayIndex = new Date(curY,curM,i+1).getDay()
+
+        if(i<10){
+          if(curM<9){
+            var dateStr = String(curY)+"0"+String(curM+1)+"0" + String(i+1)
+          }else{
+            var dateStr = String(curY)+String(curM+1)+"0" + String(i+1)
+          }
+
+        }else{
+          if(curM<9){
+            var dateStr = String(curY)+"0"+String(curM+1)+ String(i+1)
+          }else{
+          var dateStr = String(curY)+String(curM+1)+String(i+1)
+        }
+        }
+
+        dayList2.push(dateStr)
+
+        var funcStr = 'blockPressed("' + String(i+1) + '","' + allDay[dayIndex] + '","' + dateStr +'")'
+        //console.log(funcStr)
+        document.getElementById(dday).setAttribute('onclick',funcStr)
+        document.getElementById(dday).setAttribute('data-toggle','modal')
+        document.getElementById(dday).setAttribute('data-target','#exampleModal')
+
+        //push all date into new array for loadcalblock
+
+      }
+      console.log(dayList2)
+
+
+      api.ajax({
+          url: theIp + 'loadCalBlock',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                  username: localStorage.getItem("username"),
+                  tdate:dayList2
+              },
+          },
+        },
+         function(ret, err){
+           if(ret){
+
+              for(i=0;i<ret.length;i++){
+                if(ret[i].start.substring(0,8) == ret[i].end.substring(0,8)){
+
+                  var tid = parseInt(ret[i].start.substring(6,8))
+                  var thestr = document.getElementById("d"+String(tid+startDay-1)).innerHTML + '<br><span style="margin-left:-13px;border-left:2px solid '+ ret[i].color +';">&nbsp' + ret[i].title + '</span>'
+                  var bcount = thestr.match(/<br>/g || []).length
+
+                  if(bcount < 5){
+                    document.getElementById("d"+String(tid+startDay-1)).innerHTML = thestr
+                    document.getElementById("d"+String(tid+startDay-1)).style.width = "45px"
+
+                  }
+
+
+                }
+
+              }
+           }
+         })
+
+         api.ajax({
+             url: theIp + 'loadCalMemo',
+             method: 'post',
+             timeout:30,
+             data: {
+                 values: {
+                     username: localStorage.getItem("username"),
+                     tdate:dayList2
+                 },
+             },
+           },
+            function(ret, err){
+              if(ret){
+              for(i=0;i<ret.length;i++){
+                var tid = parseInt(ret[i].start.substring(6,8))
+                var thestr = document.getElementById("d"+String(tid+startDay-1)).innerHTML + '<img src="../image/bell.png" style="width:10px;height:12px;bottom:0;left:0;position:absolute;">'
+
+                try {
+                  var bcount = thestr.match(/<br>/g || []).length
+                }catch(error){
+                  var bcount = 0
+                }
+
+                if(bcount < 5){
+                  document.getElementById("d"+String(tid+startDay-1)).innerHTML = thestr
+                  document.getElementById("d"+String(tid+startDay-1)).style.width = "45px"
+              }
+            }
+          }
+          })
+
+
+      $("#goToAddTime").click(function(){
+        $('#exampleModal2').modal('hide')
+        api.openFrame({
+          name: 'Add Time page',
+          url: 'addTime.html',
+          // bounces:true,
+          rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+              marginTop:0,
+              marginBottom: 0, // main页面距离win顶部的高度
+              w: 'auto' // main页面的宽度 自适应屏幕宽度
+          }
+          //pageParam:
+        })
+      })
+
+      $("#goToAddMemo").click(function(){
+        $('#exampleModal2').modal('hide')
+        api.openFrame({
+          name: 'Add Memo page',
+          url: 'addMemo.html',
+          // bounces:true,
+          rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+              marginTop:0,
+              marginBottom: 0, // main页面距离win顶部的高度
+              w: 'auto' // main页面的宽度 自适应屏幕宽度
+          }
+          //pageParam:
+        })
+      })
+
+
+      api.addEventListener({
+          name:'swipeleft'
+      }, function(ret, err){
+  document.getElementById("addTimeButton").style.display = 'none'
+        if(curM == 11){
+          var ncurM = 0
+          curY = curY + 1
+
+        }else{
+          var ncurM = curM + 1
+        }
+
+        api.openFrame({
+          name: "Calendar Page"+String(Math.random()),
+          url: 'calendar.html',
+          pageParam:({month:ncurM,year:curY}),
+          rect: {
+            marginTop: 132,
+            marginBottom: 60,
+              w: 'auto'
+          },
+          animation:{
+            type:"movein",
+            subType:"from_right"
+          },
+        })
+   })
+   api.addEventListener({
+       name:'swiperight'
+   }, function(ret, err){
+     document.getElementById("addTimeButton").style.display = 'none'
+     if(curM == 0){
+       var ncurM = 0
+       curY = curY - 1
+     }else{
+       var ncurM = curM - 1
+     }
+     api.openFrame({
+       name: "Calendar Page"+String(Math.random()),
+       url: 'calendar.html',
+       pageParam:({month:ncurM,year:curY}),
+       rect: {
+         marginTop: 132,
+         marginBottom: 60,
+           w: 'auto'
+       },
+       animation:{
+         type:"movein",
+         subType:"from_left"
+       },
+     })
+})
+
+
+    };
+
+</script>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container" style="margin-top:30px;height:100%;">
+        <form method="post" id="addTimeForm" style="height:100%;">
+      <div class="row">
+        <div class="col-10">
+          <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
+        </div>
+        <div class="col-1" style="float:right;">
+          <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
+        </div>
+      </div>
+      <br>
+      <br>
+
+
+        <section class="flex-1">
+
+
+
+                          <div class="row">
+                          <div class="col-5" style="color:#DC2227">
+                              Start
+                          </div>
+                          <!-- <div class="col-4">
+                            Thu, Oct 17
+                          </div>
+                          <div class="col-3" style="font-size:0.9em">
+                            8:00 AM
+
+                          </div> -->
+
+                          <div class="col-4 cstart" id="sdate">
+                          </div>
+                          <div class="col-3 cstart" id="stime">
+                            09:00
+                          </div>
+
+
+                          </div>
+                          <div class="row" style="margin-top:15px">
+                          <div class="col-5" style="color:#DC2227">
+                              End
+                          </div>
+                          <div class="col-4 cend" id="edate">
+                          </div>
+                          <div class="col-3 cend" id="etime">
+                            18:00
+                          </div>
+
+                          </div>
+
+                          <br>
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/bell.png" style="height:20px;width20px;margin-top:5px;"><p id="addAlert" style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Add Alert</p>
+                          </div>
+                          <div class="row" style="margin-left:10px;">
+                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
+                              <option value="">None</option>
+                              <option value="">At time of event</option>
+                              <option value="">5 mins before</option>
+                              <option value="">10 mins before</option>
+                              <option value="">15 mins before</option>
+                            </select>
+                          </div>
+                          <!-- <div class="row" style="margin-left:10px;margin-top:10px">
+                            <img src="../image/repeat.png" style="height:20px;width20px;margin-top:5px;"><p id="addRepeat"  style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Repeat</p>
+                          </div>
+                          <div class="row" style="margin-left:10px;">
+                            <select class="form-control" name="talert" id="talert" style="width:80%;margin-left:25px;">
+                              <option value="">Never</option>
+                              <option value="">Daily</option>
+                              <option value="">Weekly</option>
+                              <option value="">Monthly</option>
+                              <option value="">Yearly</option>
+
+                            </select>
+                          </div> -->
+
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
+                          </div>
+                          <div class="row" style="margin-left:10px;margin-top:30px">
+                            <img src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes" required/>
+                          </div>
+
+
+
+
+
+                          <div class="row" style="height:60px; width:100%;position:fixed;bottom:0;z-index:999">
+                  <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="cancelTime">
+                    <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+                  </div>
+                  <div class="col-6" style="background-color:#EFDFCF;text-align:center" id="saveTime">
+                    <p style="padding-top:17px;font-weight:bold;">Save</p>
+                  </div>
+                          </div>
+                      </form>
+        </section>
+
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
+
+<link rel="stylesheet" href="../popoPicker/css/popoPicker.css">
+<script type="text/javascript" src="../popoPicker/js/popoPicker.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+    apiready = function() {
+
+
+
+      new popoDateTime('.cstart', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+              $("#sdate").html(date.substring(0,10));
+              $("#stime").html(date.slice(11));
+          }
+      });
+
+
+      new popoDateTime('.cend', {
+          background: 'light',
+          date:"true",
+          beginYear:2019,
+          endYear:2022,
+          save:function(date){
+              console.log('data is ' + date)
+              //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+              $("#edate").html(date.substring(0,10));
+              $("#etime").html(date.slice(11));
+          }
+      });
+
+
+      if(api.pageParam.date){
+        document.getElementById("sdate").innerHTML = api.pageParam.date
+        document.getElementById("edate").innerHTML = api.pageParam.date
+        console.log(api.pageParam.time)
+        if(parseInt(api.pageParam.time) < 30){
+          document.getElementById("stime").innerHTML ="0" + String(parseInt(api.pageParam.time) + 7) + ":00"
+        }else{
+          document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+        }
+
+      }else{
+        var thecurr = new Date()
+        curY = String(thecurr.getFullYear())
+        if(thecurr.getMonth()+1 < 10){
+          var curM = "0" + String(thecurr.getMonth()+1)
+        }
+        else{
+          var curM = thecurr.getMonth()+1
+        }
+        if(thecurr.getDate() < 10){
+          var curD = "0" + String(thecurr.getDate())
+        }
+        else{
+          var curD = String(thecurr.getDate())
+        }
+        var currStr = curY + "-" + curM + "-" + curD
+        document.getElementById("sdate").innerHTML = currStr
+        document.getElementById("edate").innerHTML = currStr
+      }
+
+
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+
+
+
+$('#addAlert').click(function(){
+  console.log('shout')
+})
+
+$('#saveTime').click(function(){
+  console.log('come into add time')
+
+  var title = document.getElementById("title").value
+  var tcolor = document.getElementById("tcolor").value
+  var tlocation = document.getElementById("tlocation").value
+  var tnotes = document.getElementById("tnotes").value
+  var sdate =  document.getElementById("sdate").innerText
+  var stime = document.getElementById("stime").innerText
+  var tdate = sdate.substring(0,4) + sdate.substring(5,7) + sdate.slice(8) + stime.substring(0,2) + stime.slice(3)
+  var edate =  document.getElementById("edate").innerText
+  var etime = document.getElementById("etime").innerText
+  var tedate = edate.substring(0,4) + edate.substring(5,7) + edate.substring(8,10) + etime.substring(0,2) + etime.slice(3)
+    console.log(tedate,tdate)
+if(tedate > tdate){
+
+
+var curr = new Date()
+console.log(sdate.substring(5,7))
+curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10)))
+
+
+var tday = curr.getDay()
+
+if(tday == 0){
+  tday = 6
+}else{
+  tday = tday -1
+}
+api.ajax({
+    url: theIp + 'checkBlock',
+    method: 'post',
+    timeout:30,
+    data: {
+        values: {
+            username: localStorage.getItem("username"),
+            start: tdate,
+            end: tedate,
+            stime:parseInt(tdate.slice(8)),
+            etime:parseInt(tedate.slice(8))
+        },
+    },
+  },
+   function(ret, err){
+      if(ret.check == 'clear'){
+        api.ajax({
+            url: theIp + 'addBlock',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                    username: localStorage.getItem("username"),
+                    title: title,
+                    start: tdate,
+                    end: tedate,
+                    color: tcolor,
+                    notes:tnotes,
+                    location:tlocation,
+                    type:"task",
+                    day:tday // implement day logic
+                },
+            },
+          },
+           function(ret, err){
+               api.alert({title:"Success",msg:"The Event has been saved successfully"});
+             api.closeFrame({
+                 name: 'Add Time page'
+             });
+             api.closeFrame({
+                 name: 'Weekly page'
+             });
+             api.openFrame({
+               name: 'Weekly page',
+               url: 'weekly.html',
+
+               rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                   marginTop:132,
+                   marginBottom: 60, // main页面距离win顶部的高度
+                   w: 'auto' // main页面的宽度 自适应屏幕宽度
+               }
+               //page param
+             })
+      })
+
+
+    }else{
+      api.alert({
+        title:'Failed',
+        msg:'There is an existing event in that timing'
+      })
+    }
+
+   })
+}else{
+  api.alert({
+    title:'Failed',
+    msg:'Starting time cannot be after the ending time'
+  })
+}
+
+
+
+
+})
+
+$('#cancelTime').click(function(){
+  console.log('cancel time')
+api.closeFrame({
+    name: 'Add Time page'
+});
+
+})
+
+
+
+    };
+
+
+</script>
+
+</html>

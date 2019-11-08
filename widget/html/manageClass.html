@@ -22,8 +22,16 @@
 
         <section class="flex-1">
           <div class="row">
-            <div class="col-10" id="goToManageTime">
-          <p style="font-size:1.2em;font-weight:bold;">Manage Timetable</p>
+            <div class="col-10" id="goToViewClass">
+          <p style="font-size:1.2em;font-weight:bold;">View All Classes</p>
+        </div>
+        <div class="col-2">
+          <p style="font-size:1.5em;">></p>
+        </div>
+</div>
+          <div class="row">
+            <div class="col-10" id="goToAddClass">
+          <p style="font-size:1.2em;font-weight:bold;">Add Class</p>
         </div>
         <div class="col-2">
           <p style="font-size:1.5em;">></p>
@@ -31,7 +39,7 @@
 </div>
 <div class="row">
   <div class="col-10" id="goToEditCourse">
-<p style="font-size:1.2em;font-weight:bold;">Manage Courses</p>
+<p style="font-size:1.2em;font-weight:bold;">Edit Class</p>
 </div>
 <div class="col-2">
 <p style="font-size:1.5em;">></p>
@@ -39,7 +47,7 @@
 </div>
 <div class="row">
   <div class="col-10" id="goToManageClass">
-<p style="font-size:1.2em;font-weight:bold;">Manage Class</p>
+<p style="font-size:1.2em;font-weight:bold;">Remove Class</p>
 </div>
 <div class="col-2">
 <p style="font-size:1.5em;">></p>
@@ -78,11 +86,11 @@
             myAjax.init()
         });
 
-          $("#goToManageTime").click(function(){
+          $("#goToAddClass").click(function(){
 
             api.openFrame({
-              name: "Time School Page",
-              url: 'adminTimeSch.html',
+              name: "Add Class Page",
+              url: 'addClass.html',
               rect: {
                   marginTop: 0,
                   marginBottom: 60,
@@ -97,41 +105,6 @@
 
           })
 
-          $("#goToManageClass").click(function(){
-
-            api.openFrame({
-              name: "Class Page",
-              url: 'manageClass.html',
-              rect: {
-                  marginTop: 0,
-                  marginBottom: 60,
-                  w: 'auto'
-              },
-              animation:{
-                type:"movein",
-                subType:"from_right"
-              }
-                      })
-
-          })
-
-          $("#goToManageCourse").click(function(){
-
-            api.openFrame({
-              name: "Course Page",
-              url: 'manageCourse.html',
-              rect: {
-                  marginTop: 0,
-                  marginBottom: 60,
-                  w: 'auto'
-              },
-              animation:{
-                type:"movein",
-                subType:"from_right"
-              }
-                      })
-
-          })
 
 
     };
