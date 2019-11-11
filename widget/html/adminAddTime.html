@@ -161,7 +161,6 @@
               console.log('data is ' + date)
                   //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
-              $("#edate").html(date.substring(0, 10));
               $("#etime").html(date.slice(11));
           }
       });
@@ -233,8 +232,17 @@
               var tyear = curr.getFullYear()
               var tdaten = curr.getDate()
 
-              var tdate = String(tyear) + String(tmonth+1) + String(tdaten) + stime.substring(0,2) + stime.slice(3)
-              var tedate = String(tyear) + String(tmonth+1) + String(tdaten) + etime.substring(0,2) + etime.slice(3)
+              if (tdaten < 10){
+                tdaten = "0" + String(tdaten)
+              }
+              if (tmonth < 9){
+                tmonth = "0" + String(tmonth+1)
+              }else{
+                tmonth = String(tmonth+1)
+              }
+
+              var tdate = String(tyear) + tmonth + String(tdaten) + stime.substring(0,2) + stime.slice(3)
+              var tedate = String(tyear) + tmonth + String(tdaten) + etime.substring(0,2) + etime.slice(3)
 
               if(tday == 0){
                 tday = 6
@@ -242,6 +250,7 @@
                 tday = tday -1
               }
               console.log(tdate)
+              console.log(api.pageParam.class)
               api.ajax({
                 url: theIp + 'addAdminBlock',
                 method: 'post',
@@ -273,8 +282,8 @@
             name: 'Add Admin Time page'
         });
         api.openFrame({
-            name: 'Weekly page',
-            url: 'weekly.html',
+            name: 'Admin Weekly page',
+            url: 'adminWeekly.html',
 
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
                 marginTop: 0,

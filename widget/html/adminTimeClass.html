@@ -127,10 +127,7 @@
   <div class="col-10">
 <p style="font-size:1.2em;font-weight:bold;padding-top:18px" id="13"></p>
 </div>
-<div class="col-2">
-<p style="font-size:1.5em;padding-top:13px">></p>
-</div>
-</div>
+
         </section>
 
 
@@ -152,19 +149,19 @@
         document.getElementById(course).style.backgroundColor = ""
       },500)
       api.openFrame({
-      name: "Admin Add Time page",
-      url: 'adminWeekly.html',
-      rect: {
-        marginTop: 0,
-        marginBottom: 60,
-          w: 'auto'
-      },
-      animation:{
-        type:"movein",
-        subType:"from_right"
-      },
-      pageParam:({class:tcourse})
-    })
+        name: "Admin Weekly page",
+        url: 'adminWeekly.html',
+        rect: {
+          marginTop: 0,
+          marginBottom: 60,
+            w: 'auto'
+        },
+        animation:{
+          type:"movein",
+          subType:"from_right"
+        },
+        pageParam:({class:tcourse})
+      })
     }
 
     apiready = function() {

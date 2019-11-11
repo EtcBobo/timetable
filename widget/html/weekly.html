@@ -681,6 +681,107 @@ function goToAddTime(id){
            }
          })
 
+      var allClasses = []
+      api.ajax({
+          url: theIp + 'getAllClass',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                  username: localStorage.getItem("username")
+              },
+          },
+        },
+         function(ret2, err){
+
+           if(ret2.length > 0){
+             console.log(ret2[0].classname)
+             for(i2=0;i2<ret2.length;i2++){
+               allClasses.push(ret2[i2].classname)
+               if(i2 == ret2.length - 1){
+                 console.log(allClasses)
+                 api.sendEvent({
+                       name: 'finishClassLoad',
+                       extra: {
+                          allClasses:allClasses
+                       }
+                   });
+               }
+             }
+
+           }
+         })
+
+
+
+         api.addEventListener({
+             name: 'finishClassLoad'
+         }, function(ret2, err) {
+            console.log("finish")
+           for(i=0;i<allClasses.length;i++){
+             api.ajax({
+                 url: theIp + 'loadWeekClassBlock',
+                 method: 'post',
+                 timeout:30,
+                 data: {
+                     values: {
+                         classname: allClasses[i],
+                         tdate:dayList2
+                     },
+                 },
+               },
+                function(ret, err){
+                  if(ret){
+
+                    for(i=0;i<ret.length;i++){
+                      var tstart = ret[i].start.slice(8)// get 0900
+                      var tend = ret[i].end.slice(8)
+                       if(parseInt(tend)<1801 && parseInt(tstart)>0759){
+                           var startp = parseInt(tstart.slice(2)) / 60 *100
+                           var startpr = 100 - startp
+                           var endp = parseInt(tend.slice(2)) / 60 *100
+                           var endpr = 100 - endp
+                           var newStart = (parseInt(tstart.substring(0,2)) - 8) * 10
+                           var newEnd = (parseInt(tend.substring(0,2)) - 8) * 10
+                           var tCount = (newEnd - newStart) /10
+                           var pposition = String(startp/10 * 3.8) +"px"
+
+                           console.log(newStart)
+
+                           for(i2=0;i2<tCount;i2++){
+                             var tBlock = "d" + String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
+                             if(i2 == 0){
+                               document.getElementById(tBlock).style.background = "linear-gradient(to top,"+ ret[i].color + " "+ String(startpr) +"%,transparent "+ String(startpr) +"%,transparent "+String(startp)+"%,#ffffff "+String(startp)+"%)"
+                               var tptag = String(newStart  + (i2+1) *10 + parseInt(ret[i].day))
+                               document.getElementById(tptag).innerHTML = ret[i].title
+                               document.getElementById(tptag).style.marginLeft = "-14px"
+                               document.getElementById(tBlock).style.width = "45px"
+                               document.getElementById(tptag).style.width = "40px"
+                               document.getElementById(tptag).style.marginTop = pposition
+
+                             }else if(i2 == tCount-1){
+                               document.getElementById(tBlock).style.background = "linear-gradient(to bottom,"+ ret[i].color + " "+ String(endp) +"%,transparent "+ String(endp) +"%,transparent "+String(endpr)+"%,#ffffff "+String(endpr)+"%)"
+                             }else{
+
+                             document.getElementById(tBlock).style.backgroundColor = ret[i].color
+
+                           }
+                           document.getElementById(tBlock).style.borderBottom = "0px"
+                           document.getElementById(tBlock).style.borderTop = "0px"
+                           document.getElementById(tBlock).setAttribute('onclick',"")
+
+                         }
+                    }
+
+                    }
+                  }
+                })
+           }
+      })
+
+
+
+
 
 
       //insert load timeblock code here

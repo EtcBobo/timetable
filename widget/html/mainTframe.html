@@ -34,102 +34,185 @@
     </style>
 </head>
 <body class="wrap">
-    <section class="flex-1">
+  <header>
+      <div class="container" style="background-color:#EFDFCF;height:105px;">
+      <br>
+        <div class="row" >
+          <div class="col-11">
+           <span id="hmonth" style="font-size:1.5em;margin:0"></span><span id="hyear" style="padding-left:5px;"></span>
+          </div>
+          <!-- <div class="col-1">
+          <img src="../image/add.png" id="goToAddTime" height="25px" width="25px" style="float:right;"  data-toggle="modal" data-target="#exampleModal2">
+        </div> -->
+          <div class="col-1">
+            <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
+          </div>
+        </div>
 
+        <div class="row" style="margin-top:15px;">
+          <div class="col 6" style="text-align:center;border-bottom:2px solid #A0AC9E;padding-bottom:4px;" id="tmonthly">
+            <p>Monthly</p>
+          </div>
+          <div class="col 6" style="text-align:center;padding-bottom:4px;" id="tweekly">
+            <p>Weekly</p>
+          </div>
+        </div>
+      </div>
+  </header>
+    <section class="flex-1">
     </section>
 
     <footer>
-    <div class="container" style="background-color:rgb(242, 247, 248);height:60px;">
+    <div class="container" style="background-color:#EFDFCF;height:60px;">
       <div class="row" style="padding-top:10px;">
-        <div class="col-3" id="goToProf">
-          <img src="../image/profile.png" width="25px" height="25px">
+        <div class="col-4" id="goToCalendar">
+          <img src="../image/calendar.png" width="25px" height="25px">
           <br>
-          <p>Profile</p>
+          <p style="font-size:0.8em;">Calendar</p>
         </div>
-        <div class="col-3" id="goToTime">
+        <div class="col-4" id="goToTime">
           <img src="../image/timetable.png" width="25px" height="25px">
           <br>
-          <p>Timetable</p>
+          <p style="font-size:0.8em;">Timetable</p>
         </div>
-        <div class="col-3">
+        <div class="col-4" id="goToProfile">
           <img src="../image/chat.png" width="25px" height="25px">
           <br>
-          <p>Chat</p>
+          <p style="font-size:0.8em;">Chat</p>
         </div>
-        <div class="col-3" id="goToSetting">
-          <img src="../image/setting.png" width="25px" height="25px">
-          <br>
-          <p>Setting</p>
-        </div>
+
       </div>
     </div>
 
     </footer>
+
+
 </body>
 <script type="text/javascript">
     apiready = function() {
 
-        var footer = $api.dom('footer');
+      api.addEventListener({
+          name: 'changeMonth'
+      }, function(ret, err) {
+        document.getElementById("hmonth").innerHTML = ret.value.month
+        document.getElementById("hyear").innerHTML = ret.value.year
+      });
 
+        var header = $api.dom('header');
+        var footer = $api.dom('footer');
+        var headerH = $api.fixStatusBar(header);
         var footerH = $api.fixTabBar(footer);
-        console.log(footerH)
+        console.log(headerH)
 
         api.addEventListener({
             name: 'keyback'
         }, function(ret, err) {
-            console.log("back button pressed")
+          var frames = api.frames()
+          console.log(JSON.stringify(frames))
+          if(frames.length > 1){
+            api.closeFrame({
+              name:frames[frames.length-1].name
+            });
+          }
         });
 
-
-        $("#goToProf").click(function(){
-
+        $("#tweekly").click(function(){
+          document.getElementById("tweekly").style.borderBottom = "2px solid #A0AC9E"
+          document.getElementById("tmonthly").style.borderBottom = ""
           api.openFrame({
-            name: 'Profile page',
-            url: 'profile.html',
-            // bounces:true,
+            name: 'Weekly page',
+            url: 'weekly.html',
+
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
+                marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
+            //page param
+          })
+        })
+
+        $("#tmonthly").click(function(){
+          document.getElementById("tmonthly").style.borderBottom = "2px solid #A0AC9E"
+          document.getElementById("tweekly").style.borderBottom = ""
+          api.openFrame({
+            name: 'Calendar page',
+            url: 'calendar.html',
+
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:headerH,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            }
+            //page param
+          })
+        })
+
+        $("#goToCalendar").click(function(){
+
+
+            api.closeFrame({
+              name:"Add Time page"
+            });
+
+
+          api.openFrame({
+            name: 'Teacher Calendar page',
+            url: 'tcalendar.html',
+            // bounces:true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:headerH,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            },
+            animation:{
+              type:"movein",
+              subType:"from_right"
+            },
           })
         })
 
         $("#goToTime").click(function(){
-
+          api.closeFrame({
+            name:"Add Time page"
+          });
           api.openFrame({
             name: 'Timetable page',
-            url: 'teacherTimetable.html',
+            url: 'timetable.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
+                marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
           })
         })
 
-        $("#goToSetting").click(function(){
+        $("#goToSetting").click(function(){ //not using footer
 
           api.openFrame({
             name: 'Setting page',
             url: 'setting.html',
-            // bounces:true,
+
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
                 marginTop:0,
-                marginBottom: footerH, // main页面距离win顶部的高度
+                marginBottom: 0, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            animation:{
+              type:"movein",
+              subType:"from_right"
+            },
           })
         })
 
 
         api.openFrame({
-            name: 'Main page',
-            url: 'profile.html',
+            name: 'Teacher Calendar page',
+            url: 'tcalendar.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
+                marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
