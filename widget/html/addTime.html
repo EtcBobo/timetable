@@ -12,11 +12,7 @@
         .col0006 {
             background-color: #EFDFCF;
             text-align: center;
-            /*margin-bottom: -57px;
-            margin-left: -13px;
-            bottom: -9px;*/
             width: 50%;
-            /*position: fixed;*/
             display: inline-block;
             float: left;
         }
@@ -24,17 +20,13 @@
         .col0000 {
             background-color: #EFDFCF;
             text-align: center;
-            /*margin-left: 151px;
-            width: 99px;
-            bottom: -9px;*/
-            /*position: fixed;*/
             display: inline-block;
             width: 50%;
             float: right;
         }
 
         .container {
-            position: fixed;
+            /*position: fixed;*/
             bottom: -10px;
         }
     </style>
@@ -136,20 +128,28 @@
 
                 <br>
                 <br>
-                <input type="button" onclick="divshow"/>
-                <div id="row" style="  position:absolute;width:116%;height:57px;margin-left:-27px;top:539px;">
+                <!-- <input type="button" onclick="divshow"/>
+                <div id="row" style="  position:absolute;width:116%;height:57px; text-align:center">
                     <div class="col0006" id="cancelTime">
                         <p style="padding-top:17px;font-weight:bold;">Cancel</p>
                     </div>
                     <div class="col0000" id="saveTime">
                         <p style="padding-top:17px;font-weight:bold;">Save</p>
                     </div>
-                </div>
+                </div> -->
         </form>
         </section>
 
-    </div>
 
+    </div>
+    <div id="row" style="  position:fixed; width:116%;height:57px; Top:639px;">
+        <div class="col0006" id="cancelTime">
+            <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+        </div>
+        <div class="col0000" id="saveTime">
+            <p style="padding-top:17px;font-weight:bold;">Save</p>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
