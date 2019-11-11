@@ -517,7 +517,8 @@ function goToAddTime(id){
     },
     pageParam:({
       date:wdString,
-      time:id.substring(1,id.length - 1)
+      time:id.substring(1,id.length - 1),
+      class:api.pageParam.class
     })
   })
 }
@@ -598,12 +599,12 @@ function goToAddTime(id){
     console.log(dayList2)
 
       api.ajax({
-          url: theIp + 'loadWeekBlock',
+          url: theIp + 'loadBlockByClass',
           method: 'post',
           timeout:30,
           data: {
               values: {
-                  username: localStorage.getItem("username"),
+                  classname: api.pageParam.class,
                   tdate:dayList2
               },
           },
@@ -658,6 +659,10 @@ function goToAddTime(id){
 
 
 
+         console.log(api.pageParam.class)
+
+
+
       //insert load timeblock code here
 
       $("#goToAddTime").click(function(){
@@ -669,8 +674,10 @@ function goToAddTime(id){
               marginTop:0,
               marginBottom: 0, // main页面距离win顶部的高度
               w: 'auto' // main页面的宽度 自适应屏幕宽度
-          }
-          //pageParam:
+          },
+          pageParam:({
+            class:api.pageParam.class
+          })
         })
       })
 

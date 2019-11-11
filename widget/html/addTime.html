@@ -252,71 +252,72 @@
             } else {
                 tday = tday - 1
             }
-            api.ajax({
-                    url: theIp + 'checkBlock',
-                    method: 'post',
-                    timeout: 30,
-                    data: {
-                        values: {
-                            username: localStorage.getItem("username"),
-                            start: tdate,
-                            end: tedate,
-                            stime: parseInt(tdate.slice(8)),
-                            etime: parseInt(tedate.slice(8))
-                        },
-                    },
-                },
-                function(ret, err) {
-                    if (ret.check == 'clear') {
-                        api.ajax({
-                                url: theIp + 'addBlock',
-                                method: 'post',
-                                timeout: 30,
-                                data: {
-                                    values: {
-                                        username: localStorage.getItem("username"),
-                                        title: title,
-                                        start: tdate,
-                                        end: tedate,
-                                        color: tcolor,
-                                        notes: tnotes,
-                                        location: tlocation,
-                                        type: "task",
-                                        day: tday // implement day logic
-                                    },
-                                },
-                            },
-                            function(ret, err) {
-                                api.alert({
-                                    title: "Success",
-                                    msg: "The Event has been saved successfully"
-                                });
-                                api.closeFrame({
-                                    name: 'Add Time page'
-                                });
-                                api.openFrame({
-                                    name: 'Weekly page',
-                                    url: 'weekly.html',
+            if(parseInt(tedate)>parseInt(tdate)){    
+              api.ajax({
+                      url: theIp + 'checkBlock',
+                      method: 'post',
+                      timeout: 30,
+                      data: {
+                          values: {
+                              username: localStorage.getItem("username"),
+                              start: tdate,
+                              end: tedate,
+                              stime: parseInt(tdate.slice(8)),
+                              etime: parseInt(tedate.slice(8))
+                          },
+                      },
+                  },
+                  function(ret, err) {
+                      if (ret.check == 'clear') {
+                          api.ajax({
+                                  url: theIp + 'addBlock',
+                                  method: 'post',
+                                  timeout: 30,
+                                  data: {
+                                      values: {
+                                          username: localStorage.getItem("username"),
+                                          title: title,
+                                          start: tdate,
+                                          end: tedate,
+                                          color: tcolor,
+                                          notes: tnotes,
+                                          location: tlocation,
+                                          type: "task",
+                                          day: tday // implement day logic
+                                      },
+                                  },
+                              },
+                              function(ret, err) {
+                                  api.alert({
+                                      title: "Success",
+                                      msg: "The Event has been saved successfully"
+                                  });
+                                  api.closeFrame({
+                                      name: 'Add Time page'
+                                  });
+                                  api.openFrame({
+                                      name: 'Weekly page',
+                                      url: 'weekly.html',
 
-                                    rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                                        marginTop: 132,
-                                        marginBottom: 60, // main页面距离win顶部的高度
-                                        w: 'auto' // main页面的宽度 自适应屏幕宽度
-                                    }
-                                    //page param
-                                })
-                            })
+                                      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                                          marginTop: 132,
+                                          marginBottom: 60, // main页面距离win顶部的高度
+                                          w: 'auto' // main页面的宽度 自适应屏幕宽度
+                                      }
+                                      //page param
+                                  })
+                              })
 
 
-                    } else {
-                        api.alert({
-                            title: 'Failed',
-                            msg: 'There is an existing event in that timing'
-                        })
-                    }
+                      } else {
+                          api.alert({
+                              title: 'Failed',
+                              msg: 'There is an existing event in that timing'
+                          })
+                      }
 
-                })
-
+                  })
+            }
 
 
         })
