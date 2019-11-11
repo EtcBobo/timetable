@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container">
+<br>
+
+        <section class="flex-1">
+              <form method="post" id="addClass" class="form-group col-lg-12">
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Class Name:<br>
+                <input type="text" name="classname" id="classname" class="form-control" required>
+                </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            School:<br>
+                            <select class="form-control" name="pref" id="school">
+                              <option value="软件学院">软件学院</option>
+                              <option value="财经学院">财经学院</option>
+                              <option value="旅游学院">旅游学院</option>
+                              <option value="工商管理与房地产学院">工商管理与房地产学院</option>
+                              <option value="医护分院">医护分院</option>
+                              <option value="基础部">基础部</option>
+                              <option value="外语部">外语部</option>
+                            </select>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            Course:<br>
+                            <select class="form-control" name="pref" id="course">
+                              <option value="软件技术">软件技术</option>
+                              <option value="计算机应用技术">计算机应用技术</option>
+                              <option value="计算机网络技术">计算机网络技术</option>
+                              <option value="应用电子技术">应用电子技术</option>
+                              <option value="楼宇智能化工程技术">楼宇智能化工程技术</option>
+                              <option value="光伏发电技术及应用">光伏发电技术及应用</option>
+                              <option value="汽车检测与维修技术">汽车检测与维修技术</option>
+                              <option value="动漫设计与制作">动漫设计与制作</option>
+                              <option value="艺术设计">艺术设计</option>
+                              <option value="人物形象设计">人物形象设计</option>
+                            </select>
+                        </div>
+                </div>
+
+
+                      </form>
+                      <div class="row">
+                      <div class="form-group col-md-12">
+                              <button class="btn btn-primary btn-lg upload-group text-center" id="searchClassButton">Search</button>
+                          </div>
+                          <br>
+                      </div>
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    apiready = function() {
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        $("#searchClassButton").click(function(){
+
+           tclass = document.getElementById("classname").value;
+           var tcourse = $('#course').find(":selected").text()
+            console.log(tcourse)
+           api.ajax({
+               url: theIp + 'addClass',
+               method: 'post',
+               timeout:30,
+               data: {
+                   values: {
+                      classname:tclass,
+                      teacher:tteacher,
+                      course:tcourse
+                   },
+               },
+             },
+              function(ret, err){
+                if(ret){
+                  api.alert({
+                    title:'Success',
+                    msg:'A new class "' + tclass + '" has been added'
+                  })
+
+                  api.closeFrame({
+                      name: 'Add Class page'
+                  });
+
+                  api.openFrame({
+                    name: "Main page",
+                    url: 'admin.html',
+                    rect: {
+                        marginTop: 0,
+                        marginBottom: 60,
+                        w: 'auto'
+                    }
+                  });
+                }
+
+
+              })
+         })
+
+        var sel = document.getElementById('teacher')
+       api.ajax({
+           url: theIp + 'getSpecTeacher',
+           method: 'post',
+           timeout:30,
+           data: {
+               values: {
+                   course:"软件技术"
+               },
+           },
+         },
+          function(ret, err){
+            if(ret){
+              for(i= 0;i<ret.length;i++){
+                var opt = document.createElement('option')
+                opt.appendChild(document.createTextNode(ret[i].username+"  "+ret[i].nickname))
+                opt.value = ret[i].username
+                sel.appendChild(opt)
+              }
+            }
+          })
+
+        $("#school").change(function(){
+          var sel = document.getElementById('course')
+          var sel2 = document.getElementById('school')
+          var sel3 = document.getElementById('teacher')
+          var selL = sel.options.length
+          for(i=selL-1;i>=0;i--){
+            sel.remove(i)
+            console.log(sel)
+          }
+          api.ajax({
+              url: theIp + 'selectSchool',
+              method: 'post',
+              timeout:30,
+              data: {
+                  values: {
+                      school:sel2.options[sel2.selectedIndex].text
+                  },
+              },
+            },
+             function(ret, err){
+              for(i= 0;i<ret.length;i++){
+                var opt = document.createElement('option')
+                opt.appendChild(document.createTextNode(ret[i].name))
+                opt.value = ret[i].name
+                sel.appendChild(opt)
+                if(i == 0){
+                  api.ajax({
+                      url: theIp + 'getSpecTeacher',
+                      method: 'post',
+                      timeout:30,
+                      data: {
+                          values: {
+                              course:ret[i].name
+                          },
+                      },
+                    },
+                     function(ret, err){
+                       if(ret){
+                         for(i2= 0;i2<ret.length;i2++){
+                           var opt = document.createElement('option')
+                           opt.appendChild(document.createTextNode(ret[i2].username+"  "+ret[i2].nickname))
+                           opt.value = ret[i2].username
+                           sel3.appendChild(opt)
+                         }
+                       }
+                     })
+                }
+              }
+        })
+        })
+
+    };
+</script>
+
+</html>

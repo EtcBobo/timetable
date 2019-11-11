@@ -178,9 +178,12 @@ function registerButton(){
                         url: 'mainFrame.html'
                       })
                     }else{
-
+                      api.setPrefs({
+                          key: 'teacher',
+                          value: 'true'
+                      });
                       api.openWin({
-                        name: "Home Page",
+                        name: "Teacher Home Page",
                         url: 'mainTframe.html'
                       })
                     }

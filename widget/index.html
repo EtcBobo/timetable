@@ -72,10 +72,23 @@
                   key: 'admin'
               }, function(ret, err) {
                 if(ret.value == 'false'){
-                  api.openWin({
-                    name: "Home Page",
-                    url: 'html/mainFrame.html'
+
+                  api.getPrefs({
+                      key: 'teacher'
+                  }, function(ret, err) {
+                      if(ret.value == 'false'){
+                        api.openWin({
+                          name: "Home Page",
+                          url: 'html/mainFrame.html'
+                        })
+                      }else{
+                        api.openWin({
+                          name: "Teacher Home Page",
+                          url: 'html/mainTframe.html'
+                        })
+                      }
                   })
+
                 }else{
                   api.openWin({
                     name: "Home Page",
