@@ -8,19 +8,6 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-
-    .row {
-        margin-top: 10px;
-    }
-
-    .classRow{
-      height:140px;
-
-      width:95%;
-      margin:auto;
-      border-radius:10px;
-    }
-
     </style>
 </head>
 
@@ -29,7 +16,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
-    <div class="container" id="classCont" style="margin-top:20px;">
+    <div class="container" id="tcontainer" style="margin-top:30px;">
+    <br>
+
+        <section class="flex-1">
+
+
+
+
+
+        </section>
+
+
 
     </div>
 
@@ -40,6 +38,21 @@
 <script type="text/javascript">
     //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
 
+function goToEdit(course){
+  console.log(course)
+  api.openFrame({
+    name: "Edit Spec Class page",
+    url: 'editSpecClass.html',
+    rect: {
+        marginTop: 0,
+        marginBottom: 60,
+        w: 'auto'
+    },
+    pageParam:({
+      class:course
+    })
+  });
+}
     apiready = function() {
         var theIp = ''
         $(function() {
@@ -57,27 +70,20 @@
             myAjax.init()
         });
 
+        console.log(api.pageParam.classes)
+        var allClasses = api.pageParam.classes
+        var classStr = ""
+        for(i=0;i<allClasses.length;i++){
+          var tcoursen = "'" + allClasses[i].classCode + "'"
+          classStr = classStr + '<div class="row"><div class="col-4">'+ allClasses[i].classCode +'</div><div class="col-5">'+ allClasses[i].course +'</div><div class="col-3"><button class="btn btn-primary btn-lg upload-group text-center" onclick="goToEdit('+ tcoursen +')" style="font-size:0.7em;">Edit</button></div></div><hr>'
+        }
+        console.log(classStr)
+        document.getElementById("tcontainer").innerHTML = classStr
 
-       api.ajax({
-           url: theIp + 'getAllClass',
-           method: 'post',
-           timeout:30,
-           data: {
-               values: {
-                   username:localStorage.getItem("username")
-               },
-           },
-         },
-          function(ret, err){
-            if(ret){
-              var theStr = ""
-              for(i=0;i<ret.length;i++){
-                  theStr = theStr + '<div class="row classRow" style="margin:auto;background-color:'+ ret[i].color +';"><div class="col-8" style="padding-top:50px;"><img src="../image/rightArrow.png" style="width:40px;height:40px;"><p style="font-size:1.5em;">'+ ret[i].classname +'</p></div><div class="col-4" style="margin-top:35px"><img src="../image/school.png" style="height:70px;width:80px;"></div></div><br>'
-              }
-              document.getElementById("classCont").innerHTML = theStr
-            }
 
-          })
+
+
+
     };
 </script>
 

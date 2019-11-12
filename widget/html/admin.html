@@ -32,14 +32,6 @@
         </div>
 </div>
 <div class="row">
-  <div class="col-10" id="goToEditCourse">
-<p style="font-size:1.2em;font-weight:bold;">Manage Courses</p>
-</div>
-<div class="col-2">
-<p style="font-size:1.5em;">></p>
-</div>
-</div>
-<div class="row">
   <div class="col-10" id="goToManageClass">
 <p style="font-size:1.2em;font-weight:bold;">Manage Class</p>
 </div>
@@ -117,23 +109,7 @@
 
           })
 
-          $("#goToManageCourse").click(function(){
 
-            api.openFrame({
-              name: "Course Page",
-              url: 'manageCourse.html',
-              rect: {
-                  marginTop: 0,
-                  marginBottom: 60,
-                  w: 'auto'
-              },
-              animation:{
-                type:"movein",
-                subType:"from_right"
-              }
-                      })
-
-          })
 
 
     };

@@ -34,9 +34,6 @@
                 </div>
                 </div>
                 <div class="row">
-                  <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
-                </div>
-                <div class="row">
                         <div class="form-group col-md-12">
                             School:<br>
                             <select class="form-control" name="pref" id="school">
@@ -79,7 +76,7 @@
                       </form>
                       <div class="row">
                       <div class="form-group col-md-12">
-                              <button class="btn btn-primary btn-lg upload-group text-center" id="addClassButton">Add</button>
+                              <button class="btn btn-primary btn-lg upload-group text-center" id="editClassButton">Edit</button>
                           </div>
                           <br>
                       </div>
@@ -113,10 +110,42 @@
             myAjax.init()
         });
 
-        $("#addClassButton").click(function(){
-          tcolor = document.getElementById("tcolor").value;
+        var bschools = ['软件学院','财经学院','旅游学院','工商管理与房地产学院','医护分院','基础部','外语部']
+
+        var one = ['软件技术','计算机应用技术','计算机网络技术','应用电子技术','楼宇智能化工程技术','光伏发电技术及应用','汽车检测与维修技术','动漫设计与制作','艺术设计','人物形象设计']
+        var two = ['会计电算化','会计与审计','金融与证券','经济信息管理','投资与理财']
+        var three = ['酒店管理','导游','景区开发与管理','会展策划与管理','旅游管理','航空服务']
+        var four = ['电子商务','工商企业管理','连锁经营管理','物流管理','市场营销','工程造价','建筑工程技术','工程监理','房地产经营与估价']
+        var five = ['护理']
+        var six = ['棋艺']
+        var seven = ['商务英语','旅游英语']
+
+        var allArray = [one,two,three,four,five,six,seven]
+
+        document.getElementById("classname").value = api.pageParam.class
+        api.ajax({
+            url: theIp + 'getClassByName',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                   classCode:api.pageParam.class
+                },
+            },
+          },
+           function(ret, err){
+             document.getElementById("course").value = ret.course
+             for(i=0;i<allArray.length;i++){
+               if(allArray[i].includes(ret.course)){
+                 document.getElementById("school").value = bschools[i]
+               }
+             }
+           })
+
+
+        $("#editClassButton").click(function(){
+
            tclass = document.getElementById("classname").value;
-           tcode = document.getElementById("classCode").value;
            var tteacher = $('#teacher').find(":selected").val()
            var tcourse = $('#course').find(":selected").text()
             console.log(tcourse)
@@ -133,30 +162,23 @@
               function(ret, err){
                 if(ret.check == 'clear'){
                   api.ajax({
-                      url: theIp + 'addClass',
+                      url: theIp + 'editClassByName',
                       method: 'post',
                       timeout:30,
                       data: {
                           values: {
-                             classname:tclass,
+                            classCode:api.pageParam.class,
+                             nclassname:tclass,
                              teacher:tteacher,
-                             course:tcourse,
-                             classCode:tcode,
-                             color:tcolor
+                             course:tcourse
                           },
                       },
                     },
                      function(ret, err){
-                       if(ret){
                          api.alert({
                            title:'Success',
-                           msg:'A new class "' + tclass + '" has been added'
-                         })
-
-                         api.closeFrame({
-                             name: 'Add Class page'
-                         });
-
+                           msg:'The class:"' + tclass + '" has been edited'
+                         })  
                          api.openFrame({
                            name: "Main page",
                            url: 'admin.html',
@@ -166,9 +188,9 @@
                                w: 'auto'
                            }
                          });
-                       }
-
-
+                         api.closeFrame({
+                             name: 'Edit Spec Class page'
+                         });
                      })
                 }else{
                   api.alert({
@@ -177,6 +199,9 @@
                   })
                 }
               })
+
+
+
          })
 
         var sel = document.getElementById('teacher')

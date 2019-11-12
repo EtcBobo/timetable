@@ -71,12 +71,17 @@
               api.getPrefs({
                   key: 'admin'
               }, function(ret, err) {
-                if(ret.value == 'false'){
+                if(ret.value == 'true'){
+                  api.openWin({
+                    name: "Admin Home Page",
+                    url: 'html/adminFrame.html'
+                  })
 
+                }else{
                   api.getPrefs({
-                      key: 'teacher'
-                  }, function(ret, err) {
-                      if(ret.value == 'false'){
+                      key: 'student'
+                    }, function(ret, err) {
+                      if(ret.value == 'true'){
                         api.openWin({
                           name: "Home Page",
                           url: 'html/mainFrame.html'
@@ -88,15 +93,8 @@
                         })
                       }
                   })
-
-                }else{
-                  api.openWin({
-                    name: "Home Page",
-                    url: 'html/adminFrame.html'
-                  })
                 }
               })
-
             }else{
               api.openFrame({
                   name: 'login',

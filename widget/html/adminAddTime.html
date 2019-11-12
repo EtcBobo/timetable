@@ -72,9 +72,9 @@
 
                         </div> -->
 
-                  <div class="col-4 cstart" id="sdate">
+                  <div class="col-4" id="sdate">
                   </div>
-                  <div class="col-3 cstart" id="stime">
+                  <div class="col-3" id="stime">
                       09:00
                   </div>
 
@@ -84,9 +84,9 @@
                   <div class="col-5" style="color:#DC2227">
                       End
                   </div>
-                  <div class="col-4 cend" id="edate">
+                  <div class="col-4" id="edate">
                   </div>
-                  <div class="col-3 cend" id="etime">
+                  <div class="col-3" id="etime">
                       18:00
                   </div>
 
@@ -138,9 +138,12 @@
     //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
     apiready = function() {
 
-      new popoDateTime('.cstart', {
+
+
+
+      new popoDateTime('#sdate', {
           background: 'light',
-          date: "true",
+          time: false,
           beginYear: 2019,
           endYear: 2022,
           save: function(date) {
@@ -148,40 +151,80 @@
                   //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
               $("#sdate").html(date.substring(0, 10));
-              $("#stime").html(date.slice(11));
+              $("#edate").html(date.substring(0, 10));
+
           }
       });
 
-      new popoDateTime('.cend', {
-          background: 'light',
-          date: "true",
-          beginYear: 2019,
-          endYear: 2022,
-          save: function(date) {
-              console.log('data is ' + date)
-                  //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
-              $("#etime").html(date.slice(11));
+        new popoDateTime('#stime', {
+            background: 'light',
+            date: false,
+            save: function(date) {
+                console.log('data is ' + date)
+                    //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+
+                $("#stime").html(date);
+            }
+        });
+
+        // new popoDateTime('#edate', {
+        //     background: 'light',
+        //     time: false,
+        //     beginYear: 2019,
+        //     endYear: 2022,
+        //     save: function(date) {
+        //         console.log('data is ' + date)
+        //             //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+        //
+        //         $("#edate").html(date.substring(0, 10));
+        //
+        //     }
+        // });
+
+
+
+          new popoDateTime('#etime', {
+              background: 'light',
+              date: false,
+              save: function(date) {
+                  console.log('data is ' + date)
+                      //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+
+                  $("#etime").html(date);
+              }
+          });
+          if (api.pageParam.date) {
+              document.getElementById("sdate").innerHTML = api.pageParam.date
+
+              if(parseInt(api.pageParam.time) + 7 < 10){
+                document.getElementById("stime").innerHTML ="0" + String(parseInt(api.pageParam.time) + 7) + ":00"
+              }else{
+                document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+              }
+
+          }else{
+            var thecurr = new Date()
+            curY = String(thecurr.getFullYear())
+            if(thecurr.getMonth()+1 < 10){
+              var curM = "0" + String(thecurr.getMonth()+1)
+            }
+            else{
+              var curM = thecurr.getMonth()+1
+            }
+            if(thecurr.getDate() < 10){
+              var curD = "0" + String(thecurr.getDate())
+            }
+            else{
+              var curD = String(thecurr.getDate())
+            }
+            var currStr = curY + "-" + curM + "-" + curD
+
+            document.getElementById("sdate").innerHTML = currStr
           }
-      });
 
-        var thecurr = new Date()
-        curY = String(thecurr.getFullYear())
-        if(thecurr.getMonth()+1 < 10){
-          var curM = "0" + String(thecurr.getMonth()+1)
-        }
-        else{
-          var curM = thecurr.getMonth()+1
-        }
-        if(thecurr.getDate() < 10){
-          var curD = "0" + String(thecurr.getDate())
-        }
-        else{
-          var curD = String(thecurr.getDate())
-        }
-        var currStr = curY + "-" + curM + "-" + curD
-
-        document.getElementById("sdate").innerHTML = currStr
 
 
 
@@ -203,102 +246,107 @@
 
 
 
-
         $('#addAlert').click(function() {
             console.log('shout')
         })
 
         $('#saveTime').click(function() {
           var title = document.getElementById("title").value
-          var tcolor = document.getElementById("tcolor").value
-          var tlocation = document.getElementById("tlocation").value
-          var tnweeks = document.getElementById("nweeks").value
-          var tnotes = document.getElementById("tnotes").value
-          var sdate =  document.getElementById("sdate").innerText
-          var stime = document.getElementById("stime").innerText
+          if(title == ""){
+            api.alert({
+                title: "Failed",
+                msg: "Please enter a title"
+            });
+          }else{
+            var tcolor = document.getElementById("tcolor").value
+            var tlocation = document.getElementById("tlocation").value
+            var tnweeks = document.getElementById("nweeks").value
+            var tnotes = document.getElementById("tnotes").value
+            var sdate =  document.getElementById("sdate").innerText
+            var stime = document.getElementById("stime").innerText
 
-          var etime = document.getElementById("etime").innerText
-          console.log(tnweeks)
-          if(tnweeks == ""){
-            tnweeks = 0
-          }
-          for(i=0;i<parseInt(tnweeks);i++){
-
-              var curr = new Date()
-              console.log(sdate.substring(5,7))
-              curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10))+i*7 )
-              var tday = curr.getDay()
-              var tmonth = curr.getMonth()
-              var tyear = curr.getFullYear()
-              var tdaten = curr.getDate()
-
-              if (tdaten < 10){
-                tdaten = "0" + String(tdaten)
-              }
-              if (tmonth < 9){
-                tmonth = "0" + String(tmonth+1)
-              }else{
-                tmonth = String(tmonth+1)
-              }
-
-              var tdate = String(tyear) + tmonth + String(tdaten) + stime.substring(0,2) + stime.slice(3)
-              var tedate = String(tyear) + tmonth + String(tdaten) + etime.substring(0,2) + etime.slice(3)
-
-              if(tday == 0){
-                tday = 6
-              }else{
-                tday = tday -1
-              }
-              console.log(tdate)
-              console.log(api.pageParam.class)
-              api.ajax({
-                url: theIp + 'addAdminBlock',
-                method: 'post',
-                timeout: 30,
-                data: {
-                  values: {
-                      classname: api.pageParam.class,
-                      title: title,
-                      start: tdate,
-                      end: tedate,
-                      color: tcolor,
-                      notes: tnotes,
-                      location: tlocation,
-                      type: "task",
-                      day: tday // implement day logic
-                  },
-              },
-          },
-          function(ret, err) {
-
-                })
-
-        }
-        api.alert({
-            title: "Success",
-            msg: "The Event has been saved successfully"
-        });
-        api.closeFrame({
-            name: 'Add Admin Time page'
-        });
-        api.openFrame({
-            name: 'Admin Weekly page',
-            url: 'adminWeekly.html',
-
-            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop: 0,
-                marginBottom: 60, // main页面距离win顶部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            var etime = document.getElementById("etime").innerText
+            console.log(tnweeks)
+            if(tnweeks == ""){
+              tnweeks = 0
             }
-            //page param
-        })
+            for(i=0;i<parseInt(tnweeks);i++){
 
-        })
+                var curr = new Date()
+                console.log(sdate.substring(5,7))
+                curr.setMonth(parseInt(sdate.substring(5,7))-1,parseInt(sdate.substring(8,10))+i*7 )
+                var tday = curr.getDay()
+                var tmonth = curr.getMonth()
+                var tyear = curr.getFullYear()
+                var tdaten = curr.getDate()
+
+                if (tdaten < 10){
+                  tdaten = "0" + String(tdaten)
+                }
+                if (tmonth < 9){
+                  tmonth = "0" + String(tmonth+1)
+                }else{
+                  tmonth = String(tmonth+1)
+                }
+
+                var tdate = String(tyear) + tmonth + String(tdaten) + stime.substring(0,2) + stime.slice(3)
+                var tedate = String(tyear) + tmonth + String(tdaten) + etime.substring(0,2) + etime.slice(3)
+
+                if(tday == 0){
+                  tday = 6
+                }else{
+                  tday = tday -1
+                }
+                console.log(tdate)
+                console.log(api.pageParam.class)
+                api.ajax({
+                  url: theIp + 'addAdminBlock',
+                  method: 'post',
+                  timeout: 30,
+                  data: {
+                    values: {
+                        classCode: api.pageParam.class,
+                        title: title,
+                        start: tdate,
+                        end: tedate,
+                        color: tcolor,
+                        notes: tnotes,
+                        location: tlocation,
+                        type: "task",
+                        day: tday // implement day logic
+                    },
+                },
+            },
+            function(ret, err) {
+
+            })
+
+          }
+          api.alert({
+              title: "Success",
+              msg: "The Event has been saved successfully"
+          });
+
+          api.openWin({
+              name: 'Admin Home page',
+              url: 'adminFrame.html',
+              reload:true,
+              pageParam:{
+                open:'weekly',
+                classCode:api.pageParam.class
+              }
+          })
+          api.closeFrame({
+              name: 'Add Admin Time page'
+          });
+        }
+
+      })
 
         $('#cancelTime').click(function() {
             console.log('cancel time')
             api.closeFrame({
-                name: 'Add Admin Time page'
+                name: 'Admin Add Time page'
             });
 
         })

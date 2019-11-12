@@ -218,7 +218,6 @@
           var tString = "goTo" + String(i+1)
           document.getElementById(tString).style.display = ""
           var funcStr = 'goToTime("' + tString  +'")'
-          console.log(ret[i].name)
           document.getElementById(tString).setAttribute('onclick',funcStr)
         }
         });

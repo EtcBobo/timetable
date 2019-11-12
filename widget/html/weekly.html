@@ -695,9 +695,9 @@ function goToAddTime(id){
          function(ret2, err){
 
            if(ret2.length > 0){
-             console.log(ret2[0].classname)
+
              for(i2=0;i2<ret2.length;i2++){
-               allClasses.push(ret2[i2].classname)
+               allClasses.push(ret2[i2].classCode)
                if(i2 == ret2.length - 1){
                  console.log(allClasses)
                  api.sendEvent({
@@ -725,7 +725,7 @@ function goToAddTime(id){
                  timeout:30,
                  data: {
                      values: {
-                         classname: allClasses[i],
+                         classCode: allClasses[i],
                          tdate:dayList2
                      },
                  },

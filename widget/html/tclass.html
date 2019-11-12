@@ -59,7 +59,7 @@
 
 
        api.ajax({
-           url: theIp + 'getAllClass',
+           url: theIp + 'getAllClassTeach',
            method: 'post',
            timeout:30,
            data: {
@@ -72,7 +72,7 @@
             if(ret){
               var theStr = ""
               for(i=0;i<ret.length;i++){
-                  theStr = theStr + '<div class="row classRow" style="margin:auto;background-color:'+ ret[i].color +';"><div class="col-8" style="padding-top:50px;"><img src="../image/rightArrow.png" style="width:40px;height:40px;"><p style="font-size:1.5em;">'+ ret[i].classname +'</p></div><div class="col-4" style="margin-top:35px"><img src="../image/school.png" style="height:70px;width:80px;"></div></div><br>'
+                  theStr = theStr + '<div class="row classRow" style="margin:auto;background-color:' + ret[i].color + ';"><div class="col-8" style="padding-top:50px;"><img src="../image/rightArrow.png" style="width:40px;height:40px;"><p style="font-size:1.3em;">'+ ret[i].classname +'</p></div><div class="col-4" style="margin-top:35px"><img src="../image/school.png" style="height:70px;width:80px;"></div></div><br>'
               }
               document.getElementById("classCont").innerHTML = theStr
             }

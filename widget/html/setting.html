@@ -148,12 +148,28 @@
                     key: 'loggedIn',
                     value: 'false'
                 });
+                api.setPrefs({
+                    key: 'student',
+                    value: 'false'
+                });
+                api.setPrefs({
+                    key: 'teacher',
+                    value: 'false'
+                });
+                api.setPrefs({
+                    key: 'admin',
+                    value: 'false'
+                });
                 //api.closeWin()
                 api.openWin({
                   name: "Login Page",
                   url: '../index.html',
 
                 })
+                api.closeFrame({
+                    name: 'Setting page'
+                });
+
               }
 
             })
