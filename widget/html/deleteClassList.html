@@ -37,21 +37,61 @@
 
 <script type="text/javascript">
     //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
-
+    var theIp = ''
+    $(function() {
+        var myAjax = {
+            init: function() {
+                $.ajax({
+                    url: "../wifi.txt",
+                    async: false,
+                    success: function(data) {
+                        theIp = data
+                    }
+                })
+            }
+        };
+        myAjax.init()
+    });
 function goToEdit(course){
   console.log(course)
-  api.openFrame({
-    name: "Edit Spec Class page",
-    url: 'editSpecClass.html',
-    rect: {
-        marginTop: 0,
-        marginBottom: 60,
-        w: 'auto'
-    },
-    pageParam:({
-      class:course
-    })
-  });
+  api.confirm({
+    title: 'Delete Class',
+    msg: 'Do you wish delete this class "'+course+'"?',
+    buttons: ['Confirm', 'Cancel']
+  }, function(ret, err) {
+    var index = ret.buttonIndex;
+    if(index == 1){
+      api.ajax({
+          url: theIp + 'deleteClassByCode',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                 classCode:course
+              },
+          },
+        },
+         function(ret, err){
+           if(ret.check=="true")
+           api.openFrame({
+             name: "Delete Class List page",
+             url: 'deleteClassList.html',
+             rect: {
+                 marginTop: 0,
+                 marginBottom: 60,
+                 w: 'auto'
+             },
+             reload:true,
+             pageParam:({
+               classes:api.pageParam.classes
+             })
+           });
+         })
+    }
+  })
+
+
+
 }
     apiready = function() {
         var theIp = ''
@@ -75,14 +115,10 @@ function goToEdit(course){
         var classStr = ""
         for(i=0;i<allClasses.length;i++){
           var tcoursen = "'" + allClasses[i].classCode + "'"
-          classStr = classStr + '<div class="row"><div class="col-4">'+ allClasses[i].classCode +'</div><div class="col-5">'+ allClasses[i].classname +'</div><div class="col-3"><button class="btn btn-primary btn-lg upload-group text-center" onclick="goToEdit('+ tcoursen +')" style="font-size:0.7em;">Edit</button></div></div><hr>'
+          classStr = classStr + '<div class="row"><div class="col-4">'+ allClasses[i].classCode +'</div><div class="col-5">'+ allClasses[i].classname +'</div><div class="col-3"><button class="btn btn-danger btn-lg upload-group text-center" onclick="goToEdit('+ tcoursen +')" style="font-size:0.7em;">Delete</button></div></div><hr>'
         }
         console.log(classStr)
         document.getElementById("tcontainer").innerHTML = classStr
-
-
-
-
 
     };
 </script>

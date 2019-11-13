@@ -327,23 +327,7 @@
                                         title: "Success",
                                         msg: "The Event has been saved successfully"
                                     });
-                                    api.getPrefs({
-                                        key: 'teacher'
-                                    }, function(ret, err) {
-                                      if(ret.value == "true"){
-                                        api.openWin({
-                                          name: "Home Page",
-                                          url: 'mainTframe.html',
-                                          reload:true,
-                                          pageParam:{
-                                            open:'weekly'
-                                          }
-                                        })
 
-                                        api.closeFrame({
-                                            name: 'Add Time page'
-                                        });
-                                      }else{
                                         api.openWin({
                                           name: "Home Page",
                                           url: 'mainFrame.html',
@@ -356,9 +340,6 @@
                                         api.closeFrame({
                                             name: 'Add Time page'
                                         });
-                                      }
-
-                                    })
 
                                 })
 

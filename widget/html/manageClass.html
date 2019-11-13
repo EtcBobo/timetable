@@ -40,7 +40,7 @@
 </div>
 </div>
 <div class="row">
-  <div class="col-10" id="goToManageClass">
+  <div class="col-10" id="goToDeleteClass">
 <p style="font-size:1.2em;font-weight:bold;">Remove Class</p>
 </div>
 <div class="col-2">
@@ -103,6 +103,24 @@
             api.openFrame({
               name: "Edit Class Page",
               url: 'editClass.html',
+              rect: {
+                  marginTop: 0,
+                  marginBottom: 60,
+                  w: 'auto'
+              },
+              animation:{
+                type:"movein",
+                subType:"from_right"
+              }
+                      })
+
+          })
+
+          $("#goToDeleteClass").click(function(){
+
+            api.openFrame({
+              name: "Delete Class Page",
+              url: 'deleteClass.html',
               rect: {
                   marginTop: 0,
                   marginBottom: 60,

@@ -42,7 +42,7 @@
            <span id="hmonth" style="font-size:1.5em;margin:0"></span><span id="hyear" style="padding-left:5px;"></span>
           </div>
           <div class="col-1">
-            <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
+            <img src="../image/setting.png" class="goToSetting" width="25px" height="25px" style="float:right">
           </div>
         </div>
 
@@ -63,7 +63,7 @@
            <span id="hmonth" style="font-size:1.5em;margin:0">Classes</span>
           </div>
           <div class="col-1">
-            <img src="../image/setting.png" id="goToSetting" width="25px" height="25px" style="float:right">
+            <img src="../image/setting.png" class="goToSetting" width="25px" height="25px" style="float:right">
           </div>
           <span style="font-size:0.5em"></span>
         </div>
@@ -237,7 +237,7 @@
 
         })
 
-        $("#goToSetting").click(function(){ //not using footer
+        $(".goToSetting").click(function(){ //not using footer
 
           api.openFrame({
             name: 'Setting page',

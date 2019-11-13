@@ -164,8 +164,19 @@
                 api.openWin({
                   name: "Login Page",
                   url: '../index.html',
+                  reload:true
 
                 })
+                var frames = api.frames()
+                console.log(JSON.stringify(frames))
+                if(frames.length > 1){
+                  for(i=0;i<frames.length-1;i++){
+                    api.closeFrame({
+                      name:frames[i+1].name
+                    });
+                  }
+
+                }
                 api.closeFrame({
                     name: 'Setting page'
                 });

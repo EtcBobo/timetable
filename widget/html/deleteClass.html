@@ -104,15 +104,15 @@
             console.log(tcourse)
             if(tclass != ""){
               api.openFrame({
-                name: "Edit Spec Class page",
-                url: 'editSpecClass.html',
+                name: "Delete Class List page",
+                url: 'deleteClassList.html',
                 rect: {
                     marginTop: 0,
                     marginBottom: 60,
                     w: 'auto'
                 },
                 pageParam:({
-                  class:tclass
+                  specClass:tclass
                 })
               });
 
@@ -130,8 +130,8 @@
                 function(ret, err){
                   if(ret){
                     api.openFrame({
-                      name: "Edit Class List page",
-                      url: 'editClassList.html',
+                      name: "Delete Class List page",
+                      url: 'deleteClassList.html',
                       rect: {
                           marginTop: 0,
                           marginBottom: 60,

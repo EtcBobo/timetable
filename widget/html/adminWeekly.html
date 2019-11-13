@@ -582,7 +582,7 @@ function goToAddTime(id){
       var dayList2 = []
       for(i=0;i<7;i++){
         let firstD = curr.getDate()  - cday + i
-        console.log(firstD)
+
         let dday = new Date(curr.setDate(firstD)).getDate()
         let dmonth = new Date(curr2.setDate(firstD)).getMonth() + 1
         var curr = new Date()
@@ -625,7 +625,6 @@ function goToAddTime(id){
                     var tCount = (newEnd - newStart) /10
                     var pposition = String(startp/10 * 3.8) +"px"
 
-                    console.log(newStart)
 
                     for(i2=0;i2<tCount;i2++){
                       var tBlock = "d" + String(newStart  + (i2+1) *10 + parseInt(ret[i].day))

@@ -516,24 +516,14 @@ function goToAddTime(id){
     tday = "0" + String(tday)
   }
   console.log(tday,cday,mday)
-//   var dayList = []
-//   var monthList = []
-//   for(i=1;i<8;i++){
-//   let first = curr.getDate() - curr.getDay() + i
-//   let day = new Date(curr.setDate(first)).getDate()
-//   let month = new Date(curr.setDate(first)).getMonth()
-//   dayList.push(day)
-//   monthList.push(month)
-// }
-// console.log(monthList,dayList)
-//   var tday = dayList[tid]
+
   wdString = curY + "-" + mday + "-" + tday
   console.log(wdString)
 
 
   api.openFrame({
-    name: 'Add Time page',
-    url: 'addTime.html',
+    name: 'Add Teach Time page',
+    url: 'addTeachTime.html',
     // bounces:true,
     rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
         marginTop:0,
@@ -683,7 +673,7 @@ function goToAddTime(id){
 
       var allClasses = []
       api.ajax({
-          url: theIp + 'getAllClass',
+          url: theIp + 'getAllClassTeach',
           method: 'post',
           timeout:30,
           data: {
@@ -693,7 +683,7 @@ function goToAddTime(id){
           },
         },
          function(ret2, err){
-
+            console.log("get all class")
            if(ret2.length > 0){
 
              for(i2=0;i2<ret2.length;i2++){
@@ -789,8 +779,8 @@ function goToAddTime(id){
       $("#goToAddTime").click(function(){
         $('#exampleModal2').modal('hide')
         api.openFrame({
-          name: 'Add Time page',
-          url: 'addTime.html',
+          name: 'Add Teach Time page',
+          url: 'addTeachTime.html',
           // bounces:true,
           rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
               marginTop:0,

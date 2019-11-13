@@ -12,11 +12,7 @@
         .col0006 {
             background-color: #EFDFCF;
             text-align: center;
-            /*margin-bottom: -57px;
-            margin-left: -13px;
-            bottom: -9px;*/
             width: 50%;
-            /*position: fixed;*/
             display: inline-block;
             float: left;
         }
@@ -24,17 +20,13 @@
         .col0000 {
             background-color: #EFDFCF;
             text-align: center;
-            /*margin-left: 151px;
-            width: 99px;
-            bottom: -9px;*/
-            /*position: fixed;*/
             display: inline-block;
             width: 50%;
             float: right;
         }
 
         .container {
-            position: fixed;
+            /*position: fixed;*/
             bottom: -10px;
         }
     </style>
@@ -60,46 +52,53 @@
 
 
             <section class="flex-1" style="height: 100%;">
-              <div class="row">
-                  <div class="col-5" style="color:#DC2227">
-                      Start
-                  </div>
-                  <!-- <div class="col-4">
-                          Thu, Oct 17
-                        </div>
-                        <div class="col-3" style="font-size:0.9em">
-                          8:00 AM
-
-                        </div> -->
-
-                  <div class="col-4" id="sdate">
-                  </div>
-                  <div class="col-3" id="stime">
-                      09:00
-                  </div>
 
 
-              </div>
-              <div class="row" style="margin-top:15px">
-                  <div class="col-5" style="color:#DC2227">
-                      End
-                  </div>
-                  <div class="col-4" id="edate">
-                  </div>
-                  <div class="col-3" id="etime">
-                      18:00
-                  </div>
 
-              </div>
+                <div class="row">
+                    <div class="col-5" style="color:#DC2227">
+                        Start
+                    </div>
+                    <!-- <div class="col-4">
+                            Thu, Oct 17
+                          </div>
+                          <div class="col-3" style="font-size:0.9em">
+                            8:00 AM
 
-              <br>
+                          </div> -->
 
-              <div class="row" style="margin-left:10px;margin-top:30px">
-                  <img src="../image/calendar.png" style="height:20px;width20px;margin-top:5px;"><input type="number" id="nweeks" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Number of weeks" required/>
-              </div>
+                    <div class="col-4" id="sdate">
+                    </div>
+                    <div class="col-3" id="stime">09:00</div>
 
+
+                </div>
+                <div class="row" style="margin-top:15px">
+                    <div class="col-5" style="color:#DC2227">
+                        End
+                    </div>
+                    <div class="col-4" id="edate">
+                    </div>
+                    <div class="col-3" id="etime">
+                        18:00
+                    </div>
+
+                </div>
 
                 <br>
+                <div class="row" style="margin-left:10px;margin-top:30px">
+                    <img src="../image/schooli.png" style="height:20px;width20px;margin-top:5px;">
+                    <p style="outline:0;border:0;margin-left:10px;font-size:1.2em;width:80%">Class</p>
+                </div>
+                <div class="row" style="margin-left:10px;">
+                    <select class="form-control" name="tclassCode" id="tclassCode" style="width:80%;margin-left:25px;">
+
+                            </select>
+                </div>
+                <div class="row" style="margin-left:10px;margin-top:30px">
+                    <img src="../image/calendar.png" style="height:20px;width20px;margin-top:5px;"><input type="number" id="nweeks" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Number of weeks" required/>
+                </div>
+
                 <div class="row" style="margin-left:10px;margin-top:30px">
                     <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location"
                         required/>
@@ -111,10 +110,8 @@
 
 
 
-                <br>
-                <br>
-                <input type="button" onclick="divshow"/>
-                <div id="row" style="  position:absolute;width:116%;height:57px;margin-left: -15px;margin-top: 11px; ">
+
+                <div id="row" style="  position:absolute;width:100%;height:57px;">
                     <div class="col0006" id="cancelTime">
                         <p style="padding-top:17px;font-weight:bold;">Cancel</p>
                     </div>
@@ -125,8 +122,8 @@
         </form>
         </section>
 
-    </div>
 
+    </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
@@ -141,51 +138,22 @@
 
 
 
-      new popoDateTime('#sdate', {
-          background: 'light',
-          time: false,
-          beginYear: 2019,
-          endYear: 2022,
-          save: function(date) {
-              console.log('data is ' + date)
-                  //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
-
-              $("#sdate").html(date.substring(0, 10));
-              $("#edate").html(date.substring(0, 10));
-
-          }
-      });
-
-
-        new popoDateTime('#stime', {
+        new popoDateTime('#sdate', {
             background: 'light',
-            date: false,
+            time: false,
+            beginYear: 2019,
+            endYear: 2022,
             save: function(date) {
                 console.log('data is ' + date)
                     //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
+                $("#sdate").html(date.substring(0, 10));
 
-                $("#stime").html(date);
             }
         });
 
-        // new popoDateTime('#edate', {
-        //     background: 'light',
-        //     time: false,
-        //     beginYear: 2019,
-        //     endYear: 2022,
-        //     save: function(date) {
-        //         console.log('data is ' + date)
-        //             //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
-        //
-        //         $("#edate").html(date.substring(0, 10));
-        //
-        //     }
-        // });
 
-
-
-          new popoDateTime('#etime', {
+          new popoDateTime('#stime', {
               background: 'light',
               date: false,
               save: function(date) {
@@ -193,37 +161,58 @@
                       //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
 
-                  $("#etime").html(date);
+                  $("#stime").html(date);
               }
           });
-          if (api.pageParam.date) {
-              document.getElementById("sdate").innerHTML = api.pageParam.date
 
-              if(parseInt(api.pageParam.time) + 7 < 10){
-                document.getElementById("stime").innerHTML ="0" + String(parseInt(api.pageParam.time) + 7) + ":00"
-              }else{
-                document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+          new popoDateTime('#edate', {
+              background: 'light',
+              time: false,
+              beginYear: 2019,
+              endYear: 2022,
+              save: function(date) {
+                  console.log('data is ' + date)
+                      //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+                  $("#edate").html(date.substring(0, 10));
+
               }
+          });
 
-          }else{
+
+
+            new popoDateTime('#etime', {
+                background: 'light',
+                date: false,
+                save: function(date) {
+                    console.log('data is ' + date)
+                        //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+
+                    $("#etime").html(date);
+                }
+            });
+
+
+
+
+
+        if (api.pageParam.date) {
+            document.getElementById("sdate").innerHTML = api.pageParam.date
+            document.getElementById("edate").innerHTML = api.pageParam.date
+
+            if(parseInt(api.pageParam.time) + 7 < 10){
+              document.getElementById("stime").innerHTML ="0" + String(parseInt(api.pageParam.time) + 7) + ":00"
+            }else{
+              document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+            }
+
+        } else {
             var thecurr = new Date()
-            curY = String(thecurr.getFullYear())
-            if(thecurr.getMonth()+1 < 10){
-              var curM = "0" + String(thecurr.getMonth()+1)
-            }
-            else{
-              var curM = thecurr.getMonth()+1
-            }
-            if(thecurr.getDate() < 10){
-              var curD = "0" + String(thecurr.getDate())
-            }
-            else{
-              var curD = String(thecurr.getDate())
-            }
-            var currStr = curY + "-" + curM + "-" + curD
-
+            var currStr = thecurr.getFullYear() + "-" + String(thecurr.getMonth() + 1) + "-" + thecurr.getDate()
             document.getElementById("sdate").innerHTML = currStr
-          }
+            document.getElementById("edate").innerHTML = currStr
+        }
 
 
 
@@ -244,11 +233,31 @@
             myAjax.init()
         });
 
+        console.log(document.getElementById("stime").innerHTML)
 
 
-        $('#addAlert').click(function() {
-            console.log('shout')
-        })
+        var sel = document.getElementById('tclassCode')
+        api.ajax({
+            url: theIp + 'getAllClassTeach',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                    username:localStorage.getItem("username")
+                },
+            },
+          },
+           function(ret, err){
+            for(i= 0;i<ret.length;i++){
+              console.log("class teach option")
+              var opt = document.createElement('option')
+              opt.appendChild(document.createTextNode(ret[i].classCode))
+              opt.value = ret[i].classCode
+              sel.appendChild(opt)
+            }
+      })
+
+
 
         $('#saveTime').click(function() {
           //var tCheck = "true"
@@ -259,6 +268,7 @@
                 msg: "Please enter a title"
             });
           }else{
+            var tclassCode = $('#tclassCode').find(":selected").val()
             var tcolor = document.getElementById("tcolor").value
             var tlocation = document.getElementById("tlocation").value
             var tnweeks = document.getElementById("nweeks").value
@@ -308,7 +318,7 @@
                   timeout: 30,
                   data: {
                     values: {
-                        classCode: api.pageParam.class,
+                        classCode: tclassCode,
                         title: title,
                         start: tdate,
                         end: tedate,
@@ -349,7 +359,7 @@
         $('#cancelTime').click(function() {
             console.log('cancel time')
             api.closeFrame({
-                name: 'Admin Add Time page'
+                name: 'Add Teach Time page'
             });
 
         })
