@@ -9,6 +9,10 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+        body, html {
+          width: 100%;
+          height: 100%;
+        }
         .col0006 {
             background-color: #EFDFCF;
             text-align: center;
@@ -26,22 +30,35 @@
         }
 
         .container {
-            /*position: fixed;*/
-            bottom: -10px;
+            width: 100%;
+            height: 100%;
         }
+        #row {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width:100%;
+        }
+
+        @media screen and (max-height:500px){
+          #row{
+            display:none;
+          }
+        }
+
     </style>
 </head>
 
-<body>
+<body >
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
-    <div class="container" style="height:100%;">
-        <form method="post" id="addTimeForm" style="height:100%;width:100%;">
+    <div class="container" >
+        <form method="post">
             <div class="row">
                 <div class="col-10">
-                    <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
+                    <input  type="text" name="title"  style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
                 </div>
                 <div class="col-1" style="float:right;">
                     <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
@@ -49,9 +66,7 @@
             </div>
             <br>
             <br>
-
-
-            <section class="flex-1" style="height: 100%;">
+            <section class="flex-1" style="height:auto;">
 
 
 
@@ -116,11 +131,11 @@
                           </div> -->
 
                 <div class="row" style="margin-left:10px;margin-top:30px">
-                    <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location"
-                        required/>
+                    <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;">
+                    <input type="text" id="tlocation"   style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
                 </div>
                 <div class="row" style="margin-left:10px;margin-top:30px">
-                    <img src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes"
+                    <img  src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes"
                         required/>
                 </div>
 
@@ -128,20 +143,20 @@
 
                 <br>
                 <br>
-                <input type="button" onclick="divshow" var.divshow.scrollIntoView（fasle）=this;/>
-                <div id="row" style="  position:absolute;width:100%;height:57px;">
-                    <div class="col0006" id="cancelTime">
-                        <p style="padding-top:17px;font-weight:bold;">Cancel</p>
-                    </div>
-                    <div class="col0000" id="saveTime">
-                        <p style="padding-top:17px;font-weight:bold;">Save</p>
-                    </div>
-                </div>
+            </section>
         </form>
-        </section>
-
-
+        <div id="row">
+            <div class="col0006" id="cancelTime">
+                <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+            </div>
+            <div class="col0000" id="saveTime">
+                <p style="padding-top:17px;font-weight:bold;">Save</p>
+            </div>
+        </div>
     </div>
+
+  <!--  <div id="row" style="  position:fixed; width:100%; float:left;bottom:0px;"> -->
+
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
@@ -150,12 +165,7 @@
 <script type="text/javascript" src="../popoPicker/js/popoPicker.js"></script>
 
 <script type="text/javascript">
-    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
     apiready = function() {
-
-
-
-
         new popoDateTime('.cstart', {
             background: 'light',
             date: "true",
@@ -252,72 +262,71 @@
             } else {
                 tday = tday - 1
             }
-            if(parseInt(tedate)>parseInt(tdate)){    
-              api.ajax({
-                      url: theIp + 'checkBlock',
-                      method: 'post',
-                      timeout: 30,
-                      data: {
-                          values: {
-                              username: localStorage.getItem("username"),
-                              start: tdate,
-                              end: tedate,
-                              stime: parseInt(tdate.slice(8)),
-                              etime: parseInt(tedate.slice(8))
-                          },
-                      },
-                  },
-                  function(ret, err) {
-                      if (ret.check == 'clear') {
-                          api.ajax({
-                                  url: theIp + 'addBlock',
-                                  method: 'post',
-                                  timeout: 30,
-                                  data: {
-                                      values: {
-                                          username: localStorage.getItem("username"),
-                                          title: title,
-                                          start: tdate,
-                                          end: tedate,
-                                          color: tcolor,
-                                          notes: tnotes,
-                                          location: tlocation,
-                                          type: "task",
-                                          day: tday // implement day logic
-                                      },
-                                  },
-                              },
-                              function(ret, err) {
-                                  api.alert({
-                                      title: "Success",
-                                      msg: "The Event has been saved successfully"
-                                  });
-                                  api.closeFrame({
-                                      name: 'Add Time page'
-                                  });
-                                  api.openFrame({
-                                      name: 'Weekly page',
-                                      url: 'weekly.html',
+            api.ajax({
+                    url: theIp + 'checkBlock',
+                    method: 'post',
+                    timeout: 30,
+                    data: {
+                        values: {
+                            username: localStorage.getItem("username"),
+                            start: tdate,
+                            end: tedate,
+                            stime: parseInt(tdate.slice(8)),
+                            etime: parseInt(tedate.slice(8))
+                        },
+                    },
+                },
+                function(ret, err) {
+                    if (ret.check == 'clear') {
+                        api.ajax({
+                                url: theIp + 'addBlock',
+                                method: 'post',
+                                timeout: 30,
+                                data: {
+                                    values: {
+                                        username: localStorage.getItem("username"),
+                                        title: title,
+                                        start: tdate,
+                                        end: tedate,
+                                        color: tcolor,
+                                        notes: tnotes,
+                                        location: tlocation,
+                                        type: "task",
+                                        day: tday // implement day logic
+                                    },
+                                },
+                            },
+                            function(ret, err) {
+                                api.alert({
+                                    title: "Success",
+                                    msg: "The Event has been saved successfully"
+                                });
+                                api.closeFrame({
+                                    name: 'Add Time page'
+                                });
+                                api.openFrame({
+                                    name: 'Weekly page',
+                                    url: 'weekly.html',
 
-                                      rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                                          marginTop: 132,
-                                          marginBottom: 60, // main页面距离win顶部的高度
-                                          w: 'auto' // main页面的宽度 自适应屏幕宽度
-                                      }
-                                      //page param
-                                  })
-                              })
+                                    rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                                        marginTop: 132,
+                                        marginBottom: 60, // main页面距离win顶部的高度
+                                        w: 'auto' // main页面的宽度 自适应屏幕宽度
+                                    }
+                                    //page param
+                                })
+                            })
 
 
-                      } else {
-                          api.alert({
-                              title: 'Failed',
-                              msg: 'There is an existing event in that timing'
-                          })
-                      }
+                    } else {
+                        api.alert({
+                            title: 'Failed',
+                            msg: 'There is an existing event in that timing'
+                        })
+                    }
 
-                  })
-            }
+                })
+
 
 
         })
@@ -329,6 +338,7 @@
             });
 
         })
+
 
 
 
