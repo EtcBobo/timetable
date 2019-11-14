@@ -358,7 +358,9 @@ $("#school").change(function(){
                   },
                 },
                  function(ret, err){
-
+                   api.closeFrame({
+                     name:"Loading Page"
+                   })
                     console.log(ret)
                     if(ret.registerStatus=="true"){
                       api.alert({ msg: "You have successfully Registered" });

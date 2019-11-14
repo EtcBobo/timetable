@@ -5,12 +5,9 @@ optional pending class list on student class view
 cannot request after requesting
 prevent adding admin block that overlap in different classs
 setting page for admin
-
+ *another way for pending is, give classcode id, innerhtml the student after (maybe)
 Priority:
-teacher in charge of pulling student into classes
-edit class have to edit all student and teacher affected
-delete class
-edit spec class haven put new class code and class name
+
 put class code and class name for sclass/tclass
 
 
@@ -25,6 +22,7 @@ smssdk - project folder could not sync with the cloud version, hence the module 
 designing dynamic timetable with html + CSS -  using a html table is challenging since any custom timetable block have to take up an exact amount of columns and rows.after much consideration I decided to give each grid an id so that i can change all affected grid's CSS at once. By setting display="none" for blocks i don't need, i can prevent an overflow of grids 
 back button - because frames are being opened on top of each other, the method closeFrame() has to be dynamic since the frame name is constantly changing. In order to make it dynamic, the api.frame method is called to get all current frames' name. After that I just have to close the last frame in the array to mimic a back action.
 Changing the core function to a calendar -  After much consideration, I decided to add a calendar feature on top of my timetable feature. The whole design is also going to be overhauled to provide better user experience.
+asynchronous function
 
 task completed 3rd week:
 Local storage for persistent data across pages
@@ -118,3 +116,7 @@ global var problem: the check doesnt work for checkblock
 prevent adding overlap timeblock for admin and teacher
 teacher add event that student will load from (just add into adminblock)
 edit class not done, cant get update statement in nodejs to work
+edit spec class haven put new class code and class name
+edit class have to edit all student and teacher affected
+delete class
+teacher in charge of pulling student into classes

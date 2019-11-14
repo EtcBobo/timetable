@@ -331,16 +331,19 @@
                       msg: "The Event has been saved successfully"
                   });
                       api.openWin({
-                        name: "Home Page",
-                        url: 'mainTframe.html',
+                        name: "Admin Home Page",
+                        url: 'adminFrame.html',
                         reload:true,
                         pageParam:{
-                          open:'weekly'
+                          open:'weekly',
+                          class:api.pageParam.class
                         }
+
                       })
 
+
                       api.closeFrame({
-                          name: 'Add Time page'
+                          name: 'Add Admin Time page'
                       });
         }
 
