@@ -9,6 +9,10 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
+        body, html {
+          width: 100%;
+          height: 100%;
+        }
         .col0006 {
             background-color: #EFDFCF;
             text-align: center;
@@ -26,22 +30,35 @@
         }
 
         .container {
-            /*position: fixed;*/
-            bottom: -10px;
+            width: 100%;
+            height: 100%;
         }
+        #row {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width:100%;
+        }
+
+        @media screen and (max-height:500px){
+          #row{
+            display:none;
+          }
+        }
+
     </style>
 </head>
 
-<body>
+<body >
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
 
-    <div class="container" style="height:100%;">
-        <form method="post" id="addTimeForm" style="height:100%;width:100%;">
+    <div class="container" >
+        <form method="post">
             <div class="row">
                 <div class="col-10">
-                    <input type="text" name="title" style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
+                    <input  type="text" name="title"  style="outline:0;border:0;font-size:35px;width:200px;" placeholder="Title" id="title" required>
                 </div>
                 <div class="col-1" style="float:right;">
                     <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
@@ -49,9 +66,7 @@
             </div>
             <br>
             <br>
-
-
-            <section class="flex-1" style="height: 100%;">
+            <section class="flex-1" style="height:auto;">
 
 
 
@@ -114,11 +129,11 @@
                           </div> -->
 
                 <div class="row" style="margin-left:10px;margin-top:30px">
-                    <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tlocation" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location"
-                        required/>
+                    <img src="../image/location.png" style="height:20px;width20px;margin-top:5px;">
+                    <input type="text" id="tlocation"   style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Location" required/>
                 </div>
                 <div class="row" style="margin-left:10px;margin-top:30px">
-                    <img src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes"
+                    <img  src="../image/notes.png" style="height:20px;width20px;margin-top:5px;"><input type="text" id="tnotes" style="outline:0;border:0;margin-left:10px;border-bottom:1px solid rgb(141, 129, 129);font-size:1.2em;" placeholder="Notes"
                         required/>
                 </div>
 
@@ -126,20 +141,20 @@
 
                 <br>
                 <br>
-                <input type="button" onclick="divshow" var.divshow.scrollIntoView（fasle）=this;/>
-                <div id="row" style="  position:absolute;width:100%;height:57px;">
-                    <div class="col0006" id="cancelTime">
-                        <p style="padding-top:17px;font-weight:bold;">Cancel</p>
-                    </div>
-                    <div class="col0000" id="saveTime">
-                        <p style="padding-top:17px;font-weight:bold;">Save</p>
-                    </div>
-                </div>
+            </section>
         </form>
-        </section>
-
-
+        <div id="row">
+            <div class="col0006" id="cancelTime">
+                <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+            </div>
+            <div class="col0000" id="saveTime">
+                <p style="padding-top:17px;font-weight:bold;">Save</p>
+            </div>
+        </div>
     </div>
+
+  <!--  <div id="row" style="  position:fixed; width:100%; float:left;bottom:0px;"> -->
+
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../jdate/libs/jdate.min.js"></script>
@@ -148,7 +163,6 @@
 <script type="text/javascript" src="../popoPicker/js/popoPicker.js"></script>
 
 <script type="text/javascript">
-    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
     apiready = function() {
 
 
@@ -363,6 +377,7 @@
             });
 
         })
+
 
 
 
