@@ -82,11 +82,9 @@
 
                           </div> -->
 
-                    <div class="col-4 cstart" id="sdate">
+                    <div class="col-4" id="sdate">
                     </div>
-                    <div class="col-3 cstart" id="stime">
-                        09:00
-                    </div>
+                    <div class="col-3" id="stime">09:00</div>
 
 
                 </div>
@@ -94,9 +92,9 @@
                     <div class="col-5" style="color:#DC2227">
                         End
                     </div>
-                    <div class="col-4 cend" id="edate">
+                    <div class="col-4" id="edate">
                     </div>
-                    <div class="col-3 cend" id="etime">
+                    <div class="col-3" id="etime">
                         18:00
                     </div>
 
@@ -166,9 +164,13 @@
 
 <script type="text/javascript">
     apiready = function() {
-        new popoDateTime('.cstart', {
+
+
+
+
+        new popoDateTime('#sdate', {
             background: 'light',
-            date: "true",
+            time: false,
             beginYear: 2019,
             endYear: 2022,
             save: function(date) {
@@ -176,31 +178,65 @@
                     //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
                 $("#sdate").html(date.substring(0, 10));
-                $("#stime").html(date.slice(11));
+
             }
         });
 
 
-        new popoDateTime('.cend', {
-            background: 'light',
-            date: "true",
-            beginYear: 2019,
-            endYear: 2022,
-            save: function(date) {
-                console.log('data is ' + date)
-                    //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+          new popoDateTime('#stime', {
+              background: 'light',
+              date: false,
+              save: function(date) {
+                  console.log('data is ' + date)
+                      //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
-                $("#edate").html(date.substring(0, 10));
-                $("#etime").html(date.slice(11));
-            }
-        });
+
+                  $("#stime").html(date);
+              }
+          });
+
+          new popoDateTime('#edate', {
+              background: 'light',
+              time: false,
+              beginYear: 2019,
+              endYear: 2022,
+              save: function(date) {
+                  console.log('data is ' + date)
+                      //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+                  $("#edate").html(date.substring(0, 10));
+
+              }
+          });
+
+
+
+            new popoDateTime('#etime', {
+                background: 'light',
+                date: false,
+                save: function(date) {
+                    console.log('data is ' + date)
+                        //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
+
+
+                    $("#etime").html(date);
+                }
+            });
+
+
+
 
 
         if (api.pageParam.date) {
             document.getElementById("sdate").innerHTML = api.pageParam.date
             document.getElementById("edate").innerHTML = api.pageParam.date
-            console.log(api.pageParam.time)
-            document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+
+            if(parseInt(api.pageParam.time) + 7 < 10){
+              document.getElementById("stime").innerHTML ="0" + String(parseInt(api.pageParam.time) + 7) + ":00"
+            }else{
+              document.getElementById("stime").innerHTML = String(parseInt(api.pageParam.time) + 7) + ":00"
+            }
+
         } else {
             var thecurr = new Date()
             var currStr = thecurr.getFullYear() + "-" + String(thecurr.getMonth() + 1) + "-" + thecurr.getDate()
@@ -225,7 +261,7 @@
             myAjax.init()
         });
 
-
+        console.log(document.getElementById("stime").innerHTML)
 
 
         $('#addAlert').click(function() {
@@ -234,101 +270,104 @@
 
         $('#saveTime').click(function() {
             console.log('come into add time')
-
             var title = document.getElementById("title").value
-            var tcolor = document.getElementById("tcolor").value
-            var tlocation = document.getElementById("tlocation").value
-            var tnotes = document.getElementById("tnotes").value
-            var sdate = document.getElementById("sdate").innerText
-            var stime = document.getElementById("stime").innerText
+            if(title == ""){
+              api.alert({
+                  title: "Failed",
+                  msg: "Please enter a title"
+              });
+            }else{
+              var tcolor = document.getElementById("tcolor").value
+              var tlocation = document.getElementById("tlocation").value
+              var tnotes = document.getElementById("tnotes").value
+              var sdate = document.getElementById("sdate").innerText
+              var stime = document.getElementById("stime").innerText
+              var tdate = sdate.substring(0, 4) + sdate.substring(5, 7) + sdate.slice(8) + stime.substring(0, 2) + stime.slice(3)
+              var edate = document.getElementById("edate").innerText
+              var etime = document.getElementById("etime").innerText
+              var tedate = edate.substring(0, 4) + edate.substring(5, 7) + edate.substring(8, 10) + etime.substring(0, 2) + etime.slice(3)
+
+              console.log(tdate)
+
+              var curr = new Date()
+              console.log(sdate.substring(5, 7))
+              curr.setMonth(parseInt(sdate.substring(5, 7))-1, parseInt(sdate.substring(8, 10)))
 
 
-            var tdate = sdate.substring(0, 4) + sdate.substring(5, 7) + sdate.slice(8) + stime.substring(0, 2) + stime.slice(3)
-            var edate = document.getElementById("edate").innerText
-            var etime = document.getElementById("etime").innerText
-            var tedate = edate.substring(0, 4) + edate.substring(5, 7) + edate.substring(8, 10) + etime.substring(0, 2) + etime.slice(3)
+              var tday = curr.getDay()
 
-            console.log(tdate)
-
-            var curr = new Date()
-            console.log(sdate.substring(5, 7))
-            curr.setMonth(parseInt(sdate.substring(5, 7)), parseInt(sdate.substring(8, 10)))
-
-
-            var tday = curr.getDay()
-
-            if (tday == 0) {
-                tday = 6
-            } else {
-                tday = tday - 1
-            }
-            api.ajax({
-                    url: theIp + 'checkBlock',
-                    method: 'post',
-                    timeout: 30,
-                    data: {
-                        values: {
-                            username: localStorage.getItem("username"),
-                            start: tdate,
-                            end: tedate,
-                            stime: parseInt(tdate.slice(8)),
-                            etime: parseInt(tedate.slice(8))
+              if (tday == 0) {
+                  tday = 6
+              } else {
+                  tday = tday - 1
+              }
+              if(parseInt(tedate)>parseInt(tdate)){
+                api.ajax({
+                        url: theIp + 'checkBlock',
+                        method: 'post',
+                        timeout: 30,
+                        data: {
+                            values: {
+                                username: localStorage.getItem("username"),
+                                start: tdate,
+                                end: tedate,
+                                stime: parseInt(tdate.slice(8)),
+                                etime: parseInt(tedate.slice(8))
+                            },
                         },
                     },
-                },
-                function(ret, err) {
-                    if (ret.check == 'clear') {
-                        api.ajax({
-                                url: theIp + 'addBlock',
-                                method: 'post',
-                                timeout: 30,
-                                data: {
-                                    values: {
-                                        username: localStorage.getItem("username"),
-                                        title: title,
-                                        start: tdate,
-                                        end: tedate,
-                                        color: tcolor,
-                                        notes: tnotes,
-                                        location: tlocation,
-                                        type: "task",
-                                        day: tday // implement day logic
+                    function(ret, err) {
+                        if (ret.check == 'clear') {
+                            api.ajax({
+                                    url: theIp + 'addBlock',
+                                    method: 'post',
+                                    timeout: 30,
+                                    data: {
+                                        values: {
+                                            username: localStorage.getItem("username"),
+                                            title: title,
+                                            start: tdate,
+                                            end: tedate,
+                                            color: tcolor,
+                                            notes: tnotes,
+                                            location: tlocation,
+                                            type: "task",
+                                            day: tday // implement day logic
+                                        },
                                     },
                                 },
-                            },
-                            function(ret, err) {
-                                api.alert({
-                                    title: "Success",
-                                    msg: "The Event has been saved successfully"
-                                });
-                                api.closeFrame({
-                                    name: 'Add Time page'
-                                });
-                                api.openFrame({
-                                    name: 'Weekly page',
-                                    url: 'weekly.html',
+                                function(ret, err) {
+                                    api.alert({
+                                        title: "Success",
+                                        msg: "The Event has been saved successfully"
+                                    });
 
-                                    rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                                        marginTop: 132,
-                                        marginBottom: 60, // main页面距离win顶部的高度
-                                        w: 'auto' // main页面的宽度 自适应屏幕宽度
-                                    }
-                                    //page param
+                                        api.openWin({
+                                          name: "Home Page",
+                                          url: 'mainFrame.html',
+                                          reload:true,
+                                          pageParam:{
+                                            open:'weekly'
+                                          }
+                                        })
+
+                                        api.closeFrame({
+                                            name: 'Add Time page'
+                                        });
+
                                 })
+
+
+                        } else {
+                            api.alert({
+                                title: 'Failed',
+                                msg: 'There is an existing event in that timing'
                             })
+                        }
 
-
-                    } else {
-                        api.alert({
-                            title: 'Failed',
-                            msg: 'There is an existing event in that timing'
-                        })
-                    }
-
-                })
-
-
-
+                    })
+              }
+            }
         })
 
         $('#cancelTime').click(function() {

@@ -1,20 +1,21 @@
-admin edit course
-user edit profile
-feedback for buttons and navbar
-edit/delete timetable
-teacher in charge of pulling student into classes
-remember me function
-
-make sure timeblock happen every week 
-calendar and weekly load from admin tableblock too
-admin weekly have to load from adminblock
-extend more rows in admintimeclass
-use pop picker for end time only adminaddtime
-
-
-things to ask:
+forum
 notification on the phone
-referesh upon 
+feedback for buttons and navbar
+optional pending class list on student class view
+cannot request after requesting
+prevent adding admin block that overlap in different classs
+setting page for admin
+
+Priority:
+teacher in charge of pulling student into classes
+edit class have to edit all student and teacher affected
+delete class
+edit spec class haven put new class code and class name
+put class code and class name for sclass/tclass
+
+
+
+
 
 
 problem i solved:
@@ -75,8 +76,6 @@ Redesigned timetable page into weekly page
 Created Add task page
 Added weekly date logic into weekly page
 Redesign the database for timetable
-
-
 task completed 9th week:
 add button can appear on colored block
 login screen alignment
@@ -100,3 +99,22 @@ teacher name is inaccurate in class db
 
 task completed 11th week:
 add admintimeblock and nweek forloop
+admin weekly have to load from adminblock
+pop picker in admin add time only does not dispaly enddate
+calendar and weekly load from admin tableblock too
+*finish student calendar and weekly load bfore doing teacher 
+extend more rows in admintimeclass
+THE MODAL LOADING FOR TEACHER IS NOT WORKING
+use pop picker for end time only adminaddtime
+make sure timeblock happen every week 
+bug in add time
+after adding open win again
+separate out the date and time
+referesh upon 
+add class code and color 
+frames and win not stable yet
+cannot have same classcode
+global var problem: the check doesnt work for checkblock
+prevent adding overlap timeblock for admin and teacher
+teacher add event that student will load from (just add into adminblock)
+edit class not done, cant get update statement in nodejs to work

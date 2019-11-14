@@ -1,0 +1,235 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    .row{
+      margin-top:15px;
+    }
+    img{
+      border-radius: 50%;
+    }
+    .tname{
+      margin-top:13px;
+    }
+    .tick{
+      margin-left:8px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container" style="margin-top:30px;" id="pendingCont">
+        <section class="flex-1">
+
+
+
+
+
+
+
+        </section>
+    </div>
+
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    var theIp = ''
+    $(function() {
+        var myAjax = {
+            init: function() {
+                $.ajax({
+                    url: "../wifi.txt",
+                    async: false,
+                    success: function(data) {
+                        theIp = data
+                    }
+                })
+            }
+        };
+        myAjax.init()
+    });
+function acceptStud(tid){
+  console.log(tid)
+  var cid = tid.substring(0,tid.indexOf("n"))
+  var nid = tid.slice(tid.indexOf("n"))
+
+
+
+  var tusername = document.getElementById(tid).innerHTML
+  var tclassCode = document.getElementById(cid).innerHTML
+    console.log(tusername,tclassCode)
+  api.ajax({
+      url: theIp + 'deletePendingStudent',
+      method: 'post',
+      timeout:30,
+      data: {
+          values: {
+            username: tusername,
+            classCode:tclassCode
+          },
+      },
+    },
+     function(ret2, err){
+       api.ajax({
+           url: theIp + 'acceptPending',
+           method: 'post',
+           timeout:30,
+           data: {
+               values: {
+                 username: tusername,
+                 classCode:tclassCode
+               },
+           },
+         },
+          function(ret, err){
+
+          })
+
+     })
+  document.getElementById(nid).style.display = "none"
+}
+
+function rejectStud(id){
+  console.log("accept")
+  //insert reject logic here
+  document.getElementById(id).style.display = "none"
+}
+
+
+    apiready = function() {
+
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        var theStr = ''
+        var sStr = ''
+        var nStr = ''
+        var classArray = []
+        var classStrArray = []
+        var studentStrArray = []
+
+
+       api.ajax({
+           url: theIp + 'getAllClassTeach',
+           method: 'post',
+           timeout:30,
+           data: {
+               values: {
+                 username: localStorage.getItem("username")
+               },
+           },
+         },
+          function(ret2, err){
+            if(ret2){
+              for(i2=0;i2<ret2.length;i2++){
+
+                var classId = "c" + String(i2)
+                if(i2==0){
+                  var theStr = '<span style="margin-left:20px;" id="'+classId+'">'+ret2[i2].classCode+'</span>'
+                }else{
+                  var theStr ='<br><span style="margin-left:20px;" id="'+classId+'">'+ret2[i2].classCode+'</span>'
+                }
+                classArray.push(ret2[i2].classCode)
+                classStrArray.push(theStr)
+
+              }
+              theStr = theStr + "<br>"
+
+              if(i2==ret2.length){
+                console.log("at the last class")
+                console.log(classArray)
+                theStr = ''
+
+                for(i4=0;i4<classArray.length;i4++){
+                  api.ajax({
+                      url: theIp + 'getPendingByClass',
+                      method: 'post',
+                      timeout:30,
+                      data: {
+                          values: {
+                            classCode: classArray[i4]
+                          },
+                      },
+                    },
+                     function(ret, err){
+                       if(ret){
+                         console.log("how many times get pending")
+                          for(i=0;i<ret.length;i++){
+
+                            for(i5=0;i5<classArray.length;i5++){
+                              var nameId ="'"+"c" + String(i5)+"n"+String(i) +"'"
+                              var nId = "c" + String(i5)+"n"+String(i)
+                              if(ret[i].classCode == classArray[i5]){
+                                console.log("how many i5")
+                                classStrArray[i5] = String(classStrArray[i5]) + '<div class="row" id="'+"n"+ String(i)+'"><div class="col-3"><img src="../image/profile.png" style="width:50px;height:50px;"></div><div class="col-6 tname" id="'+ nId +'">'+ret[i].username+'</div><div class="col-1 tname" onclick="rejectStud('+nameId+')"><img src="../image/cross.png" style="height:15px;width:15px;" ></div><div class="col-1 tname tick" onclick="acceptStud('+nameId+')"><img src="../image/tick.png" style="height:15px;width:15px;"></div></div>'
+                              }
+                            }
+
+                            if(i==ret.length-1 && ret2.length == i4){
+                              console.log("the final")
+                              for(i3=0;i3<classArray.length;i3++){
+                                // console.log("how many time i3",String(classStrArray[0]))
+
+                                nStr = nStr + String(classStrArray[i3])
+                              }
+                              console.log(nStr)
+                              document.getElementById("pendingCont").innerHTML = nStr
+                            }
+
+                          }
+                       }
+                     })
+
+                }
+
+              }
+
+            }
+
+          })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    };
+</script>
+
+</html>

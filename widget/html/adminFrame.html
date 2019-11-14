@@ -41,18 +41,14 @@
     <footer>
     <div class="container" style="background-color:rgb(242, 247, 248);height:60px;">
       <div class="row" style="padding-top:10px;">
-        <div class="col-4" id="goToMain">
+        <div class="col-6" id="goToMain">
           <img src="../image/home.png" width="25px" height="25px">
           <br>
           <p>Home</p>
         </div>
-        <div class="col-4" id="goToChat">
-          <img src="../image/chat.png" width="25px" height="25px">
-          <br>
-          <p>Chat</p>
-        </div>
 
-        <div class="col-4" id="goToSetting">
+
+        <div class="col-6" id="goToSetting">
           <img src="../image/setting.png" width="25px" height="25px">
           <br>
           <p>Setting</p>
@@ -90,6 +86,16 @@
 
 
         $("#goToMain").click(function(){
+          var frames = api.frames()
+          console.log(JSON.stringify(frames))
+          if(frames.length > 1){
+            for(i=0;i<frames.length-1;i++){
+              api.closeFrame({
+                name:frames[i+1].name
+              });
+            }
+
+          }
           api.openFrame({
             name: 'Main page',
             url: 'admin.html',
@@ -129,9 +135,24 @@
         })
 
 
-
+      if(api.pageParam.open == 'weekly'){
         api.openFrame({
-            name: 'Main page',
+            name: 'Admin Weekly page',
+            url: 'adminWeekly.html',
+            // bounces:true,
+            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                marginTop:0,
+                marginBottom: footerH, // main页面距离win顶部的高度
+                w: 'auto' // main页面的宽度 自适应屏幕宽度
+            },
+            pageParam:{
+              class:api.pageParam.classCode
+            },
+            reload:true
+        });
+      }else{
+        api.openFrame({
+            name: 'Admin Main page',
             url: 'admin.html',
             // bounces:true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
@@ -140,6 +161,8 @@
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
             }
         });
+      }
+
     }
 </script>
 

@@ -172,15 +172,21 @@ function registerButton(){
                     });
 
                     if(ret.role == "student"){
-
+                      api.setPrefs({
+                          key: 'student',
+                          value: 'true'
+                      });
                       api.openWin({
                         name: "Home Page",
                         url: 'mainFrame.html'
                       })
                     }else{
-
+                      api.setPrefs({
+                          key: 'teacher',
+                          value: 'true'
+                      });
                       api.openWin({
-                        name: "Home Page",
+                        name: "Teacher Home Page",
                         url: 'mainTframe.html'
                       })
                     }

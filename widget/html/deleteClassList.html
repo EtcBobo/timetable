@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container" id="tcontainer" style="margin-top:30px;">
+    <br>
+
+        <section class="flex-1">
+
+
+
+
+
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+    var theIp = ''
+    $(function() {
+        var myAjax = {
+            init: function() {
+                $.ajax({
+                    url: "../wifi.txt",
+                    async: false,
+                    success: function(data) {
+                        theIp = data
+                    }
+                })
+            }
+        };
+        myAjax.init()
+    });
+function goToEdit(course){
+  console.log(course)
+  api.confirm({
+    title: 'Delete Class',
+    msg: 'Do you wish delete this class "'+course+'"?',
+    buttons: ['Confirm', 'Cancel']
+  }, function(ret, err) {
+    var index = ret.buttonIndex;
+    if(index == 1){
+      api.ajax({
+          url: theIp + 'deleteClassByCode',
+          method: 'post',
+          timeout:30,
+          data: {
+              values: {
+                 classCode:course
+              },
+          },
+        },
+         function(ret, err){
+           if(ret.check=="true")
+           api.openFrame({
+             name: "Delete Class List page",
+             url: 'deleteClassList.html',
+             rect: {
+                 marginTop: 0,
+                 marginBottom: 60,
+                 w: 'auto'
+             },
+             reload:true,
+             pageParam:({
+               classes:api.pageParam.classes
+             })
+           });
+         })
+    }
+  })
+
+
+
+}
+    apiready = function() {
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        console.log(api.pageParam.classes)
+        var allClasses = api.pageParam.classes
+        var classStr = ""
+        for(i=0;i<allClasses.length;i++){
+          var tcoursen = "'" + allClasses[i].classCode + "'"
+          classStr = classStr + '<div class="row"><div class="col-4">'+ allClasses[i].classCode +'</div><div class="col-5">'+ allClasses[i].classname +'</div><div class="col-3"><button class="btn btn-danger btn-lg upload-group text-center" onclick="goToEdit('+ tcoursen +')" style="font-size:0.7em;">Delete</button></div></div><hr>'
+        }
+        console.log(classStr)
+        document.getElementById("tcontainer").innerHTML = classStr
+
+    };
+</script>
+
+</html>

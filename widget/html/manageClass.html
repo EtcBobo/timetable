@@ -9,7 +9,9 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-
+    .row {
+        margin-top: 30px;
+    }
     </style>
 </head>
 
@@ -22,14 +24,6 @@
 
         <section class="flex-1">
           <div class="row">
-            <div class="col-10" id="goToViewClass">
-          <p style="font-size:1.2em;font-weight:bold;">View All Classes</p>
-        </div>
-        <div class="col-2">
-          <p style="font-size:1.5em;">></p>
-        </div>
-</div>
-          <div class="row">
             <div class="col-10" id="goToAddClass">
           <p style="font-size:1.2em;font-weight:bold;">Add Class</p>
         </div>
@@ -38,7 +32,7 @@
         </div>
 </div>
 <div class="row">
-  <div class="col-10" id="goToEditCourse">
+  <div class="col-10" id="goToEditClass">
 <p style="font-size:1.2em;font-weight:bold;">Edit Class</p>
 </div>
 <div class="col-2">
@@ -46,7 +40,7 @@
 </div>
 </div>
 <div class="row">
-  <div class="col-10" id="goToManageClass">
+  <div class="col-10" id="goToDeleteClass">
 <p style="font-size:1.2em;font-weight:bold;">Remove Class</p>
 </div>
 <div class="col-2">
@@ -91,6 +85,42 @@
             api.openFrame({
               name: "Add Class Page",
               url: 'addClass.html',
+              rect: {
+                  marginTop: 0,
+                  marginBottom: 60,
+                  w: 'auto'
+              },
+              animation:{
+                type:"movein",
+                subType:"from_right"
+              }
+                      })
+
+
+          })
+          $("#goToEditClass").click(function(){
+
+            api.openFrame({
+              name: "Edit Class Page",
+              url: 'editClass.html',
+              rect: {
+                  marginTop: 0,
+                  marginBottom: 60,
+                  w: 'auto'
+              },
+              animation:{
+                type:"movein",
+                subType:"from_right"
+              }
+                      })
+
+          })
+
+          $("#goToDeleteClass").click(function(){
+
+            api.openFrame({
+              name: "Delete Class Page",
+              url: 'deleteClass.html',
               rect: {
                   marginTop: 0,
                   marginBottom: 60,

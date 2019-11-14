@@ -28,15 +28,6 @@
                 </div>
                 </div>
                 <div class="row">
-                <div class="form-group col-md-12">
-                    Class Name:<br>
-                <input type="text" name="classname" id="classname" class="form-control" required>
-                </div>
-                </div>
-                <div class="row">
-                  <input id="tcolor" type="color" value="#add8e6" style="width:20px;margin-top:15px;">
-                </div>
-                <div class="row">
                         <div class="form-group col-md-12">
                             School:<br>
                             <select class="form-control" name="pref" id="school">
@@ -67,19 +58,12 @@
                             </select>
                         </div>
                 </div>
-                <div class="row">
-                        <div class="form-group col-md-12">
-                            Teacher:<br>
-                            <select class="form-control" name="pref" id="teacher">
 
-                            </select>
-                        </div>
-                </div>
 
                       </form>
                       <div class="row">
                       <div class="form-group col-md-12">
-                              <button class="btn btn-primary btn-lg upload-group text-center" id="addClassButton">Add</button>
+                              <button class="btn btn-primary btn-lg upload-group text-center" id="searchClassButton">Search</button>
                           </div>
                           <br>
                       </div>
@@ -113,93 +97,59 @@
             myAjax.init()
         });
 
-        $("#addClassButton").click(function(){
-          tcolor = document.getElementById("tcolor").value;
-           tclass = document.getElementById("classname").value;
-           tcode = document.getElementById("classCode").value;
-           var tteacher = $('#teacher').find(":selected").val()
+        $("#searchClassButton").click(function(){
+
+           tclass = document.getElementById("classCode").value;
            var tcourse = $('#course').find(":selected").text()
             console.log(tcourse)
-            api.ajax({
-                url: theIp + 'checkClassCode',
-                method: 'post',
-                timeout:30,
-                data: {
-                    values: {
-                       classCode:tcode
-                    },
+            if(tclass != ""){
+              api.openFrame({
+                name: "Edit Spec Class page",
+                url: 'editSpecClass.html',
+                rect: {
+                    marginTop: 0,
+                    marginBottom: 60,
+                    w: 'auto'
                 },
-              },
-              function(ret, err){
-                if(ret.check == 'clear'){
-                  api.ajax({
-                      url: theIp + 'addClass',
-                      method: 'post',
-                      timeout:30,
-                      data: {
-                          values: {
-                             classname:tclass,
-                             teacher:tteacher,
-                             course:tcourse,
-                             classCode:tcode,
-                             color:tcolor
-                          },
+                pageParam:({
+                  class:tclass
+                })
+              });
+
+            }else{
+             api.ajax({
+                 url: theIp + 'getClassByCourse',
+                 method: 'post',
+                 timeout:30,
+                 data: {
+                     values: {
+                        course:tcourse
+                     },
+                 },
+               },
+                function(ret, err){
+                  if(ret){
+                    api.openFrame({
+                      name: "Edit Class List page",
+                      url: 'editClassList.html',
+                      rect: {
+                          marginTop: 0,
+                          marginBottom: 60,
+                          w: 'auto'
                       },
-                    },
-                     function(ret, err){
-                       if(ret){
-                         api.alert({
-                           title:'Success',
-                           msg:'A new class "' + tclass + '" has been added'
-                         })
-
-                         api.closeFrame({
-                             name: 'Add Class page'
-                         });
-
-                         api.openFrame({
-                           name: "Main page",
-                           url: 'admin.html',
-                           rect: {
-                               marginTop: 0,
-                               marginBottom: 60,
-                               w: 'auto'
-                           }
-                         });
-                       }
+                      pageParam:({
+                        classes:ret
+                      })
+                    });
+                  }
 
 
-                     })
-                }else{
-                  api.alert({
-                    title:'Failed',
-                    msg:'The Class code already exist'
-                  })
-                }
-              })
+                })
+            }
          })
 
         var sel = document.getElementById('teacher')
-       api.ajax({
-           url: theIp + 'getSpecTeacher',
-           method: 'post',
-           timeout:30,
-           data: {
-               values: {
-                   course:"软件技术"
-               },
-           },
-         },
-          function(ret, err){
-            if(ret){
-              for(i= 0;i<ret.length;i++){
-                var opt = document.createElement('option')
-                opt.appendChild(document.createTextNode(ret[i].username+"  "+ret[i].nickname))
-                opt.value = ret[i].username
-                sel.appendChild(opt)
-              }
-            }
-          })
+
 
         $("#school").change(function(){
           var sel = document.getElementById('course')
@@ -226,28 +176,6 @@
                 opt.appendChild(document.createTextNode(ret[i].name))
                 opt.value = ret[i].name
                 sel.appendChild(opt)
-                if(i == 0){
-                  api.ajax({
-                      url: theIp + 'getSpecTeacher',
-                      method: 'post',
-                      timeout:30,
-                      data: {
-                          values: {
-                              course:ret[i].name
-                          },
-                      },
-                    },
-                     function(ret, err){
-                       if(ret){
-                         for(i2= 0;i2<ret.length;i2++){
-                           var opt = document.createElement('option')
-                           opt.appendChild(document.createTextNode(ret[i2].username+"  "+ret[i2].nickname))
-                           opt.value = ret[i2].username
-                           sel3.appendChild(opt)
-                         }
-                       }
-                     })
-                }
               }
         })
         })

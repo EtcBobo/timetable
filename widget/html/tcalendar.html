@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
     <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
-    <title>Profile Page</title>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
 <style>
@@ -331,6 +330,49 @@ function blockPressed(date,day,fullDate){
          }
        }
      })
+    //load from admin here
+    api.ajax({
+        url: theIp + 'getAllClassTeach',
+        method: 'post',
+        timeout:30,
+        data: {
+            values: {
+                username: localStorage.getItem("username")
+            },
+        },
+      },
+       function(ret2, err){
+         if(ret2){
+           console.log("before load modal")
+           for(i2=0;i2<ret2.length;i2++){
+             api.ajax({
+                 url: theIp + 'loadCalByClassModal',
+                 method: 'post',
+                 timeout:30,
+                 data: {
+                     values: {
+                         classCode: ret2[i2].classCode,
+                         tdate:dayList
+                     },
+                 },
+               },
+                function(ret, err){
+                  console.log("after load modal")
+                  for(i=0;i<ret.length;i++){
+                    var placeStr = document.getElementById("mbody").innerHTML
+                    var stime = ret[i].start.substring(8,10) + ':' + ret[i].start.substring(10,12)
+                    var etime = ret[i].end.substring(8,10) + ':' + ret[i].end.substring(10,12)
+                    var tstr = placeStr + '<span style="background-color:' + ret[i].color + ';" class="mcircle"></span><span style="margin-left:10px;">' + ret[i].title + '</span><br><span style="margin-left:26px;font-size:0.8em;color:#a8a8a8;">'+ stime +' '+ etime+ ' '+ ret[i].notes + ' '+ ret[i].location +'</span><br>'
+                    document.getElementById("mbody").innerHTML = tstr
+                  }
+
+                })
+           }
+         }
+       })
+
+
+
      //load memo here
 
      api.ajax({
@@ -435,7 +477,6 @@ function blockPressed(date,day,fullDate){
         //push all date into new array for loadcalblock
 
       }
-      console.log(dayList2)
 
 
       api.ajax({
@@ -473,6 +514,56 @@ function blockPressed(date,day,fullDate){
          })
 
          api.ajax({
+             url: theIp + 'getAllClassTeach',
+             method: 'post',
+             timeout:30,
+             data: {
+                 values: {
+                     username: localStorage.getItem("username")
+                 },
+             },
+           },
+            function(ret2, err){
+              if(ret2){
+                for(i=0;i<ret2.length;i++){
+                  api.ajax({
+                      url: theIp + 'loadCalByClassTeach',
+                      method: 'post',
+                      timeout:30,
+                      data: {
+                          values: {
+                              classCode:ret2[i].classCode,
+                              //put class here
+                              tdate:dayList2
+                          },
+                      },
+                    },
+                     function(ret, err){
+                       if(ret){
+                         for(i=0;i<ret.length;i++){
+                           if(ret[i].start.substring(0,8) == ret[i].end.substring(0,8)){
+
+                             var tid = parseInt(ret[i].start.substring(6,8))
+                             var thestr = document.getElementById("d"+String(tid+startDay-1)).innerHTML + '<br><span style="margin-left:-13px;border-left:2px solid '+ ret[i].color +';">&nbsp' + ret[i].classCode + '</span>'
+                             var bcount = thestr.match(/<br>/g || []).length
+
+                             if(bcount < 5){
+                               document.getElementById("d"+String(tid+startDay-1)).innerHTML = thestr
+                               document.getElementById("d"+String(tid+startDay-1)).style.width = "45px"
+                             }
+                           }
+                         }
+                       }
+                    })
+
+                }
+              }
+            })
+
+
+
+
+         api.ajax({
              url: theIp + 'loadCalMemo',
              method: 'post',
              timeout:30,
@@ -507,8 +598,8 @@ function blockPressed(date,day,fullDate){
       $("#goToAddTime").click(function(){
         $('#exampleModal2').modal('hide')
         api.openFrame({
-          name: 'Add Time page',
-          url: 'addTime.html',
+          name: 'Add Teach Time page',
+          url: 'addTeachTime.html',
           // bounces:true,
           rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
               marginTop:0,
@@ -538,7 +629,7 @@ function blockPressed(date,day,fullDate){
       api.addEventListener({
           name:'swipeleft'
       }, function(ret, err){
-  document.getElementById("addTimeButton").style.display = 'none'
+        document.getElementById("addTimeButton").style.display = 'none'
         if(curM == 11){
           var ncurM = 0
           curY = curY + 1

@@ -67,9 +67,9 @@
               <img src="../image/bell.png" style="height:20px;width20px;">
             </div>
 
-            <div class="col-4 cstart" id="sdate">
+            <div class="col-4" id="sdate">
             </div>
-            <div class="col-3 cstart" id="stime">
+            <div class="col-3" id="stime">
               09:00
             </div>
 
@@ -105,9 +105,9 @@
 
 
 
-      new popoDateTime('.cstart', {
+      new popoDateTime('#sdate', {
           background: 'light',
-          date:"true",
+          time:false,
           beginYear:2019,
           endYear:2022,
           save:function(date){
@@ -115,22 +115,18 @@
               //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
 
               $("#sdate").html(date.substring(0,10));
-              $("#stime").html(date.slice(11));
+
           }
       });
 
 
-      new popoDateTime('.cend', {
+      new popoDateTime('#stime', {
           background: 'light',
-          date:"true",
-          beginYear:2019,
-          endYear:2022,
+          date:false,
           save:function(date){
               console.log('data is ' + date)
               //var tString = "<p>" + date.substring(0,10) +"</p><p style='margin-left:10px;font-size:0.9em'>"+ date.slice(11) +"</p>"
-
-              $("#edate").html(date.substring(0,10));
-              $("#etime").html(date.slice(11));
+              $("#etime").html(date);
           }
       });
 
@@ -220,20 +216,29 @@ if(tday == 0){
     },
      function(ret, err){
          api.alert({title:"Success",msg:"The Memo has been saved successfully"});
+
+         api.getPrefs({
+             key: 'teacher'
+         }, function(ret, err) {
+           if(ret.value == "true"){
+             api.openWin({
+               name: "Home Page",
+               url: 'mainTframe.html',
+               reload:true
+             })
+           }else{
+             api.openWin({
+               name: "Home Page",
+               url: 'mainFrame.html',
+               reload:true
+             })
+           }
+
+         })
+
        api.closeFrame({
            name: 'Add Memo page'
        });
-       api.openFrame({
-         name: 'Calendar page',
-         url: 'calendar.html',
-
-         rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-             marginTop:132,
-             marginBottom: 60, // main页面距离win顶部的高度
-             w: 'auto' // main页面的宽度 自适应屏幕宽度
-         }
-         //page param
-       })
 
     })
 })

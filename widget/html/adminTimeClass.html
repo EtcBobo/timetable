@@ -249,7 +249,7 @@
         document.getElementById(course).style.backgroundColor = ""
       },500)
       api.openFrame({
-        name: "Admin Weekly page",
+        name:tcourse + "Admin Weekly page",
         url: 'adminWeekly.html',
         rect: {
           marginTop: 0,
@@ -300,7 +300,7 @@
         if(ret){
 
         for(i=0;i<ret.length;i++){
-          document.getElementById(String(i+1)).innerHTML = ret[i].classname
+          document.getElementById(String(i+1)).innerHTML = ret[i].classCode
           var tString = "goTo" + String(i+1)
           document.getElementById(tString).style.display = ""
           var funcStr = 'goToTime("' + tString  +'")'

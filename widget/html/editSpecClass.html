@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+
+    <div class="container">
+<br>
+
+        <section class="flex-1">
+              <form method="post" id="addClass" class="form-group col-lg-12">
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Class Code:<br>
+                <input type="text" name="classCode" id="classCode" class="form-control" required>
+                </div>
+                </div>
+                <div class="row">
+                <div class="form-group col-md-12">
+                    Class Name:<br>
+                <input type="text" name="classname" id="classname" class="form-control" required>
+                </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            School:<br>
+                            <select class="form-control" name="pref" id="school" disabled>
+                              <option id="tschool"></option>
+                            </select>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            Course:<br>
+                            <select class="form-control" name="pref" id="course" disabled="disabled">
+                              <option id="tcourse"></option>
+                            </select>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="form-group col-md-12">
+                            Teacher:<br>
+                            <select class="form-control" name="pref" id="teacher">
+
+                            </select>
+                        </div>
+                </div>
+
+                      </form>
+                      <div class="row">
+                      <div class="form-group col-md-12">
+                              <button class="btn btn-primary btn-lg upload-group text-center" id="editClassButton">Edit</button>
+                          </div>
+                          <br>
+                      </div>
+        </section>
+
+
+
+    </div>
+
+</body>
+
+<script type="text/javascript" src="../script/api.js"></script>
+
+<script type="text/javascript">
+    //document.getElementById("tusername").innerHTML = localStorage.getItem("username")
+
+    apiready = function() {
+        var theIp = ''
+        $(function() {
+            var myAjax = {
+                init: function() {
+                    $.ajax({
+                        url: "../wifi.txt",
+                        async: false,
+                        success: function(data) {
+                            theIp = data
+                        }
+                    })
+                }
+            };
+            myAjax.init()
+        });
+
+        var bschools = ['软件学院','财经学院','旅游学院','工商管理与房地产学院','医护分院','基础部','外语部']
+
+        var one = ['软件技术','计算机应用技术','计算机网络技术','应用电子技术','楼宇智能化工程技术','光伏发电技术及应用','汽车检测与维修技术','动漫设计与制作','艺术设计','人物形象设计']
+        var two = ['会计电算化','会计与审计','金融与证券','经济信息管理','投资与理财']
+        var three = ['酒店管理','导游','景区开发与管理','会展策划与管理','旅游管理','航空服务']
+        var four = ['电子商务','工商企业管理','连锁经营管理','物流管理','市场营销','工程造价','建筑工程技术','工程监理','房地产经营与估价']
+        var five = ['护理']
+        var six = ['棋艺']
+        var seven = ['商务英语','旅游英语']
+
+        var allArray = [one,two,three,four,five,six,seven]
+        console.log(api.pageParam.class)
+        document.getElementById("classname").value = api.pageParam.class
+        api.ajax({
+            url: theIp + 'getClassByName',
+            method: 'post',
+            timeout:30,
+            data: {
+                values: {
+                   classCode:api.pageParam.class
+                },
+            },
+          },
+           function(ret, err){
+             console.log(ret.course)
+             document.getElementById("classname").value = ret.classname
+             document.getElementById("classCode").value = ret.classCode
+             document.getElementById("tcourse").innerHTML = ret.course
+             for(i=0;i<allArray.length;i++){
+               if(allArray[i].includes(ret.course)){
+                 document.getElementById("tschool").innerHTML = bschools[i]
+               }
+             }
+             var sel = document.getElementById('teacher')
+             var tcourse = $('#course').find(":selected").text()
+            api.ajax({
+                url: theIp + 'getSpecTeacher',
+                method: 'post',
+                timeout:30,
+                data: {
+                    values: {
+                        course:tcourse
+                    },
+                },
+              },
+               function(ret, err){
+                 if(ret){
+                   for(i= 0;i<ret.length;i++){
+                     var opt = document.createElement('option')
+                     opt.appendChild(document.createTextNode(ret[i].username+"  "+ret[i].nickname))
+                     opt.value = ret[i].username
+                     sel.appendChild(opt)
+                   }
+                 }
+               })
+           })
+
+
+        $("#editClassButton").click(function(){
+          tclassCode = document.getElementById("classCode").value;
+           tclass = document.getElementById("classname").value;
+           var tteacher = $('#teacher').find(":selected").val()
+
+            api.ajax({
+                url: theIp + 'checkClassCode',
+                method: 'post',
+                timeout:30,
+                data: {
+                    values: {
+                       classCode:tclassCode
+                    },
+                },
+              },
+              function(ret, err){
+                if(ret.check == 'clear'){
+                  api.ajax({
+                      url: theIp + 'editClassByCode',
+                      method: 'post',
+                      timeout:30,
+                      data: {
+                          values: {
+                            classCode:api.pageParam.class,
+                            nclassCode:tclassCode,
+                             nclassname:tclass,
+                             nteacher:tteacher
+                          },
+                      },
+                    },
+                     function(ret, err){
+                       if(ret.check=="true"){
+
+
+                         api.alert({
+                           title:'Success',
+                           msg:'The class:"' + tclassCode +' ' + tclass + '" has been edited'
+                         })
+                         api.closeFrame({
+                             name: 'Edit Class List page'
+                         });
+                         api.openFrame({
+                           name: "Main page",
+                           url: 'admin.html',
+                           reload:true,
+                           rect: {
+                               marginTop: 0,
+                               marginBottom: 60,
+                               w: 'auto'
+                           }
+                         });
+                         api.closeFrame({
+                             name: 'Edit Spec Class page'
+                         });
+
+                       }
+                     })
+                }else{
+                  api.alert({
+                    title:'Failed',
+                    msg:'The Class code already exist'
+                  })
+                }
+              })
+
+
+
+         })
+
+
+
+
+
+
+    };
+</script>
+
+</html>
