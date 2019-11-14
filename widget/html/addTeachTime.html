@@ -9,26 +9,42 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
-        .col0006 {
-            background-color: #EFDFCF;
-            text-align: center;
-            width: 50%;
-            display: inline-block;
-            float: left;
-        }
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+    .col0006 {
+        background-color: #EFDFCF;
+        text-align: center;
+        width: 50%;
+        display: inline-block;
+        float: left;
+    }
 
-        .col0000 {
-            background-color: #EFDFCF;
-            text-align: center;
-            display: inline-block;
-            width: 50%;
-            float: right;
-        }
+    .col0000 {
+        background-color: #EFDFCF;
+        text-align: center;
+        display: inline-block;
+        width: 50%;
+        float: right;
+    }
 
-        .container {
-            /*position: fixed;*/
-            bottom: -10px;
-        }
+    .container {
+        width: 100%;
+        height: 100%;
+    }
+    #row {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width:100%;
+    }
+
+    @media screen and (max-height:500px){
+      #row{
+        display:none;
+      }
+    }
     </style>
 </head>
 
@@ -111,18 +127,18 @@
 
 
 
-                <div id="row" style="  position:absolute;width:100%;height:57px;">
-                    <div class="col0006" id="cancelTime">
-                        <p style="padding-top:17px;font-weight:bold;">Cancel</p>
-                    </div>
-                    <div class="col0000" id="saveTime">
-                        <p style="padding-top:17px;font-weight:bold;">Save</p>
-                    </div>
-                </div>
+
         </form>
         </section>
 
-
+        <div id="row">
+            <div class="col0006" id="cancelTime">
+                <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+            </div>
+            <div class="col0000" id="saveTime">
+                <p style="padding-top:17px;font-weight:bold;">Save</p>
+            </div>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>

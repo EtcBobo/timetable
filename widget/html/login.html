@@ -122,6 +122,17 @@ function registerButton(){
             })
 }
      apiready = function() {
+      //  var frames = api.frames()
+      //  console.log(JSON.stringify(frames))
+      //  if(frames.length > 1){
+      //    for(i=0;i<frames.length-1;i++){
+      //      api.closeFrame({
+      //        name:frames[i+1].name
+      //      });
+      //    }
+      //  }
+      //  var frames = api.frames()
+      //  console.log(JSON.stringify(frames))
 
         $("#loginForm").submit(function(event) {
           api.openFrame({
@@ -137,6 +148,8 @@ function registerButton(){
           var $form = $(this),
           tusername = $form.find('input[name="username"]').val(),
           tpassword = $form.find('input[name="password"]').val();
+          document.getElementById("username").value = ""
+          document.getElementById("password").value = ""
 
             api.ajax({
                 url: theIp + 'loginAuth',
@@ -178,7 +191,8 @@ function registerButton(){
                       });
                       api.openWin({
                         name: "Home Page",
-                        url: 'mainFrame.html'
+                        url: 'mainFrame.html',
+                        reload:true
                       })
                     }else{
                       api.setPrefs({
@@ -187,7 +201,8 @@ function registerButton(){
                       });
                       api.openWin({
                         name: "Teacher Home Page",
-                        url: 'mainTframe.html'
+                        url: 'mainTframe.html',
+                        reload:true
                       })
                     }
 
@@ -211,7 +226,8 @@ function registerButton(){
                     });
                     api.openWin({
                       name: "Admin Page",
-                      url: 'adminFrame.html'
+                      url: 'adminFrame.html',
+                      reload:true
                     })
                   }else{
                     api.closeFrame({

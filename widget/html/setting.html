@@ -162,21 +162,29 @@
                 });
                 //api.closeWin()
                 api.openWin({
-                  name: "Login Page",
+                  name: "Index page",
                   url: '../index.html',
                   reload:true
 
                 })
-                var frames = api.frames()
-                console.log(JSON.stringify(frames))
-                if(frames.length > 1){
-                  for(i=0;i<frames.length-1;i++){
-                    api.closeFrame({
-                      name:frames[i+1].name
-                    });
-                  }
+                // var frames = api.frames()
+                // console.log(JSON.stringify(frames))
+                // if(frames.length > 1){
+                //   for(i=0;i<frames.length-1;i++){
+                //     api.closeFrame({
+                //       name:frames[i+1].name
+                //     });
+                //   }
+                //
+                // }
+                // api.closeWin({
+                //     name: 'Teacher Home Page'
+                // });
+                //
+                // api.closeWin({
+                //     name: 'Home Page'
+                // });
 
-                }
                 api.closeFrame({
                     name: 'Setting page'
                 });

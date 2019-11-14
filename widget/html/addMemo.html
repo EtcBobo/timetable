@@ -10,6 +10,11 @@
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <style>
 
+    body, html {
+      width: 100%;
+      height: 100%;
+    }
+
       .col0006
        {
           background-color: #EFDFCF;
@@ -32,6 +37,19 @@
     {
         position: fixed;
         bottom: -10px;
+    }
+
+    #row {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width:100%;
+    }
+
+    @media screen and (max-height:500px){
+      #row{
+        display:none;
+      }
     }
 
     </style>
@@ -78,18 +96,18 @@
 
 
 
-          <input type="button" onclick="divshow" var.divshow.scrollIntoView（fasle）=this;/>
-          <div class="row" style="  position:absolute;width:100%;">
-          <div class="col0006" id="cancelTime">
-            <p style="padding-top:17px;font-weight:bold;">Cancel</p>
-          </div>
-          <div class="col0000" id="saveTime">
-            <p style="padding-top:17px;font-weight:bold;">Save</p>
-          </div>
-                  </div>
+
+
             </form>
         </section>
-
+        <div id="row">
+            <div class="col0006" id="cancelTime">
+                <p style="padding-top:17px;font-weight:bold;">Cancel</p>
+            </div>
+            <div class="col0000" id="saveTime">
+                <p style="padding-top:17px;font-weight:bold;">Save</p>
+            </div>
+        </div>
     </div>
 
 </body>

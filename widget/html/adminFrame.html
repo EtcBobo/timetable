@@ -108,19 +108,6 @@
           })
         })
 
-        $("#goToChat").click(function(){
-          // api.openFrame({
-          //   name: 'Timetable page',
-          //   url: 'timetable.html',
-          //
-          //   rect: {
-          //       marginTop:0,
-          //       marginBottom: footerH,
-          //       w: 'auto'
-          //   }
-          // })
-        })
-
         $("#goToSetting").click(function(){
           api.openFrame({
             name: 'Admin Setting page',
@@ -135,33 +122,35 @@
         })
 
 
-      if(api.pageParam.open == 'weekly'){
-        api.openFrame({
-            name: 'Admin Weekly page',
-            url: 'adminWeekly.html',
-            // bounces:true,
-            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
-                marginBottom: footerH, // main页面距离win顶部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
-            },
-            pageParam:{
-              class:api.pageParam.class
-            },
-            reload:true
-        });
-      }else{
-        api.openFrame({
-            name: 'Admin Main page',
-            url: 'admin.html',
-            // bounces:true,
-            rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
-                marginTop:0,
-                marginBottom: footerH, // main页面距离win顶部的高度
-                w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
-        });
-      }
+        if(api.pageParam.open == 'weekly'){
+                api.openFrame({
+                    name: 'Admin Weekly page',
+                    url: 'adminWeekly.html',
+                    // bounces:true,
+                    rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                        marginTop:0,
+                        marginBottom: footerH, // main页面距离win顶部的高度
+                        w: 'auto' // main页面的宽度 自适应屏幕宽度
+                    },
+                    pageParam:{
+                      class:api.pageParam.class
+                    },
+                    reload:true
+                });
+              }else{
+                api.openFrame({
+                    name: 'Admin Main page',
+                    url: 'admin.html',
+                    // bounces:true,
+                    rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
+                        marginTop:0,
+                        marginBottom: footerH, // main页面距离win顶部的高度
+                        w: 'auto' // main页面的宽度 自适应屏幕宽度
+                    }
+                });
+              }
+
+
 
     }
 </script>

@@ -639,8 +639,8 @@ function blockPressed(date,day,fullDate){
         }
 
         api.openFrame({
-          name: "Calendar Page"+String(Math.random()),
-          url: 'calendar.html',
+          name: "Teacher Calendar Page"+String(Math.random()),
+          url: 'tcalendar.html',
           pageParam:({month:ncurM,year:curY}),
           rect: {
             marginTop: 132,
@@ -658,14 +658,14 @@ function blockPressed(date,day,fullDate){
    }, function(ret, err){
      document.getElementById("addTimeButton").style.display = 'none'
      if(curM == 0){
-       var ncurM = 0
+       var ncurM = 11
        curY = curY - 1
      }else{
        var ncurM = curM - 1
      }
      api.openFrame({
-       name: "Calendar Page"+String(Math.random()),
-       url: 'calendar.html',
+       name: "Teacher Calendar Page"+String(Math.random()),
+       url: 'tcalendar.html',
        pageParam:({month:ncurM,year:curY}),
        rect: {
          marginTop: 132,

@@ -142,7 +142,8 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
             //page param
           })
         })
@@ -158,7 +159,8 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
             //page param
           })
         })
@@ -174,7 +176,8 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
             //page param
           })
         })
@@ -190,7 +193,8 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
             //page param
           })
         })
@@ -213,7 +217,8 @@
             animation:{
               type:"movein",
               subType:"from_right"
-            }
+            },
+            reload:true
           })
         })
 
@@ -231,7 +236,8 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
           })
         })
 
@@ -266,7 +272,8 @@
                   marginTop:headerH,
                   marginBottom: footerH, // main页面距离win顶部的高度
                   w: 'auto' // main页面的宽度 自适应屏幕宽度
-              }
+              },
+              reload:true
           });
 
           api.openFrame({
@@ -277,10 +284,12 @@
                 marginTop:headerH,
                 marginBottom: footerH, // main页面距离win顶部的高度
                 w: 'auto' // main页面的宽度 自适应屏幕宽度
-            }
+            },
+            reload:true
             //page param
           })
         }else{
+          console.log("teacher calendar opening")
           api.openFrame({
               name: 'Teacher Calendar page',
               url: 'tcalendar.html',
@@ -289,7 +298,8 @@
                   marginTop:headerH,
                   marginBottom: footerH, // main页面距离win顶部的高度
                   w: 'auto' // main页面的宽度 自适应屏幕宽度
-              }
+              },
+              reload:true
           });
         }
     }
