@@ -6,9 +6,13 @@ cannot request after requesting
 prevent adding admin block that overlap in different classs
 setting page for admin
  *another way for pending is, give classcode id, innerhtml the student after (maybe)
-Priority:
 
+Priority:
 put class code and class name for sclass/tclass
+click on month on cal to dropdown
+write additional points for learning point slide
+
+the phone number is not working
 
 
 
@@ -120,3 +124,7 @@ edit spec class haven put new class code and class name
 edit class have to edit all student and teacher affected
 delete class
 teacher in charge of pulling student into classes
+after loggin in clear login fields
+old frames still does not close
+swipe month not working
+the day is +1 in adminblock
