@@ -23,13 +23,13 @@
               <form method="post" id="addClass" class="form-group col-lg-12">
                 <div class="row">
                 <div class="form-group col-md-12">
-                    Class Code:<br>
+                    Module Code:<br>
                 <input type="text" name="classCode" id="classCode" class="form-control" required>
                 </div>
                 </div>
                 <div class="row">
                 <div class="form-group col-md-12">
-                    Class Name:<br>
+                    Module Name:<br>
                 <input type="text" name="classname" id="classname" class="form-control" required>
                 </div>
                 </div>
@@ -189,7 +189,7 @@
 
                          api.alert({
                            title:'Success',
-                           msg:'The class:"' + tclassCode +' ' + tclass + '" has been edited'
+                           msg:'The Module:"' + tclassCode +' ' + tclass + '" has been edited'
                          })
                          api.closeFrame({
                              name: 'Edit Class List page'
@@ -213,7 +213,7 @@
                 }else{
                   api.alert({
                     title:'Failed',
-                    msg:'The Class code already exist'
+                    msg:'The Module code already exist'
                   })
                 }
               })
